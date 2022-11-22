@@ -16,7 +16,7 @@ export const seed = async (payload = Payload) => {
     }
   })
 
-  // This user will be created with the default role of `editor`
+  // This user will be created with the default client of `editor`
   await payload.create({
     collection: 'users',
     data: {
@@ -28,7 +28,7 @@ export const seed = async (payload = Payload) => {
     }
   })
 
-  // This page will be created and assigned to Site 1
+  // This pageContent will be created
   await payload.create({
     collection: 'pageContent',
     data: {

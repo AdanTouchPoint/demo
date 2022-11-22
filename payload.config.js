@@ -7,9 +7,9 @@ import path from 'path'
 
 const afterChangeHook = path.resolve(__dirname, 'hooks/afterChange.js');
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
-console.log(afterChangeHook)
+
 export default buildConfig({
-  serverURL: 'http://localhost:3000',
+  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   admin: {
     user: Users.slug,
     webpack: (config) => ({
@@ -23,7 +23,10 @@ export default buildConfig({
 			}
 		})
   },
-  collections: [
+  cors: [
+    '*'
+  ],
+   collections: [
     Users,
     Representatives,
     PageContent,

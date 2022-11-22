@@ -13,7 +13,7 @@ const Representatives = {
       read: isAdminOrSelf,
       // Admins can update all, but any other logged in user can only update themselves
       update: isAdminOrSelf,
-      // Only admins can delete
+      // Admins can update all, but any other logged in user can only update themselves
       delete: isAdminOrSelf,
     },
     fields: [
