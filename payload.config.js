@@ -5,7 +5,7 @@ import PageContent from './collections/PageContent';
 //import {seed} from './seed';
 import path from 'path'
 
-const afterChangeHook = path.resolve(__dirname, 'hooks/afterChange.js');
+const afterChangeHook = path.resolve(__dirname, 'hooks/afterChange');
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
 
 export default buildConfig({
@@ -23,16 +23,11 @@ export default buildConfig({
 			}
 		})
   },
-  cors: {
-    origin: '*',
-},
-   collections: [
+  cors: ['*'],
+  collections: [
     Users,
     Representatives,
     PageContent,
-   
-    // Add Collections here
-    // Examples
   ],
  
  });
