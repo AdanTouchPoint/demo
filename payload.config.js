@@ -23,9 +23,9 @@ export default buildConfig({
 			}
 		})
   },
-  cors: [
-    '*'
-  ],
+  cors: {
+    origin: '*',
+},
    collections: [
     Users,
     Representatives,
