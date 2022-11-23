@@ -4,6 +4,7 @@ const payload = require('payload');
 require('dotenv').config();
 const app = express();
 
+const PORT =  process.env.PORT
 // Redirect root to Admin panel
 app.get('/', (_, res) => {
   res.redirect('/admin');
@@ -21,7 +22,7 @@ payload.init({
 
 // Add your own express routes here
 
-const server = app.listen(3000);
+const server = app.listen(PORT);
 
 const io = require('socket.io')(server, {
   cors: {
