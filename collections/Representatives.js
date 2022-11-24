@@ -4,7 +4,7 @@ import { isAdminOrSelf } from "../access/isAdminOrSelf";
 const Representatives = {
     slug: 'representatives',
     auth: {
-      cookies:{ secure:true }
+      cookies:{ secure:true, sameSite: 'strict' }
     },
     admin: {
       useAsTitle: 'representatives',
