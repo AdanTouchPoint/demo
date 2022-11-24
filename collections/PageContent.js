@@ -4,7 +4,7 @@ import afterChangeHook from "../hooks/afterChange";
 const PageContent = {
     slug: 'pageContent',
     auth: {
-      cookies:{secure},
+      cookies:{ secure:true}
     },
     admin: {
       useAsTitle: 'page Content',
