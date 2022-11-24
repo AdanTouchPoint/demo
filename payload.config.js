@@ -5,6 +5,10 @@ import PageContent from './collections/PageContent';
 //import {seed} from './seed';
 import path from 'path'
 
+dotenv.config({
+  path: path.resolve(__dirname, '../.env'),
+});
+
 const afterChangeHook = path.resolve(__dirname, 'hooks/afterChange');
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
 
