@@ -3,6 +3,9 @@ import { isAdminOrSelf } from "../access/isAdminOrSelf";
 import afterChangeHook from "../hooks/afterChange";
 const PageContent = {
     slug: 'pageContent',
+    auth: {
+      cookies:secure
+    },
     admin: {
       useAsTitle: 'page Content',
     },

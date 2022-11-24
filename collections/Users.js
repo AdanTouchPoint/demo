@@ -3,7 +3,9 @@ import { isAdminOrSelfForUser } from "../access/isAdminOrSelf";
 
 const Users = {
   slug: 'users',
-  auth: true,
+  auth: {
+    cookies:secure
+  },
   admin: {
     useAsTitle: 'users',
    
