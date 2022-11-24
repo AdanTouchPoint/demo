@@ -3,7 +3,8 @@ import Representatives from './collections/Representatives';
 import Users from './collections/Users';
 import PageContent from './collections/PageContent';
 //import {seed} from './seed';
-import path from 'path'
+import path from 'path';
+import dotenv from 'dotenv';
 
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
