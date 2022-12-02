@@ -3,9 +3,7 @@ import { isAdminOrSelfForUser } from "../access/isAdminOrSelf";
 
 const Users = {
   slug: 'users',
-  auth: {
-    cookies:{ secure:true, sameSite: 'strict' }
-  },
+  auth: true,
   admin: {
     useAsTitle: 'users',
    
@@ -36,12 +34,32 @@ const Users = {
     type: 'text', 
 },
 {
+    name:'plan',
+    type:'select',
+    defaultValue:'basic',
+    access: {
+      create: isAdminFieldLevel,
+      update: isAdminFieldLevel
+    },
+    options: [
+      {
+        label: 'basic',
+        value:'basic'
+      },
+      {
+        label:'pro',
+        value:'pro'
+      }
+    ]
+},
+{
   name: 'roles',
   // Save this field to JWT so we can use from `req.user`
   saveToJWT: true,
   type: 'select',
   hasMany: false,
   defaultValue: 'client',
+  admin:{hidden:true},
   access: {
     // Only admins can create users
     create: isAdminFieldLevel,

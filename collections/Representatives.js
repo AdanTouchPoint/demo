@@ -3,9 +3,6 @@ import { isAdminOrSelf } from "../access/isAdminOrSelf";
 
 const Representatives = {
     slug: 'representatives',
-    auth: {
-      cookies:{ secure:true, sameSite: 'strict' }
-    },
     admin: {
       useAsTitle: 'representatives',
     },
@@ -46,6 +43,7 @@ const Representatives = {
     type: 'relationship',
     relationTo: 'users',
     required: true,
+    admin:{hidden:true},
     // If user is not admin, set the site by default
     // to the first site that they have access to
     defaultValue:  ({ user }) => {

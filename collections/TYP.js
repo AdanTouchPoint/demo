@@ -1,10 +1,10 @@
 import { isAdminFieldLevel } from "../access/isAdmin";
 import { isAdminOrSelf } from "../access/isAdminOrSelf";
 import hooks from "../hooks/afterChange";
-const PageContent = {
-    slug: 'pageContent',
+const ThankYouMessage = {
+    slug: 'thankYouMessage',
     admin: {
-      useAsTitle: 'page Content',
+      useAsTitle: 'thank you message',
     },
     access: {
       // Only admins can create users
@@ -17,25 +17,15 @@ const PageContent = {
       delete: isAdminOrSelf,
     },
     fields: [
-          {
-            name: 'backgroundImage', // required
-            type: 'upload', // required
-            relationTo: 'media', // required  
-          },
-          {
-            name: 'mainTitle', // required
-            type: 'text', // required
-          },
-          {
-            name: 'instructions', // required
+        {
+            name: 'thankYouMessage', // required
             type: 'textarea', // required
           },
           {
-            name: 'findRepButton', // required
+            name: 'repeatButtonTyp', // required
             type: 'text', // required
           },
           {
-
             name: 'clientId',
             type: 'relationship',
             relationTo: 'users',
@@ -64,8 +54,8 @@ const PageContent = {
           
         ],
     hooks: {
-          afterChange: [hooks.afterChangeMainDataHook ]
+          afterChange: [hooks.afterChangeTYPDataHook ]
   }
 }
    
-  export default PageContent;
+  export default ThankYouMessage;

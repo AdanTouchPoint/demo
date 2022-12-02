@@ -5,7 +5,10 @@ import PageContent from './collections/PageContent';
 //import {seed} from './seed';
 import path from 'path';
 import dotenv from 'dotenv';
-
+import Media from './collections/Media';
+import Emails from './collections/Emails';
+import Tweets from './collections/Tweets'; 
+import ThankYouMessage from './collections/TYP'; 
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 });
@@ -33,6 +36,11 @@ export default buildConfig({
     Users,
     Representatives,
     PageContent,
+    Media,
+    Emails,
+    Tweets,
+    ThankYouMessage
   ],
+ 
  
  });
