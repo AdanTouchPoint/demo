@@ -1,8 +1,17 @@
+const myBucketUrl = 'https://api-tpm-images.s3.us-west-1.amazonaws.com/img'
 const Media = {
   slug: 'media',
   upload: {
     staticURL: '/media',
     staticDir: 'media',
+    disableLocalStorage: true,
+    s3: {
+      bucket: 'api-tpm-images',
+      prefix: 'img', // files will be stored in bucket folder images/xyz
+      // prefix: ({ doc }) => `assets/${doc.type}`, // dynamic prefixes are possible too
+      
+    },
+   
     imageSizes: [
       {
         name: 'thumbnail',
@@ -29,6 +38,18 @@ const Media = {
     ],
     adminThumbnail: 'thumbnail',
     mimeTypes: ['image/*'],
+  },
+  hooks: {
+    afterRead: [
+      ({ doc }) => {
+        // add a url property on the main image
+        doc.url = `${myBucketUrl}/${doc.filename}`
+
+        // add a url property on each imageSize
+        Object.keys(doc.sizes)
+          .forEach(k => doc.sizes[k].url = `${myBucketUrl}/${doc.sizes[k].filename}`)
+      }
+    ]
   },
 };
    

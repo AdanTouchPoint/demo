@@ -93,12 +93,12 @@ const Emails = {
       name: 'active', // required
       type: 'checkbox', // required
       label: 'Aplicar',
-      defaultValue: false,
-    },
+      defaultValue: true,
+      admin: {
+        readOnly:  true
+      }
+    },  
   ],
-  hooks: {
-    afterChange: [hooks.afterChangeEmailDataHook ]
-  }
 }
 
 export default Emails;

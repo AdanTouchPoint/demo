@@ -49,13 +49,13 @@ const ThankYouMessage = {
             name: 'active', // required
             type: 'checkbox', // required
             label: 'Aplicar',
-            defaultValue: false,
-          },
+            defaultValue: true,
+            admin: {
+              readOnly:  true
+            }
+          },  
           
         ],
-    hooks: {
-          afterChange: [hooks.afterChangeTYPDataHook ]
-  }
 }
    
   export default ThankYouMessage;

@@ -64,6 +64,114 @@ payload.init({
 
 
 }); */
+app.post('/tweets',async (req, res) => {
+  try {
+    const query = req.query
+    const tweets = await payload.find({
+      collection: 'tweet-message', 
+      sort: '-updatedAt',
+      limit: 1,
+      where: {
+        clientId: {
+          equals: query.clientId
+        },
+      },      
+    });
+    res.json({
+        success: true,
+        message: 'tweets found',
+        data: tweets
+    })
+} catch (error) {
+    res.status(400)
+    res.json({
+        success: false,
+        message: error.message
+    })
+}
+}); 
+
+app.post('/main-content',async (req, res) => {
+  try {
+    const query = req.query
+    const content = await payload.find({
+      collection: 'main-page', 
+      sort: '-updatedAt',
+      limit: 1,
+      where: {
+        clientId: {
+          equals: query.clientId
+        },
+      },      
+    });
+    res.json({
+        success: true,
+        message: 'pagecontent found',
+        data: content
+    })
+} catch (error) {
+    res.status(400)
+    res.json({
+        success: false,
+        message: error.message
+    })
+}
+}); 
+app.post('/emails-content',async (req, res) => {
+  try {
+    const query = req.query
+    const content = await payload.find({
+      collection: 'emails', 
+      sort: '-updatedAt',
+      limit: 1,
+      where: {
+        clientId: {
+          equals: query.clientId
+        },
+      },      
+    });
+    res.json({
+        success: true,
+        message: 'emails content found',
+        data: content
+    })
+} catch (error) {
+    res.status(400)
+    res.json({
+        success: false,
+        message: error.message
+    })
+}
+}); 
+
+app.post('/typ-content',async (req, res) => {
+  try {
+    const query = req.query
+    const content = await payload.find({
+      collection: 'thank-you-message', 
+      sort: '-updatedAt',
+      limit: 1,
+      where: {
+        clientId: {
+          equals: query.clientId
+        },
+      },      
+    });
+    res.json({
+        success: true,
+        message: 'typ content found',
+        data: content
+    })
+} catch (error) {
+    res.status(400)
+    res.json({
+        success: false,
+        message: error.message
+    })
+}
+}); 
+
+
 
 const server = app.listen(PORT);
 

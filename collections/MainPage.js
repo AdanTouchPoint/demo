@@ -1,10 +1,11 @@
 import { isAdminFieldLevel } from "../access/isAdmin";
 import { isAdminOrSelf } from "../access/isAdminOrSelf";
 import hooks from "../hooks/afterChange";
-const PageContent = {
-    slug: 'pageContent',
+const MainPAge = {
+    slug: 'mainPage',
+  
     admin: {
-      useAsTitle: 'page Content',
+      useAsTitle: 'Main Page', 
     },
     access: {
       // Only admins can create users
@@ -18,20 +19,24 @@ const PageContent = {
     },
     fields: [
           {
+            label: {en:'Background Imagen' , es:'Imagen de Fondo',},
             name: 'backgroundImage', // required
             type: 'upload', // required
             relationTo: 'media', // required  
           },
           {
+            label: {en:'Main Title' , es:'Titulo Principal',},
             name: 'mainTitle', // required
             type: 'text', // required
           },
           {
+            label: {en:'Instructions' , es:'instrucciones',},
             name: 'instructions', // required
             type: 'textarea', // required
           },
           {
-            name: 'findRepButton', // required
+            label: {en:'Find Button' , es:'Boton Buscar',},
+            name: 'Find Button', // required
             type: 'text', // required
           },
           {
@@ -59,13 +64,12 @@ const PageContent = {
             name: 'active', // required
             type: 'checkbox', // required
             label: 'Aplicar',
-            defaultValue: false,
-          },
-          
-        ],
-    hooks: {
-          afterChange: [hooks.afterChangeMainDataHook ]
-  }
+            defaultValue: true,
+            admin: {
+              readOnly:  true
+            }
+          },  
+        ],  
 }
    
-  export default PageContent;
+  export default MainPAge;

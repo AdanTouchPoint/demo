@@ -1,21 +1,22 @@
-import { isAdminFieldLevel } from "../access/isAdmin";
+import { isAdmin, isAdminFieldLevel } from "../access/isAdmin";
+import { isAdminOrSelf, isAdminOrSelfForUser } from "../access/isAdminOrSelf";
 import hooks from "../hooks/afterChange"
-
-const Tweets = {
-    slug: 'tweets',
-    
+import payload from 'payload';
+const TweetMessage = {
+    slug: 'tweetMessage',
     admin: {
-      useAsTitle: 'tweets',
+      useAsTitle: 'tweetMessage',
     },
     access: {
-      read: () => true,
+      create: isAdminOrSelf,
+      // Admins can read all, but any other logged in user can only read themselves
+      read: isAdminOrSelf,
+      // Admins can update all, but any other logged in user can only update themselves
+      update: isAdminOrSelf,
+      // Only admins can delete
+      delete: isAdminOrSelf,
     },
     fields: [
-      {
-        name: 'To', // required
-        type: 'text', // required
-        required: true,
-      },
       {
           name: 'Message', // required
           type: 'textarea', // required
@@ -30,8 +31,7 @@ const Tweets = {
         admin:{
           hidden: true
         },
-        // If user is not admin, set the site by default
-        // to the first site that they have access to
+       
         defaultValue:  ({ user }) => {
           if (user) {
             return user.id;
@@ -48,14 +48,12 @@ const Tweets = {
         name: 'active', // required
         type: 'checkbox', // required
         label: 'Aplicar',
-        defaultValue: false,
+        defaultValue: true,
+        admin:{
+          readOnly:true
+        }
       },
-          //add userID relation
-      ],
-      hooks: {
-        afterChange: [hooks.afterChangeTweetsDataHook ]
-      }
-
+    ],
   }
   
-  export default Tweets;
+  export default TweetMessage;

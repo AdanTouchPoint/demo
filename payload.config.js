@@ -1,23 +1,24 @@
 import { buildConfig } from 'payload/config';
+import s3Upload from 'payload-s3-upload';
 import Representatives from './collections/Representatives';
 import Users from './collections/Users';
-import PageContent from './collections/PageContent';
+import MainPage from './collections/MainPage';
 //import {seed} from './seed';
 import path from 'path';
 import dotenv from 'dotenv';
 import Media from './collections/Media';
 import Emails from './collections/Emails';
-import Tweets from './collections/Tweets'; 
 import ThankYouMessage from './collections/TYP'; 
+import Tweet from './collections/TweetMessage';
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 });
 
-const afterChangeHook = path.resolve(__dirname, 'hooks/afterChange');
+const beforeChangeHook = path.resolve(__dirname, 'hooks/afterChange');
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
 
 export default buildConfig({
-  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000',
+  serverURL:process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000',
   admin: {
     user: Users.slug,
     webpack: (config) => ({
@@ -26,7 +27,7 @@ export default buildConfig({
 				...config.resolve,
 				alias: {
 					...config.resolve.alias,
-					[afterChangeHook]: mockModulePath,
+					[beforeChangeHook]: mockModulePath,
 				}
 			}
 		})
@@ -35,12 +36,26 @@ export default buildConfig({
   collections: [
     Users,
     Representatives,
-    PageContent,
+    MainPage,
     Media,
     Emails,
-    Tweets,
-    ThankYouMessage
+    ThankYouMessage,
+    Tweet
   ],
- 
- 
+  localization: {
+    defaultLocale: 'es',
+    locales: [
+      'en',
+      'es',
+    ],
+  },
+  plugins: [
+    s3Upload({
+      region: process.env.AWS_REGION,
+      credentials: {
+        accessKeyId: process.env.AWS_KEY,
+        secretAccessKey: process.env.AWS_SECRET,
+      },
+    }),
+  ],
  });
