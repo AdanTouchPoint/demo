@@ -9,9 +9,12 @@ const Media = {
       bucket: 'api-tpm-images',
       prefix: 'img', // files will be stored in bucket folder images/xyz
       // prefix: ({ doc }) => `assets/${doc.type}`, // dynamic prefixes are possible too
-      
+      commandInput: {
+        // optionally, use here any valid PutObjectCommandInput property
+        // https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/interfaces/putobjectcommandinput.html
+        ACL: 'public-read',  
+      },
     },
-   
     imageSizes: [
       {
         name: 'thumbnail',
