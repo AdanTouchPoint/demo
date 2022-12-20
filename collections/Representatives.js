@@ -20,51 +20,42 @@ const Representatives = {
       {
         name: 'Name',
         type: 'text',
-        localized:true,
         required: true, 
     },
     {
-      name: 'Postal Code',
-      type: 'number',
-      localized:true, 
+      name: 'postalcode',
+      type: 'text',
       required: true,
     },
     {
       name: 'contact', // required
       type: 'email', // required
       label: 'Contact Email Address',
-      localized:true,
       required: true,
     },
     {
       name:'phone',
       type: 'number',
-      localized:true,
     },
     {
       name:'address',
       type:'text',
-      localized:true,
     },
     {
       name:'state',
       type:'text',
-      localized:true,
     },
     {
       name:'city',
       type:'text',
-      localized:true,
     },
     {
       name:'party',
       type:'text',
-      localized:true,
     },
     {
       name:'twitter',
       type:'text',
-      
     },
  
   

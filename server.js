@@ -164,14 +164,22 @@ app.post('/representatives',async (req, res) => {
         clientId: {
           equals: query.clientId
         },
+        and:[
+          {
+             postalcode: {
+               equals: query.postalcode,
+             },
+          }
+         ]
       },      
     });
-    console.log(content.docs)
-    let rep = await content.docs.filter(query.postalcode)
+    let data = content.docs
+    console.log(data)
+
     res.json({
         success: true,
         message: 'typ content found',
-        data: rep
+        data: data
     })
 } catch (error) {
     res.status(400)
