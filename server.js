@@ -5,7 +5,6 @@ const sendEmail = require('./controllers/emailController')
 require('dotenv').config();
 const app = express();
 
-
 app.use(cors({origin: '*'}))
 const PORT =  process.env.PORT
 // Redirect root to Admin panel
@@ -20,35 +19,18 @@ payload.init({
   express: app,
   onInit: () => {
     payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
-  },
-/*  email: {
-    transportOptions: {
-      host: process.env.SMTP_HOST,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
-      },
-      port: 1025,
-      secure: true, // use TLS
-      tls: {
-        // do not fail on invalid certs
-        rejectUnauthorized: false
-        }
-      },
-    fromName: 'hello',
-    fromAddress: 'contact@touchpoint-intl.com'
-  },*/
-});
+  }
+}); 
 
 // Add your own express routes here
 
-/*app.post('/send-email',async (req, res) => {
+app.post('/send-email',async (req, res) => {
   try {
     console.log(req.query)
     const query = req.query
     // const data = await convertion.Convertion.create(submissionData)
-    const email = await  sendEmail.contact_email(query)
-   console.log(email)
+    const email = await sendEmail.contact_email(query)
+   //console.log(email)
     res.json({
         success: true,
         message: 'Email Sent',
@@ -63,7 +45,7 @@ payload.init({
 }
 
 
-}); */
+}); 
 app.post('/tweets',async (req, res) => {
   try {
     const query = req.query
@@ -171,6 +153,34 @@ app.post('/typ-content',async (req, res) => {
 }
 }); 
 
+app.post('/representatives',async (req, res) => {
+  try {
+    const query = req.query
+    console.log(req.query)
+    const content = await payload.find({
+      collection: 'representatives', 
+      sort: '-updatedAt',
+      where: {
+        clientId: {
+          equals: query.clientId
+        },
+      },      
+    });
+    console.log(content.docs)
+    let rep = await content.docs.filter(query.postalcode)
+    res.json({
+        success: true,
+        message: 'typ content found',
+        data: rep
+    })
+} catch (error) {
+    res.status(400)
+    res.json({
+        success: false,
+        message: error.message
+    })
+}
+}); 
 
 
 const server = app.listen(PORT);

@@ -2,6 +2,7 @@ const sgMail = require('@sendgrid/mail')
 
 function contact_email(input) {
     const {
+        to,
         from,
         addressee,
         subject,
@@ -12,20 +13,20 @@ function contact_email(input) {
         emailUser
     } = input
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-    // console.log(input)
+    const sentTo = to
     const msg = {
-        to: 'adan.mijangos@touchpointmarketing.mx',
+        to: sentTo, //{sendTo}
         subject: subject,
         from: {
-            "name": ` ${firstName} <<${emailUser}>>`,
+            "name": ` ${firstName}  ${lastName}<<${emailUser}>>`,
             "email": 'contact@touchpoint-intl.com',
         },
         replyTo: `${emailUser}`,
-        cc: 'adan.mijangos@touchpointmarketing.mx',
-        templateId: 'd-abe696ed56dc463498b7da0a8728ad1f',
+        bcc:  'domainstpm@gmail.com',
+        templateId: 'd-4b4fedbbb8fc4842afcf95f2271e1f58', // chang this templateID 
         dynamic_template_data: {
             name: firstName,
-            text: text,
+            text: text.replace(/\n\r?/g, '<br/>'),
             subject: subject
         },
     }

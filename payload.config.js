@@ -18,7 +18,7 @@ const beforeChangeHook = path.resolve(__dirname, 'hooks/afterChange');
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
 
 export default buildConfig({
-  serverURL:process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000',
+  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000',
   admin: {
     user: Users.slug,
     webpack: (config) => ({
@@ -45,9 +45,10 @@ export default buildConfig({
   localization: {
     defaultLocale: 'es',
     locales: [
-      'en',
-      'es',
+      'en-US',
+      'es-MX',
     ],
+    fallback:true
   },
   plugins: [
     s3Upload({
