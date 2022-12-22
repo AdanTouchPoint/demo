@@ -191,19 +191,4 @@ app.post('/representatives',async (req, res) => {
 }); 
 
 
-const server = app.listen(3000);
-
-const io = require('socket.io')(server, {
-  cors: {
-      origin: '*',
-  }
-});
-
- io.on("connection", (socket) => {
-  console.log(socket.id);
-  socket.on("disconnect", () => {
-      console.log("USER DISCONNECTED");
-  });
-}); 
-
-module.exports = io 
+app.listen(PORT);
