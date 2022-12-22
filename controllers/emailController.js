@@ -21,7 +21,7 @@ function contact_email(input) {
             "name": ` ${firstName} <<${emailData}>>`,
             "email": 'contact@touchpoint-intl.com',
         },
-        replyTo: `${emailUser}`,
+        replyTo: `${emailData}`,
         bcc:  'domainstpm@gmail.com',
         templateId: 'd-4b4fedbbb8fc4842afcf95f2271e1f58', // chang this templateID 
         dynamic_template_data: {
