@@ -77,7 +77,7 @@ app.post('/main-content',async (req, res) => {
   try {
     const query = req.query
     const content = await payload.find({
-      collection: 'pagina-principal', 
+      collection: 'paginas-principales', 
       sort: '-updatedAt',
       limit: 1,
       where: {
@@ -130,7 +130,7 @@ app.post('/typ-content',async (req, res) => {
   try {
     const query = req.query
     const content = await payload.find({
-      collection: 'mensaje-agradecimiento', 
+      collection: 'agradecimiento', 
       sort: '-updatedAt',
       limit: 1,
       where: {

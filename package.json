@@ -18,8 +18,7 @@
     "express": "^4.17.1",
     "nodemailer-sendgrid": "^1.0.3",
     "payload": "^1.1.18",
-    "payload-s3-upload": "^1.1.2",
-    "socket.io": "^4.5.3"
+    "payload-s3-upload": "^1.1.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
