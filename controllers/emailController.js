@@ -10,7 +10,7 @@ function contact_email(input) {
         html,
         firstName,
         lastName,
-        emailUser
+        emailData
     } = input
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     const sentTo = to
@@ -18,7 +18,7 @@ function contact_email(input) {
         to: sentTo, //{sendTo}
         subject: subject,
         from: {
-            "name": ` ${firstName} <<${emailUser}>>`,
+            "name": ` ${firstName} <<${emailData}>>`,
             "email": 'contact@touchpoint-intl.com',
         },
         replyTo: `${emailUser}`,
