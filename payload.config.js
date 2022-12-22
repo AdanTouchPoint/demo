@@ -42,14 +42,6 @@ export default buildConfig({
     ThankYouMessage,
     Tweet
   ],
-  localization: {
-    defaultLocale: 'es',
-    locales: [
-      'en-US',
-      'es-MX',
-    ],
-    fallback:true
-  },
   plugins: [
     s3Upload({
       region: process.env.AWS_REGION,

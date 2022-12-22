@@ -2,10 +2,11 @@ import { isAdminFieldLevel } from "../access/isAdmin";
 import { isAdminOrSelf } from "../access/isAdminOrSelf";
 import hooks from "../hooks/afterChange";
 const MainPAge = {
-    slug: 'mainPage',
+    slug: 'paginas-principales',
   
     admin: {
-      useAsTitle: 'Main Page', 
+      useAsTitle: 'Pagina Principal',
+      description:'Aqui puedes cambiar la imagen y los textos de la pagina principal'
     },
     access: {
       // Only admins can create users
@@ -19,28 +20,32 @@ const MainPAge = {
     },
     fields: [
           {
-            label: {en:'Background Imagen' , es:'Imagen de Fondo',},
+            label: 'Imagen de Fondo',
             name: 'backgroundImage', // required
             type: 'upload', // required
             relationTo: 'media', // required  
           },
           {
-            label: {en:'Main Title' , es:'Titulo Principal',},
+            label: 'Titulo Principal',
             name: 'mainTitle', // required
             type: 'text', // required
           },
           {
-            label: {en:'Instructions' , es:'instrucciones',},
+            label: 'Subtitulo Principal',
+            name: 'mainSubtitle', // required
+            type: 'text', // required
+          },
+          {
+            label: 'instrucciones',
             name: 'instructions', // required
             type: 'textarea', // required
           },
           {
-            label: {en:'Find Button' , es:'Boton Buscar',},
+            label: 'Boton Buscar',
             name: 'Find Button', // required
             type: 'text', // required
           },
           {
-
             name: 'clientId',
             type: 'relationship',
             relationTo: 'users',

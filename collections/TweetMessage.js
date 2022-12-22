@@ -3,9 +3,10 @@ import { isAdminOrSelf, isAdminOrSelfForUser } from "../access/isAdminOrSelf";
 import hooks from "../hooks/afterChange"
 import payload from 'payload';
 const TweetMessage = {
-    slug: 'tweetMessage',
+    slug: 'tweets',
     admin: {
       useAsTitle: 'tweetMessage',
+      description:'Aqui puedes cargar el texto predefinido de los tweets'
     },
     access: {
       create: isAdminOrSelf,
@@ -18,6 +19,7 @@ const TweetMessage = {
     },
     fields: [
       {
+        label:'mensaje',
           name: 'Message', // required
           type: 'textarea', // required
           required: true,

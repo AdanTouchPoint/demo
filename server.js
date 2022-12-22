@@ -50,7 +50,7 @@ app.post('/tweets',async (req, res) => {
   try {
     const query = req.query
     const tweets = await payload.find({
-      collection: 'tweet-message', 
+      collection: 'tweets', 
       sort: '-updatedAt',
       limit: 1,
       where: {
@@ -77,7 +77,7 @@ app.post('/main-content',async (req, res) => {
   try {
     const query = req.query
     const content = await payload.find({
-      collection: 'main-page', 
+      collection: 'pagina-principal', 
       sort: '-updatedAt',
       limit: 1,
       where: {
@@ -130,7 +130,7 @@ app.post('/typ-content',async (req, res) => {
   try {
     const query = req.query
     const content = await payload.find({
-      collection: 'thank-you-message', 
+      collection: 'mensaje-agradecimiento', 
       sort: '-updatedAt',
       limit: 1,
       where: {
@@ -158,7 +158,7 @@ app.post('/representatives',async (req, res) => {
     const query = req.query
     console.log(req.query)
     const content = await payload.find({
-      collection: 'representatives', 
+      collection: 'representantes', 
       sort: '-updatedAt',
       where: {
         clientId: {
@@ -191,7 +191,7 @@ app.post('/representatives',async (req, res) => {
 }); 
 
 
-const server = app.listen(PORT);
+const server = app.listen(3000);
 
 const io = require('socket.io')(server, {
   cors: {

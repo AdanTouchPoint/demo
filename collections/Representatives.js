@@ -2,9 +2,10 @@ import { isAdminFieldLevel } from "../access/isAdmin";
 import { isAdminOrSelf } from "../access/isAdminOrSelf";
 
 const Representatives = {
-    slug: 'representatives',
+    slug: 'representantes',
     admin: {
-      useAsTitle: 'representatives',
+      useAsTitle: 'representantes',
+      description:'Aqui puedes agregar, editar o eliminar  a los representates'
     },
     access: {
       // Only admins can create users
@@ -18,38 +19,45 @@ const Representatives = {
     },
     fields: [
       {
+        label:'nombre',
         name: 'Name',
         type: 'text',
         required: true, 
     },
     {
+      label:'codigo postal',
       name: 'postalcode',
       type: 'text',
       required: true,
     },
     {
+      label:'email de contacto',
       name: 'contact', // required
       type: 'email', // required
-      label: 'Contact Email Address',
       required: true,
     },
     {
+      label:'telefono',
       name:'phone',
       type: 'number',
     },
     {
+      label:'direccion',
       name:'address',
       type:'text',
     },
     {
+      label:'estado',
       name:'state',
       type:'text',
     },
     {
+      label:'ciudad',
       name:'city',
       type:'text',
     },
     {
+      label:'partido',
       name:'party',
       type:'text',
     },
@@ -57,8 +65,6 @@ const Representatives = {
       name:'twitter',
       type:'text',
     },
- 
-  
     {
       name: 'clientId',
       type: 'relationship',

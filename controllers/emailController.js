@@ -18,7 +18,7 @@ function contact_email(input) {
         to: sentTo, //{sendTo}
         subject: subject,
         from: {
-            "name": ` ${firstName}  ${lastName}<<${emailUser}>>`,
+            "name": ` ${firstName} <<${emailUser}>>`,
             "email": 'contact@touchpoint-intl.com',
         },
         replyTo: `${emailUser}`,

@@ -2,9 +2,10 @@ import { isAdminFieldLevel } from "../access/isAdmin";
 import { isAdminOrSelf } from "../access/isAdminOrSelf";
 import hooks from "../hooks/afterChange";
 const ThankYouMessage = {
-    slug: 'thankYouMessage',
+    slug: 'agradecimiento',
     admin: {
       useAsTitle: 'thank you message',
+      description:'Aqui puedes cargar los mensajes predefinidos de la pagina de agradecimiento '
     },
     access: {
       // Only admins can create users
@@ -18,10 +19,17 @@ const ThankYouMessage = {
     },
     fields: [
         {
+            label:'mensaje',
             name: 'thankYouMessage', // required
             type: 'textarea', // required
           },
           {
+            label: 'mensaje 2',
+            name: 'secondThankYouMessage', // required
+            type: 'text', // required
+          },
+          {
+            label:'boton repetir',
             name: 'repeatButtonTyp', // required
             type: 'text', // required
           },

@@ -6,6 +6,7 @@ const Emails = {
   slug: 'emails',
   admin: {
     useAsTitle: 'emails',
+    description:'Aqui puedes cargar los mensajes y asuntos de email predefinidos'
   },
   access: {
     // Only admins can create users
@@ -19,11 +20,13 @@ const Emails = {
   },
   fields: [
     {
+      label: 'asunto',
       name: 'subject', // required
       type: 'text', // required
       required: true,
     },
     {
+      label:'mensaje',
       name: 'content', // required
       type: 'richText', // required
       defaultValue: [{
