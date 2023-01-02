@@ -24,8 +24,8 @@ const Media = {
       },
       {
         name: 'card',
-        width: 768,
-        height: 1024,
+        width: 1150,
+        height: 350,
         position: 'centre',
       },
       {
