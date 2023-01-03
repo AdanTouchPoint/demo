@@ -13,6 +13,8 @@ import Tweet from './collections/TweetMessage';
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 });
+import MyCustomLogo from './customComponents/customLogo'
+import MyCustomIcon from './customComponents/customIcon'
 
 const beforeChangeHook = path.resolve(__dirname, 'hooks/afterChange');
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
@@ -20,6 +22,12 @@ const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000',
   admin: {
+    components:{
+      graphics: {
+        Icon: MyCustomIcon,
+        Logo: MyCustomLogo,
+      },
+    },
     user: Users.slug,
     webpack: (config) => ({
 			...config,
