@@ -186,7 +186,7 @@ app.post('/typ-content',async (req, res) => {
   try {
     const query = req.query
     const content = await payload.find({
-      collection: 'mensaje de agradecimientos', 
+      collection: 'mensaje-de-agradecimientos', 
       sort: '-updatedAt',
       limit: 1,
       where: {
@@ -213,7 +213,7 @@ app.post('/representatives',async (req, res) => {
   try {
     const query = req.query
     const content = await payload.find({
-      collection: 'diputados y senadores', 
+      collection: 'diputados-y-senadores', 
       sort: '-updatedAt',
       where: {
         clientId: {
