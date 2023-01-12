@@ -185,7 +185,6 @@ app.post('/emails-content',async (req, res) => {
 app.post('/typ-content',async (req, res) => {
   try {
     const query = req.query
-    console.log(query)
     const content = await payload.find({
       collection: 'mensaje de agradecimientos', 
       sort: '-updatedAt',
@@ -245,4 +244,4 @@ app.post('/representatives',async (req, res) => {
 }); 
 
 
-app.listen(3000);
+app.listen(PORT);
