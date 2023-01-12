@@ -2,7 +2,7 @@ import { isAdminFieldLevel } from "../access/isAdmin";
 import { isAdminOrSelf } from "../access/isAdminOrSelf";
 
 const Representatives = {
-    slug: 'diputados y senadores',
+    slug: 'diputados-y-senadores',
     admin: {
       useAsTitle: 'diputados y senadores',
       description:'Aqui puedes agregar, editar o eliminar  a los representates'
