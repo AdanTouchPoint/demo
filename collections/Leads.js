@@ -1,26 +1,26 @@
-import { isAdminFieldLevel } from "../access/isAdmin";
+import { isAdmin, isAdminFieldLevel } from "../access/isAdmin";
 import { isAdminOrSelf } from "../access/isAdminOrSelf";
 
-const Representatives = {
-    slug: 'diputados y senadores',
+const Leads = {
+    slug: 'conversiones',
     admin: {
-      useAsTitle: 'diputados y senadores',
-      description:'Aqui puedes agregar, editar o eliminar  a los representates'
+      useAsTitle: 'conversiones',
+      description:'Aqui puedes ver las conversiones de tu pagina'
     },
     access: {
-      // Only admins can create users
-      create: isAdminOrSelf,
+      // Only admins can create convertions
+      create: isAdmin,
       // Admins can read all, but any other logged in user can only read themselves
       read: isAdminOrSelf,
       // Admins can update all, but any other logged in user can only update themselves
-      update: isAdminOrSelf,
+      update: isAdmin,
       // Admins can update all, but any other logged in user can only update themselves
-      delete: isAdminOrSelf,
+      delete: isAdmin,
     },
     fields: [
       {
-        label:'nombre',
-        name: 'Name',
+        label:'nombres',
+        name: 'names',
         type: 'text',
         required: true, 
     },
@@ -37,32 +37,23 @@ const Representatives = {
       required: true,
     },
     {
-      label:'telefono',
-      name:'phone',
-      type: 'number',
+      label:'representate',
+      name:'representative',
+      type: 'text',
     },
     {
-      label:'direccion',
-      name:'address',
+      label:'mensaje email',
+      name:'emailMessage',
       type:'text',
     },
     {
       label:'estado',
-      name:'state',
-      type:'text',
-    },
-    {
-      label:'ciudad',
       name:'city',
       type:'text',
     },
     {
-      label:'partido',
+      label:'fraccion',
       name:'party',
-      type:'text',
-    },
-    {
-      name:'twitter',
       type:'text',
     },
     {
@@ -88,4 +79,4 @@ const Representatives = {
       ],
   }
   
-  export default Representatives;
+  export default Leads;

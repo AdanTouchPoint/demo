@@ -23,7 +23,7 @@ const MainPAge = {
             label: 'Imagen de Fondo',
             name: 'backgroundImage', // required
             type: 'upload', // required
-            relationTo: 'media', // required  
+            relationTo: 'imagenes', // required  
           },
           {
             label: 'Titulo Principal',

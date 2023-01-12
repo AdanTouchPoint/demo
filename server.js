@@ -23,14 +23,70 @@ payload.init({
 }); 
 
 // Add your own express routes here
+app.post('/leads',async (req, res) => {
+  try {
+    const query = req.query
+    const {firstName,postalcode,emailData,representative,emailMessage,city,party,clientId} = query
+    const post = await payload.create({
+      collection: 'conversiones', // required
+      data: { // required
+        names: firstName,
+        postalcode: postalcode,
+        contact:emailData,
+        representative:representative,
+        emailMessage: emailMessage,
+        city: city,
+        party: party,
+        clientId: clientId
+      },
+      overrideAccess: true
+    })
+    res.json({
+        success: true,
+        message: 'leads created',
+        data: post
+    })
+} catch (error) {
+    res.status(400)
+    res.json({
+        success: false,
+        message: error.message
+    })
+}
+});
+
+app.get('/leads',async (req, res) => {
+  try {
+    const query = req.query
+    const tweets = await payload.find({
+      collection: 'conversiones', 
+      sort: '-updatedAt',
+      where: {
+        clientId: {
+          equals: query.clientId
+        },
+      },      
+    });
+    res.json({
+        success: true,
+        message: 'leads found',
+        data: tweets
+    })
+} catch (error) {
+    res.status(400)
+    res.json({
+        success: false,
+        message: error.message
+    })
+}
+}); 
+
 
 app.post('/send-email',async (req, res) => {
   try {
-    console.log(req.query)
+    
     const query = req.query
-    // const data = await convertion.Convertion.create(submissionData)
     const email = await sendEmail.contact_email(query)
-   //console.log(email)
     res.json({
         success: true,
         message: 'Email Sent',
@@ -129,8 +185,9 @@ app.post('/emails-content',async (req, res) => {
 app.post('/typ-content',async (req, res) => {
   try {
     const query = req.query
+    console.log(query)
     const content = await payload.find({
-      collection: 'agradecimiento', 
+      collection: 'mensaje de agradecimientos', 
       sort: '-updatedAt',
       limit: 1,
       where: {
@@ -156,9 +213,8 @@ app.post('/typ-content',async (req, res) => {
 app.post('/representatives',async (req, res) => {
   try {
     const query = req.query
-    console.log(req.query)
     const content = await payload.find({
-      collection: 'representantes', 
+      collection: 'diputados y senadores', 
       sort: '-updatedAt',
       where: {
         clientId: {
@@ -174,8 +230,6 @@ app.post('/representatives',async (req, res) => {
       },      
     });
     let data = content.docs
-    console.log(data)
-
     res.json({
         success: true,
         message: 'typ content found',
@@ -191,4 +245,4 @@ app.post('/representatives',async (req, res) => {
 }); 
 
 
-app.listen(PORT);
+app.listen(3000);

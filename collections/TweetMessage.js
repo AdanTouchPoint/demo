@@ -1,5 +1,5 @@
 import { isAdmin, isAdminFieldLevel } from "../access/isAdmin";
-import { isAdminOrSelf, isAdminOrSelfForUser } from "../access/isAdminOrSelf";
+import { isAdminOrSelf, isAdminOrSelfForProUser, isAdminOrSelfForUser } from "../access/isAdminOrSelf";
 import hooks from "../hooks/afterChange"
 import payload from 'payload';
 const TweetMessage = {
@@ -9,13 +9,13 @@ const TweetMessage = {
       description:'Aqui puedes cargar el texto predefinido de los tweets'
     },
     access: {
-      create: isAdminOrSelf,
+      create: isAdminOrSelfForProUser,
       // Admins can read all, but any other logged in user can only read themselves
-      read: isAdminOrSelf,
+      read: isAdminOrSelfForProUser,
       // Admins can update all, but any other logged in user can only update themselves
-      update: isAdminOrSelf,
+      update: isAdminOrSelfForProUser,
       // Only admins can delete
-      delete: isAdminOrSelf,
+      delete: isAdminOrSelfForProUser,
     },
     fields: [
       {

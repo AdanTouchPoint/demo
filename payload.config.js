@@ -10,6 +10,7 @@ import Media from './collections/Media';
 import Emails from './collections/Emails';
 import ThankYouMessage from './collections/TYP'; 
 import Tweet from './collections/TweetMessage';
+import Leads from './collections/Leads';
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 });
@@ -48,7 +49,8 @@ export default buildConfig({
     Media,
     Emails,
     ThankYouMessage,
-    Tweet
+    Tweet,
+    Leads
   ],
   plugins: [
     s3Upload({

@@ -2,7 +2,7 @@ import { isAdminFieldLevel } from "../access/isAdmin";
 import { isAdminOrSelf } from "../access/isAdminOrSelf";
 import hooks from "../hooks/afterChange";
 const ThankYouMessage = {
-    slug: 'agradecimiento',
+    slug: 'mensaje de agradecimientos',
     admin: {
       useAsTitle: 'thank you message',
       description:'Aqui puedes cargar los mensajes predefinidos de la pagina de agradecimiento '

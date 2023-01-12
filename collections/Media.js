@@ -1,6 +1,6 @@
 const myBucketUrl = 'https://api-tpm-images.s3.us-west-1.amazonaws.com/img'
 const Media = {
-  slug: 'media',
+  slug: 'imagenes',
   upload: {
     staticURL: '/media',
     staticDir: 'media',

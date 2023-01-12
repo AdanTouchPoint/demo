@@ -48,3 +48,22 @@ export const isAdminOrSelf = ( user ) => {
     // Reject everyone else
     return false;
   }
+  
+  export const isAdminOrSelfForProUser = ( user ) => {
+    console.log(user.req.user.roles)
+    // Need to be logged in
+    if (user) {
+    const role = user.req.user.roles
+      // If user has role of 'admin'
+      if (role === 'admin') {
+        return true;
+      }
+
+    // If any other type of user, only provide access to themselves
+    const plan = user.req.user.plan
+      if (plan === 'pro') return true        
+    }
+  
+    // Reject everyone else
+    return false;
+  }
