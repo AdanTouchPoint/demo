@@ -260,7 +260,7 @@ app.get("/representatives-state", async (req, res) => {
         },
         and: [
           {
-            postalcode: {
+            state: {
               equals: query.state,
             },
           },
@@ -282,7 +282,7 @@ app.get("/representatives-state", async (req, res) => {
   }
 });
 
-app.get("/allRepresentatives", async (req, res) => {
+app.get("/all-representatives", async (req, res) => {
   try {
     const query = req.query;
     const content = await payload.find({
