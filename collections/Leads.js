@@ -57,6 +57,11 @@ const Leads = {
       type:'text',
     },
     {
+      label:'email enviado',
+      name:'sended',
+      type:'text'
+    },
+    {
       name: 'clientId',
       type: 'relationship',
       relationTo: 'users',

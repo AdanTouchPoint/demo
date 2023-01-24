@@ -34,6 +34,7 @@ app.post("/leads", async (req, res) => {
       emailMessage,
       city,
       party,
+      sended,
       clientId,
     } = query;
     const post = await payload.create({
@@ -48,6 +49,7 @@ app.post("/leads", async (req, res) => {
         city: city,
         party: party,
         clientId: clientId,
+        sended:sended
       },
       overrideAccess: true,
     });
@@ -288,6 +290,7 @@ app.get("/all-representatives", async (req, res) => {
     const content = await payload.find({
       collection: "diputados-y-senadores",
       sort: "-updatedAt",
+      limit: 20,
       where: {
         clientId: {
           equals: query.clientId,

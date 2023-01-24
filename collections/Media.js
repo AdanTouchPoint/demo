@@ -1,6 +1,39 @@
+import { isAdminOrSelf } from "../access/isAdminOrSelf";
+import { isAdminFieldLevel } from "../access/isAdmin";
+
 const myBucketUrl = 'https://api-tpm-images.s3.us-west-1.amazonaws.com/img'
 const Media = {
   slug: 'imagenes',
+  access: {
+    // Only admins can create users
+    create: isAdminOrSelf,
+    // Admins can read all, but any other logged in user can only read themselves
+    read: isAdminOrSelf,
+    // Admins can update all, but any other logged in user can only update themselves
+    update: isAdminOrSelf,
+    // Admins can update all, but any other logged in user can only update themselves
+    delete: isAdminOrSelf,
+  },
+  fields:[{
+    name: "clientId",
+    type: "relationship",
+    relationTo: "users",
+    required: true,
+    admin: { hidden: true },
+    // If user is not admin, set the site by default
+    // to the first site that they have access to
+    defaultValue: ({ user }) => {
+      if (user) {
+        return user.id;
+      }
+    },
+    access: {
+      // Only admins can create users
+      create: isAdminFieldLevel,
+      // Admins can update all, but any other logged in user can only update themselves
+      update: isAdminFieldLevel,
+    },
+  }],
   upload: {
     staticURL: '/media',
     staticDir: 'media',
