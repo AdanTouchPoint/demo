@@ -1,7 +1,5 @@
 import { isAdmin, isAdminFieldLevel } from "../access/isAdmin";
 import { isAdminOrSelf, isAdminOrSelfForProUser, isAdminOrSelfForUser } from "../access/isAdminOrSelf";
-import hooks from "../hooks/afterChange"
-import payload from 'payload';
 const TweetMessage = {
     slug: 'tweets',
     admin: {
