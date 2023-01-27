@@ -1,5 +1,5 @@
 import { isAdmin, isAdminFieldLevel } from "../access/isAdmin";
-import { isAdminOrSelf, isAdminOrSelfForProUser, isAdminOrSelfForUser } from "../access/isAdminOrSelf";
+import { isAdminOrSelf, isAdminOrSelfForProUser, isAdminOrSelfForUser, isProUser} from "../access/isAdminOrSelf";
 const TweetMessage = {
     slug: 'tweets',
     admin: {
@@ -11,9 +11,9 @@ const TweetMessage = {
       // Admins can read all, but any other logged in user can only read themselves
       read: isAdminOrSelfForProUser,
       // Admins can update all, but any other logged in user can only update themselves
-      update: isAdminOrSelfForProUser,
+      update: isProUser,
       // Only admins can delete
-      delete: isAdminOrSelfForProUser,
+      delete: isProUser,
     },
     fields: [
       {
@@ -27,7 +27,7 @@ const TweetMessage = {
         name: 'clientId',
         type: 'relationship',
         relationTo: 'users',
-        required: true,
+       
         admin:{
           hidden: true
         },
