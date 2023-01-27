@@ -96,7 +96,8 @@ app.get("/leads", async (req, res) => {
 app.post("/send-email", async (req, res) => {
   try {
     const query = req.query;
-    const email = await sendEmail.contact_email(query);
+   console.log(query) 
+   const email = await sendEmail.contact_email(query);
     res.json({
       success: true,
       message: "Email Sent",
@@ -110,6 +111,7 @@ app.post("/send-email", async (req, res) => {
     });
   }
 });
+
 app.post("/tweets", async (req, res) => {
   try {
     const query = req.query;
@@ -286,6 +288,7 @@ app.get("/representatives-state", async (req, res) => {
 
 app.get("/all-representatives", async (req, res) => {
   try {
+    console.log('here')
     const query = req.query;
     const content = await payload.find({
       collection: "diputados-y-senadores",

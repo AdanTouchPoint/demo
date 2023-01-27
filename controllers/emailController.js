@@ -13,9 +13,9 @@ function contact_email(input) {
         emailData
     } = input
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-    const sentTo = to
+const batch = to.split(',')
     const msg = {
-        to: sentTo, //{sendTo}
+        to: batch, //{sendTo}
         subject: subject,
         from: {
             "name": ` ${firstName} <<${emailData}>>`,
