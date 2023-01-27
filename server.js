@@ -112,6 +112,24 @@ app.post("/send-email", async (req, res) => {
   }
 });
 
+app.post("/batch-email", async (req, res) => {
+  try {
+    const query = req.query;
+   console.log(query) 
+   const email = await sendEmail.batch_email(query);
+    res.json({
+      success: true,
+      message: "Email Sent",
+      data: email,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 app.post("/tweets", async (req, res) => {
   try {
     const query = req.query;

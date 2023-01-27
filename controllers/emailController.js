@@ -13,7 +13,48 @@ function contact_email(input) {
         emailData
     } = input
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+    const sendTo = to
+    const msg = {
+        to: sendTo, //{sendTo}
+        subject: subject,
+        from: {
+            "name": ` ${firstName} <<${emailData}>>`,
+            "email": 'contact@touchpoint-intl.com',
+        },
+        replyTo: `${emailData}`,
+        bcc:  'domainstpm@gmail.com',
+        templateId: 'd-4b4fedbbb8fc4842afcf95f2271e1f58', // chang this templateID 
+        dynamic_template_data: {
+            name: firstName,
+            text: text.replace(/\n\r?/g, '<br/>'),
+            subject: subject
+        },
+    }
+    //Send email
+    return sgMail
+        .send(msg)
+        .then(() => {
+            console.log('Email Sent')
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+}
+function batch_email(input) {
+    const {
+        to,
+        from,
+        addressee,
+        subject,
+        text,
+        html,
+        firstName,
+        lastName,
+        emailData
+    } = input
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 const batch = to.split(',')
+console.log(batch)
     const msg = {
         to: batch, //{sendTo}
         subject: subject,
@@ -41,5 +82,6 @@ const batch = to.split(',')
         })
 }
 module.exports = {
-    contact_email
+    contact_email,
+    batch_email
 }
