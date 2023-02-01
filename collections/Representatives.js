@@ -4,7 +4,7 @@ import { isAdminOrSelf } from "../access/isAdminOrSelf";
 const Representatives = {
   slug: "diputados-y-senadores",
   admin: {
-    useAsTitle: "diputados y senadores",
+    listSearchableFields: ["name","state","contact","party"],
     description: "Aqui puedes agregar, editar o eliminar  a los representates",
   },
   access: {

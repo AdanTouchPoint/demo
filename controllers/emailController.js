@@ -3,13 +3,9 @@ const sgMail = require('@sendgrid/mail')
 function contact_email(input) {
     const {
         to,
-        from,
-        addressee,
         subject,
         text,
-        html,
         firstName,
-        lastName,
         emailData
     } = input
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)

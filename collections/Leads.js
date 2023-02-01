@@ -4,7 +4,7 @@ import { isAdminOrSelf } from "../access/isAdminOrSelf";
 const Leads = {
     slug: 'conversiones',
     admin: {
-      useAsTitle: 'conversiones',
+      listSearchableFields: ["names","city","contact","party","sended"],
       description:'Aqui puedes ver las conversiones de tu pagina'
     },
     access: {
