@@ -49,7 +49,7 @@ app.post("/leads", async (req, res) => {
         city: city,
         party: party,
         clientId: clientId,
-        sended:sended
+        sended: sended,
       },
       overrideAccess: true,
     });
@@ -96,8 +96,8 @@ app.get("/leads", async (req, res) => {
 app.post("/send-email", async (req, res) => {
   try {
     const query = req.query;
-   console.log(query) 
-   const email = await sendEmail.contact_email(query);
+    console.log(query);
+    const email = await sendEmail.contact_email(query);
     res.json({
       success: true,
       message: "Email Sent",
@@ -115,8 +115,50 @@ app.post("/send-email", async (req, res) => {
 app.post("/batch-email", async (req, res) => {
   try {
     const query = req.query;
-   console.log(query) 
-   const email = await sendEmail.batch_email(query);
+    console.log(query);
+    const email = await sendEmail.batch_email(query);
+    res.json({
+      success: true,
+      message: "Email Sent",
+      data: email,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+app.post("/state-email", async (req, res) => {
+  try {
+    const query = req.query;
+    const content = await payload.find({
+      collection: "diputados-y-senadores",
+      sort: "-updatedAt",
+      where: {
+        clientId: {
+          equals: query.clientId,
+        },
+        and: [
+          {
+            state: {
+              equals: query.state,
+            },
+          },
+        ],
+      },
+    });
+    let data = content.docs;
+    let states = await data.map((el) => {
+      return el.contact;
+    });
+    let contact = [...new Set(states)];
+    let strings = contact.toString();
+    query.to = strings;
+    console.log(query);
+    const email = await sendEmail.batch_email(query);
+    //console.log(query)
     res.json({
       success: true,
       message: "Email Sent",
@@ -306,7 +348,7 @@ app.get("/representatives-state", async (req, res) => {
 
 app.get("/all-representatives", async (req, res) => {
   try {
-    console.log('here')
+    console.log("here");
     const query = req.query;
     const content = await payload.find({
       collection: "diputados-y-senadores",
@@ -315,7 +357,7 @@ app.get("/all-representatives", async (req, res) => {
       where: {
         clientId: {
           equals: query.clientId,
-        },        
+        },
       },
     });
     let data = content.docs;
