@@ -353,7 +353,7 @@ app.get("/all-representatives", async (req, res) => {
     const content = await payload.find({
       collection: "diputados-y-senadores",
       sort: "-updatedAt",
-      limit: 20,
+      limit: 0,
       where: {
         clientId: {
           equals: query.clientId,
