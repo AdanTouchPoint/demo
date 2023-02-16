@@ -16,6 +16,8 @@ dotenv.config({
 });
 import MyCustomLogo from './customComponents/customLogo'
 import MyCustomIcon from './customComponents/customIcon'
+import RepAus from './collections/RepAus';
+import Electorates from './collections/Electorates';
 
 const beforeChangeHook = path.resolve(__dirname, 'hooks/afterChange');
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
@@ -50,7 +52,9 @@ export default buildConfig({
     Emails,
     ThankYouMessage,
     Tweet,
-    Leads
+    Leads,
+    RepAus,
+    Electorates
   ],
   plugins: [
     s3Upload({
@@ -61,4 +65,7 @@ export default buildConfig({
       },
     }),
   ],
+ /*onInit: async (payload) => {
+    await seed(payload);
+  },*/
  });

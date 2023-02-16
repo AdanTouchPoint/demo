@@ -1,13 +1,53 @@
 import  { Payload }  from "payload";
 
-const dataSet= [/*inserte data */]
+const dataSet= []
 
 export const seed = async (payload = Payload) => {
+  console.log(dataSet)
+
+  const data = await dataSet.map( element => {
+    payload.create({
+      collection: 'senators-and-mps',
+      data: {
+        clientId:element.clientId,
+        labelpostcode: element.labelpostcode,
+        division: element.division,
+        name: element.name,
+        phone: element.phone,
+        addres: element.addres,
+        state: element.state,
+        city: element.city,
+        party: element.party,
+        email: element.email,
+        twitter: element.twitter,
+        govt_type: element.govt_type,
+        vote_type: element.vote_type,
+        electorates: element.electorates,
+      }
+    })
+
+  })
+
+
+
+
+
+  /*const data = await dataSet.map( element => {
+    payload.create({
+      collection: 'electorates',
+      data: {
+        clientId:element.clientId,
+        postcode: element.postcode,
+        division: element.division,
+      }
+    })
+
+  })*/
 
   // Local API methods skip all access control by default
   // so we can easily create an admin user directly in init
-console.log(dataSet)
-  const data = await dataSet.map( element => {
+
+/*  const data = await dataSet.map( element => {
     payload.create({
       collection: 'diputados-y-senadores',
       data: {
@@ -24,7 +64,7 @@ console.log(dataSet)
       }
     })
 
-  })
+  }) */
   return data
 /*
   // This user will be created with the default client of `editor`

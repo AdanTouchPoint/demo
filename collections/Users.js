@@ -37,6 +37,15 @@ const Users = {
     type: 'text', 
 },
 {
+  label:'region',
+    name: 'region',
+    type: 'text', 
+    access: {
+      create: isAdminFieldLevel,
+      update: isAdminFieldLevel
+    },
+},
+{
     label:'plan',
     name:'plan',
     type:'select',

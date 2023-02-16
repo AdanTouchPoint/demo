@@ -375,4 +375,103 @@ app.get("/all-representatives", async (req, res) => {
   }
 });
 
+const getDivision = async (clientId, division) => {
+  let mps = await payload.find({
+    collection: "senators-and-mps",
+    sort: "-updatedAt",
+    depth: 0,
+    limit: 0,
+    where: {
+      clientId: {
+        equals: clientId,
+      },
+      and: [
+        {
+          electorates: {
+            equals: division,
+          },
+        },
+      ],
+    },
+  });
+  return mps;
+};
+const getElectorate = async (clientId, postcode) => {
+  const content = await payload.find({
+    collection: "electorates",
+    sort: "-updatedAt",
+    depth: 0,
+    where: {
+      clientId: {
+        equals: clientId,
+      },
+      and: [
+        {
+          postcode: {
+            equals: postcode,
+          },
+        },
+      ],
+    },
+  });
+  let data = content.docs;
+  return data;
+};
+app.get("/find-mp", async (req, res) => {
+  try {
+    const query = req.query;
+    let resp = [];    
+    let statesFilter = [];
+    console.log(query);
+    const data = await getElectorate(query.clientId, query.postcode);
+    await Promise.all(
+      data.map((el) => {
+        let request = getDivision(el.clientId, el.division);
+        return request;
+      })
+    )
+      .then((request) => {
+        resp = request.map((el) => {
+          return el.docs;
+        });
+      })
+      .then(async () => {
+        const states = await payload.find({
+          collection: "senators-and-mps",
+          sort: "-updatedAt",
+          depth: 0,
+          limit: 0,
+          where: {
+            clientId: {
+              equals: resp[0][0].clientId,
+            },
+            and: [
+              {
+                state: {
+                  equals: resp[0][0].state,
+                },
+              },
+            ],
+          },
+        });
+        let response = states.docs;
+        statesFilter = response.filter(
+          (senator) => senator.govt_type === "Federal Senators"
+        );
+      });
+    res.json({
+      success: true,
+      message: "all representatives found",
+      data: resp,
+      statesFilter
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
 app.listen(PORT);
