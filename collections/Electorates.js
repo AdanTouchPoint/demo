@@ -1,5 +1,5 @@
 import { isAdminFieldLevel } from "../access/isAdmin";
-
+import { isAdminOrSelf, isAdminOrSelfForAu } from "../access/isAdminOrSelf";
 const Electorates = {
     slug: 'electorates',
     admin: {
@@ -7,7 +7,14 @@ const Electorates = {
         description: "Manage your electorates database from here",
     },
     access: {
-      read: () => true,
+       // Only admins can create users
+    create: isAdminOrSelf,
+    // Admins can read all, but any other logged in user can only read themselves
+    read: isAdminOrSelfForAu,
+    // Admins can update all, but any other logged in user can only update themselves
+    update: isAdminOrSelf,
+    // Admins can update all, but any other logged in user can only update themselves
+    delete: isAdminOrSelf,
     },
     fields: [
         {

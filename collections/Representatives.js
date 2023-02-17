@@ -1,5 +1,5 @@
 import { isAdminFieldLevel } from "../access/isAdmin";
-import { isAdminOrSelf } from "../access/isAdminOrSelf";
+import { isAdminOrSelf, isAdminOrSelfForMx } from "../access/isAdminOrSelf";
 
 const Representatives = {
   slug: "diputados-y-senadores",
@@ -11,7 +11,7 @@ const Representatives = {
     // Only admins can create users
     create: isAdminOrSelf,
     // Admins can read all, but any other logged in user can only read themselves
-    read: isAdminOrSelf,
+    read: isAdminOrSelfForMx,
     // Admins can update all, but any other logged in user can only update themselves
     update: isAdminOrSelf,
     // Admins can update all, but any other logged in user can only update themselves

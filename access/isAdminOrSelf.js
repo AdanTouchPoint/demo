@@ -82,3 +82,48 @@ export const isAdminOrSelf = ( user ) => {
       }
     }
   }
+
+  export const isAdminOrSelfForAu = ( user ) => {
+    console.log(user.req.user.plan)
+    // Need to be logged in
+    if (user) {
+    const plan = user.req.user.plan
+    const role = user.req.user.roles
+    const region = user.req.user.region
+      // If user has role of 'admin'
+      if(role === 'admin' || region === 'AU') {
+        const clientId = user.req.user.id
+        const query = {
+            clientId: {
+                equals: clientId,
+              }
+        }
+        return query;
+       }
+    }
+  
+    // Reject everyone else
+    return false;
+  }
+ 
+  export const isAdminOrSelfForMx = ( user ) => {
+    console.log(user.req.user.plan)
+    // Need to be logged in
+    if (user) {
+    const region = user.req.user.region
+    const role = user.req.user.roles
+      // If user has role of 'admin'
+     if(role === 'admin' || region === 'MX') {
+      const clientId = user.req.user.id
+      const query = {
+          clientId: {
+              equals: clientId,
+            }
+      }
+      return query;
+     }
+    }
+  
+    // Reject everyone else
+    return false;
+  }
