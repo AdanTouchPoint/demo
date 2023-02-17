@@ -424,6 +424,16 @@ app.get("/find-mp", async (req, res) => {
     let statesFilter = [];
     console.log(query);
     const data = await getElectorate(query.clientId, query.postcode);
+    console.log(data.length)
+    if (data.length === 0 ) { 
+
+      console.log('hola')
+      return res.json({
+        message:'Postal Code has not Found',
+        data:data,statesFilter,
+        success:true
+      })
+    }
     await Promise.all(
       data.map((el) => {
         let request = getDivision(el.clientId, el.division);
@@ -459,12 +469,13 @@ app.get("/find-mp", async (req, res) => {
           (senator) => senator.govt_type === "Federal Senators"
         );
       });
-    res.json({
-      success: true,
-      message: "all representatives found",
-      data: resp,
-      statesFilter
-    });
+      res.json({
+        success: true,
+        message: "all representatives found",
+        data: resp,
+        statesFilter
+      });    
+      
   } catch (error) {
     res.status(400);
     res.json({
