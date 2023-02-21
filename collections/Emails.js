@@ -5,8 +5,9 @@ import hooks from "../hooks/afterChange"
 const Emails = {
   slug: 'emails',
   admin: {
-    useAsTitle: 'emails',
-    description:'Aqui puedes cargar los mensajes y asuntos de email predefinidos'
+    description:{ 
+      es: 'Aqui puedes cargar los mensajes y asuntos de email predefinidos', 
+      en:'Here you can load the predefined email messages and subjects'}
   },
   access: {
     // Only admins can create users
@@ -20,13 +21,13 @@ const Emails = {
   },
   fields: [
     {
-      label: 'asunto',
+      label:{es: 'Asunto', en:'Subject'},
       name: 'subject', // required
       type: 'text', // required
       required: true,
     },
     {
-      label:'mensaje',
+      label:{es: 'Mensaje', en :'Message'},
       name: 'content', // required
       type: 'richText', // required
       defaultValue: [{

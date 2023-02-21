@@ -4,6 +4,14 @@ import { isAdminFieldLevel } from "../access/isAdmin";
 const myBucketUrl = 'https://api-tpm-images.s3.us-west-1.amazonaws.com/img'
 const Media = {
   slug: 'imagenes',
+  labels: {
+    singular: {
+      en: 'Image', es: 'Imagen',
+    },
+    plural: {
+      en: 'Images', es: 'Imagenes',
+    },
+  },
   access: {
     // Only admins can create users
     create: isAdminOrSelf,

@@ -22,22 +22,22 @@ const Users = {
     // Email added by default
     // Add more fields as needed
     {
-      label:'nombre',
+      label:{es:'Nombre',en:'Name'},
       name: 'name',
       type: 'text', 
   },
   {
-    label:'apellido',
+    label:{es:'Apellido',en:'Last Name'},
     name: 'lastName',
     type: 'text', 
 },
 {
-  label:'ciudad',
+  label:{es:'Ciudad', en:'City'},
     name: 'city',
     type: 'text', 
 },
 {
-  label:'region',
+    label:'region',
     name: 'region',
     type: 'text', 
     access: {
@@ -66,7 +66,7 @@ const Users = {
     ]
 },
 {
-  label:'rol',
+  label:{es: 'rol', en:'role'},
   name: 'roles',
   // Save this field to JWT so we can use from `req.user`
   saveToJWT: true,

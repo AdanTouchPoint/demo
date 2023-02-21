@@ -111,6 +111,46 @@ app.post("/send-email", async (req, res) => {
     });
   }
 });
+app.post("/email-builder", async (req, res) => {
+  const query = req.query;
+    console.log(query);
+    let user = await JSON.parse(query.user)
+    let input =[]
+  try {
+    console.log(user)
+    if (user.smoker === "2") {
+     // let user = JSON.parse(query.user)
+      let dataNoSmokerSub = JSON(query.dataNoSmokerSub)  
+      input.push({'user': user,'allDataIn': JSON.parse(query.allDataIn), 'dataNoSmokerSub':dataNoSmokerSub})
+
+        let email = await sendEmail.send(input[0])
+
+        res.json({
+            success: true,
+            data: email
+        })
+    } else {
+
+      let dataSmokerSub = await JSON.parse(query.dataSmokerSub)
+        
+      input.push({'user': user,'allDataIn': JSON.parse(query.allDataIn), 'dataSmokerSub':dataSmokerSub})
+        console.log(input[0],"2")
+     
+        let email = await sendEmail.sendOther(input[0])
+        
+        res.json({
+            success: true,
+            data: email
+        })
+    }
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 
 app.post("/batch-email", async (req, res) => {
   try {

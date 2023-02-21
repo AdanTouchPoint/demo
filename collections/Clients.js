@@ -1,24 +1,31 @@
 const Clients = {
-    slug: 'clients',
-    auth: true,
-    admin: {
-      useAsTitle: 'clients',
+  slug: "clients",
+  auth: true,
+  admin: {
+    useAsTitle: "clients",
+  },
+  access: {
+    read: () => true,
+  },
+  fields: [
+    {
+      label: {
+        en: "postalcode",
+        es: "codigo postal",
+      },
+      name: "PostalCode", // required
+      type: "number", // required
+      required: true,
     },
-    access: {
-      read: () => true,
+    {label: {
+      en: "Email",
+      es: "correo electronico",
     },
-    fields: [
-        {
-          name: 'PostalCode', // required
-          type: 'number', // required
-          required: true,
-        },
-        {
-            name: 'Email', // required
-            type: 'email', // required
-            required: true,
-          }
-      ]
-  }
-  
-  export default Clients;
+      name: "Email", // required
+      type: "email", // required
+      required: true,
+    },
+  ],
+};
+
+export default Clients;

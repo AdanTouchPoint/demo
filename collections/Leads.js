@@ -3,9 +3,20 @@ import { isAdminOrSelf } from "../access/isAdminOrSelf";
 
 const Leads = {
     slug: 'conversiones',
+    labels: {
+      singular: {
+        en: 'Lead', es: 'Conversion',
+      },
+      plural: {
+        en: 'Leads', es: 'Conversiones',
+      },
+    },
     admin: {
       listSearchableFields: ["names","city","contact","party","sended"],
-      description:'Aqui puedes ver las conversiones de tu pagina'
+      description: {
+        es:'Aqui puedes ver las conversiones de tu pagina',
+        en:'here you can see conversion of your page'
+      }
     },
     access: {
       // Only admins can create convertions
@@ -19,45 +30,45 @@ const Leads = {
     },
     fields: [
       {
-        label:'nombres',
+        label:{es:'Nombres',en:'Names'},
         name: 'names',
         type: 'text',
         required: true, 
     },
     {
-      label:'codigo postal',
+      label: {es:'Codigo Postal', en:'Postal Code'},
       name: 'postalcode',
       type: 'text',
       required: true,
     },
     {
-      label:'email de contacto',
+      label: {es:'Email de Contacto', en:'Contact Email'},
       name: 'contact', // required
       type: 'email', // required
       required: true,
     },
     {
-      label:'representate',
+      label:{es:'Representate',en:'Representative'},
       name:'representative',
       type: 'text',
     },
     {
-      label:'mensaje email',
+      label:{es:'Mensaje',en:'Message'},
       name:'emailMessage',
       type:'text',
     },
     {
-      label:'estado',
+      label:{es:'Ciudad', en:'City'},
       name:'city',
       type:'text',
     },
     {
-      label:'fraccion',
+      label:{es:'Fraccion',en:'Party'},
       name:'party',
       type:'text',
     },
     {
-      label:'email enviado',
+      label:{es:'Email enviado',en:'Email success'},
       name:'sended',
       type:'text'
     },

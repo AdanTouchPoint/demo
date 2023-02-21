@@ -164,3 +164,8 @@ dist
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/node,visualstudiocode
+collections/EmailsAUS.js
+collections/LeadsAUS.js
+collections/MainPageAUS.js
+collections/TweetMessageAUS.js
+collections/TYPAUS.js

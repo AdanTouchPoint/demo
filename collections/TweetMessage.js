@@ -3,8 +3,10 @@ import { isAdminOrSelf, isAdminOrSelfForProUser, isAdminOrSelfForUser, isProUser
 const TweetMessage = {
     slug: 'tweets',
     admin: {
-      useAsTitle: 'tweetMessage',
-      description:'Aqui puedes cargar el texto predefinido de los tweets'
+      description:{
+        es:'Aqui puedes cargar el texto predefinido de los tweets',
+        en: 'Here you can load the predefined text of the tweets'
+      }
     },
     access: {
       create: isAdminOrSelfForProUser,
@@ -17,7 +19,7 @@ const TweetMessage = {
     },
     fields: [
       {
-        label:'mensaje',
+        label:{es:'Mensaje',en:'Message'},
           name: 'Message', // required
           type: 'textarea', // required
           required: true,
