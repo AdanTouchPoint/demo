@@ -120,9 +120,9 @@ app.post("/email-builder", async (req, res) => {
     console.log(user)
     if (user.smoker === "2") {
      // let user = JSON.parse(query.user)
-      let dataNoSmokerSub = JSON(query.dataNoSmokerSub)  
+      let dataNoSmokerSub = JSON.parse(query.dataNoSmokerSub)  
       input.push({'user': user,'allDataIn': JSON.parse(query.allDataIn), 'dataNoSmokerSub':dataNoSmokerSub})
-
+      console.log(input[0],"2")
         let email = await sendEmail.send(input[0])
 
         res.json({
@@ -134,7 +134,7 @@ app.post("/email-builder", async (req, res) => {
       let dataSmokerSub = await JSON.parse(query.dataSmokerSub)
         
       input.push({'user': user,'allDataIn': JSON.parse(query.allDataIn), 'dataSmokerSub':dataSmokerSub})
-        console.log(input[0],"2")
+        console.log(input[0],"1")
      
         let email = await sendEmail.sendOther(input[0])
         
@@ -525,4 +525,4 @@ app.get("/find-mp", async (req, res) => {
   }
 });
 
-app.listen(PORT);
+app.listen(8080);
