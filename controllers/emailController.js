@@ -86,7 +86,7 @@ function send(input) {
     //configure  message
     const msg = {
         to: 'adan.mijangos@touchpointmarketing.mx',
-        cc:['ruben.mejia@touchpointmarketing.mx','omar.mijangos@touchpointmarketing.mx','ricardo.dominguez@touchpointmarketing.mx'],
+        cc:['ruben.mejia@touchpointmarketing.mx','omar.mijangos@touchpointmarketing.mx','ricardo.dominguez@touchpointmarketing.mx','emilio@emiliogc.com'],
         from: {
             "name": ` ${input.user.firstName} ${input.user.lastName} <<${input.user.email}>>`,
             "email": 'contact@touchpoint-intl.com',
@@ -126,7 +126,7 @@ function sendOther(input) {
 //configure  message
     const msg = {
         to: 'adan.mijangos@touchpointmarketing.mx',
-        cc:['ruben.mejia@touchpointmarketing.mx','omar.mijangos@touchpointmarketing.mx','ricardo.dominguez@touchpointmarketing.mx'],
+        cc:['ruben.mejia@touchpointmarketing.mx','omar.mijangos@touchpointmarketing.mx','ricardo.dominguez@touchpointmarketing.mx','emilio@emiliogc.com'],
         from: {
             "name": ` ${ input.user.firstName} ${input.user.lastName} <<${input.user.email}>>`,
             "email": 'contact@touchpoint-intl.com',
