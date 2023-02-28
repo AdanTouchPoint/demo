@@ -181,7 +181,6 @@ console.log(input.questions.question1)
             question1: input.questions.question1.replace(/\n\r?/g, '<br/>').replace(/`/g, ''),
             question2: input.questions.question2.replace(/\n\r?/g, '<br/>').replace(/`/g, ''),
             question3: input.questions.question3.replace(/\n\r?/g, '<br/>').replace(/`/g, ''),
-            question31: input.questions.question31.replace(/\n\r?/g, '<br/>').replace(/`/g, ''),
         },
     }
     //Send email
