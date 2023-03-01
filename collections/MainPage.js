@@ -54,6 +54,11 @@ const MainPAge = {
             type: 'text', // required
           },
           {
+            label: {es:' URL Terminos y Condiciones', en:'Terms & Conditions URL'},
+            name: 'terms', // required
+            type: 'text', // required
+          },
+          {
             name: 'clientId',
             type: 'relationship',
             relationTo: 'users',
