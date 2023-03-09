@@ -18,7 +18,8 @@ import MyCustomLogo from './customComponents/customLogo'
 import MyCustomIcon from './customComponents/customIcon'
 import RepAus from './collections/RepAus';
 import Electorates from './collections/Electorates';
-
+import Analytics from './customComponents/Analytics';
+import  AfterNavLinks from './customComponents/AfterNavLinks'
 const beforeChangeHook = path.resolve(__dirname, 'hooks/afterChange');
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
 
@@ -26,6 +27,13 @@ export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:8080',
   admin: {
     components:{
+      routes: [
+        {
+            path: '/analytics',
+            Component: Analytics,
+        }
+      ],
+      afterNavLinks: [AfterNavLinks],
       graphics: {
         Icon: MyCustomIcon,
         Logo: MyCustomLogo,

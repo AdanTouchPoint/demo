@@ -40,10 +40,21 @@ const Users = {
     label:'region',
     name: 'region',
     type: 'text', 
+    saveToJWT: true,
     access: {
       create: isAdminFieldLevel,
       update: isAdminFieldLevel
     },
+},
+{
+  label: 'gtagUrl',
+  name: 'gtagUrl',
+  type: 'text', 
+  saveToJWT: true,
+  access: {
+    create: isAdminFieldLevel,
+    update: isAdminFieldLevel
+  },
 },
 {
     label:'plan',

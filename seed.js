@@ -1,28 +1,28 @@
 import  { Payload }  from "payload";
 
-const dataSet= []
+const dataSet=[]
 
 export const seed = async (payload = Payload) => {
   console.log(dataSet)
 
-  const data = await dataSet.map( element => {
+  const data =  dataSet.map( element => {
     payload.create({
       collection: 'senators-and-mps',
       data: {
         clientId:element.clientId,
-        labelpostcode: element.labelpostcode,
+        labelpostcode: element.LabelPostCode,
         division: element.division,
-        name: element.name,
-        phone: element.phone,
-        addres: element.addres,
-        state: element.state,
-        city: element.city,
-        party: element.party,
+        name: element.Name,
+        phone: element.Phone,
+        addres: element.Addres,
+        state: element.State,
+        city: element.City,
+        party: element.Party,
         email: element.email,
         twitter: element.twitter,
         govt_type: element.govt_type,
         vote_type: element.vote_type,
-        electorates: element.electorates,
+        electorates: element.Electorates,
       }
     })
 
