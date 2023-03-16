@@ -1,5 +1,5 @@
 import { isAdminFieldLevel } from "../access/isAdmin";
-import { isAdminOrSelf } from "../access/isAdminOrSelf";
+import { isAdminOrSelf, isAdminOrPC } from "../access/isAdminOrSelf";
 import hooks from "../hooks/afterChange"
 // Example Collection - For reference only, this must be added to payload.config.js to be used.
 const Emails = {
@@ -11,13 +11,13 @@ const Emails = {
   },
   access: {
     // Only admins can create users
-    create: isAdminOrSelf,
+    create: isAdminOrPC,
     // Admins can read all, but any other logged in user can only read themselves
-    read: isAdminOrSelf,
+    read: isAdminOrPC,
     // Admins can update all, but any other logged in user can only update themselves
-    update: isAdminOrSelf,
+    update: isAdminOrPC,
     // Only admins can delete
-    delete: isAdminOrSelf,
+    delete: isAdminOrPC,
   },
   fields: [
     {

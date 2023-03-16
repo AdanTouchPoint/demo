@@ -503,5 +503,30 @@ app.get("/find-mp", async (req, res) => {
     });
   }
 });
-
+app.get("/questions", async (req, res) => {
+  try {
+    const query = req.query;
+    const content = await payload.find({
+      collection: "questions",
+      sort: "-updatedAt",
+      limit: 1,
+      where: {
+        clientId: {
+          equals: query.clientId,
+        },
+      },
+    });
+    res.json({
+      success: true,
+      message: "questions content found",
+      data: content,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 app.listen(PORT);

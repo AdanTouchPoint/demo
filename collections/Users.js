@@ -57,6 +57,26 @@ const Users = {
   },
 },
 {
+  label:{es:'Tipo', en:'Type'},
+  name: 'type',
+  type: 'select', 
+  saveToJWT: true,
+  access: {
+    create: isAdminFieldLevel,
+    update: isAdminFieldLevel
+  },
+  options: [
+    {
+      label: 'SB',
+      value:'SB'
+    },
+    {
+      label:'PC',
+      value:'PC'
+    }
+  ]
+},
+{
     label:'plan',
     name:'plan',
     type:'select',

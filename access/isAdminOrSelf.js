@@ -127,3 +127,45 @@ export const isAdminOrSelf = ( user ) => {
     // Reject everyone else
     return false;
   }
+
+  export const isAdminOrPC = ( user ) => {
+    console.log(user.req.user.plan)
+    // Need to be logged in
+    if (user) {
+    const type = user.req.user.type
+    const role = user.req.user.roles
+      // If user has role of 'admin'
+     if(role === 'admin' || type === 'PC') {
+      const clientId = user.req.user.id
+      const query = {
+          clientId: {
+              equals: clientId,
+            }
+      }
+      return query;
+     }
+    }
+  
+    // Reject everyone else
+    return false;
+  }
+  export const isAdminOrSB = ( user ) => {
+    console.log(user.req.user.plan)
+    // Need to be logged in
+    if (user) {
+      const type = user.req.user.type
+      const role = user.req.user.roles
+      // If user has role of 'admin'
+      if (role === 'admin' || type === 'SB') {
+        const clientId = user.req.user.id
+      const query = {
+          clientId: {
+              equals: clientId,
+            }
+      }
+      return query;
+     
+      }
+      return false
+    }
+  }

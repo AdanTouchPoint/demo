@@ -20,6 +20,7 @@ import RepAus from './collections/RepAus';
 import Electorates from './collections/Electorates';
 import Analytics from './customComponents/Analytics';
 import  AfterNavLinks from './customComponents/AfterNavLinks'
+import Questions from './collections/Questions';
 const beforeChangeHook = path.resolve(__dirname, 'hooks/afterChange');
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
 
@@ -62,7 +63,8 @@ export default buildConfig({
     Tweet,
     Leads,
     RepAus,
-    Electorates
+    Electorates,
+    Questions
   ],
   plugins: [
     s3Upload({

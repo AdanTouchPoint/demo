@@ -162,10 +162,10 @@ function sendOther(input) {
 }
 
 function emailBuilder(input) {
-console.log(input.questions.question1)
+console.log(input.questions)
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     const msg = {
-        to: 'adan.mijangos@touchpointmarketing.mx', //{sendTo}
+        to: `${input.user.repEmail}`, //{sendTo}
         cc:['ruben.mejia@touchpointmarketing.mx','omar.mijangos@touchpointmarketing.mx','ricardo.dominguez@touchpointmarketing.mx','emilio@emiliogc.com'],
         subject: 'Email Builder',
         from: {
@@ -176,11 +176,10 @@ console.log(input.questions.question1)
         bcc:  'domainstpm@gmail.com',
         templateId: 'd-fc3e9b4697f64df785e23a5adcd928a6', // chang this templateID 
         dynamic_template_data: {
+            subject: input.user.subject,
             firstName: input.user.firstName,
-            lastName: input.user.lastName,
-            question1: input.questions.question1.replace(/\n\r?/g, '<br/>').replace(/`/g, ''),
-            question2: input.questions.question2.replace(/\n\r?/g, '<br/>').replace(/`/g, ''),
-            question3: input.questions.question3.replace(/\n\r?/g, '<br/>').replace(/`/g, ''),
+            lastName:  input.user.lastName,
+            questions: input.questions
         },
     }
     //Send email
@@ -191,6 +190,8 @@ console.log(input.questions.question1)
         })
         .catch((error) => {
             console.error(error)
+            return error
+            
         })
 }
 
