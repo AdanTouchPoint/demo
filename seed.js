@@ -1,26 +1,33 @@
 import  { Payload }  from "payload";
 
-const dataSet=[]
+const dataSet =[]
 
 export const seed = async (payload = Payload) => {
-  
-   // This user will be created with the default client of `editor`
-   await payload.create({
-    collection: 'users',
-    data: {
-      email: 'demo-antonio@tpmcms.com',
-      password: 'demo1234',
-      name: 'antonio',
-      lastName: 'demo',
-      roles: 'client'
-    }
+
+
+  const data =  dataSet.map( element => {
+    payload.create({
+      collection: 'senators-and-mps',
+      data: {
+        clientId:element.clientId,
+        labelpostcode: element.LabelPostCode?.toString(),
+        division: element.division,
+        name: element.Name,
+        phone: element.Phone,
+        addres: element.Addres,
+        state: element.State,
+        city: element.City,
+        party: element.Party,
+        email: element.email,
+        twitter: element.twitter,
+        govt_type: element.govt_type,
+        vote_type: element.vote_type,
+        electorates: element.Electorates,
+      }
+    })
   })
-
-  //return data
-
-
-
-
+  
+  return data
 
   /*const data = await dataSet.map( element => {
     payload.create({
@@ -86,36 +93,18 @@ export const seed = async (payload = Payload) => {
       }
   })
 
-
-   const data =  dataSet.map( element => {
-    payload.create({
-      collection: 'senators-and-mps',
-      data: {
-        clientId:element.clientId,
-        labelpostcode: element.LabelPostCode,
-        division: element.division,
-        name: element.Name,
-        phone: element.Phone,
-        addres: element.Addres,
-        state: element.State,
-        city: element.City,
-        party: element.Party,
-        email: element.email,
-        twitter: element.twitter,
-        govt_type: element.govt_type,
-        vote_type: element.vote_type,
-        electorates: element.Electorates,
-      }
-    })
-
+   // This user will be created with the default client of `editor`
+   await payload.create({
+    collection: 'users',
+    data: {
+      email: 'demo-antonio@tpmcms.com',
+      password: 'demo1234',
+      name: 'antonio',
+      lastName: 'demo',
+      roles: 'client'
+    }
   })
-
-
-
-
-
-
-
+  
 */
 
 }

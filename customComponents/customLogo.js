@@ -1,9 +1,9 @@
 import React from 'react';
-import  logoTPM from  './touchpoint-marketing-color.png'; // gives image path
+import  logoTPM from  './overton-logo.png'; // gives image path
 function customLogo(){
     return(
         <div>
-             <img src={logoTPM} alt="this is logo" />        </div>
+             <img src={logoTPM} alt="this is logo" width="300px"/></div>
     )
 }
 
