@@ -858,7 +858,7 @@ app.post("/email-builder", async (req, res) => {
       questions: questions,
     });
     console.log(input[0]);
-    // let email = await sendEmail.emailBuilder(input[0])
+    let email = await sendEmail.emailBuilder(input[0])
     res.json({
       success: true,
       data: email,
