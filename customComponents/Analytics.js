@@ -20,13 +20,12 @@ console.log(user.user.gtagUrl)
       <br/>
       <p>
 		{ reg == 'MX' ? <h1 class="collection-list__sub-header">Estadisticas </h1> : <h1 class="collection-list__sub-header">Analytics </h1>}
-    { reg == 'MX' ? <div class="view-description">Aqui puedes revisar las estadisticas de tu pagina  </div> : <div class="view-description">Here you can see th analytics from your page </div>}
+    { reg == 'MX' ? <div class="view-description">Aqui puedes revisar las estadisticas de tu pagina  </div> : <div class="view-description">Here you can see the analytics from your page </div>}
     </p>
     <p>
       <Iframe url={user.user.gtagUrl} 
-        width="1500px"
-        height="800px"
-        id=""
+        width="100%"
+        id="frame"
         className=""
         display="block"
         position="relative"/>
