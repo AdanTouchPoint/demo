@@ -1133,6 +1133,34 @@ app.get("/all-representatives", async (req, res) => {
     });
   }
 });
+app.get("/all-senators", async (req, res) => {
+  try {
+    console.log("here");
+    const query = req.query;
+    const content = await payload.find({
+      collection: "senators-and-mps",
+      sort: "-updatedAt",
+      limit: 0,
+      where: {
+        clientId: {
+          equals: query.clientId,
+        },
+      },
+    });
+    let data = content.docs;
+    res.json({
+      success: true,
+      message: "all representatives found",
+      data: data,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 
 const getDivision = async (clientId, division) => {
   let mps = await payload.find({
