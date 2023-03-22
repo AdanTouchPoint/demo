@@ -25,6 +25,7 @@ console.log(user.user.gtagUrl)
     <p>
       <Iframe url={user.user.gtagUrl} 
         width="100%"
+        height="600px"
         id="frame"
         className=""
         display="block"
