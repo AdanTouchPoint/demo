@@ -1,6 +1,6 @@
 import { isAdmin, isAdminFieldLevel } from "../access/isAdmin";
 import { isAdminOrSelf } from "../access/isAdminOrSelf";
-
+import CustomList from "../customComponents/CustomList";
 const Leads = {
     slug: 'conversiones',
     labels: {
@@ -50,6 +50,11 @@ const Leads = {
     {
       label:{es:'Representate',en:'Representative'},
       name:'representative',
+      type: 'text',
+    },
+    {
+      label:{es:'Asunto',en:'Subject'},
+      name:'subject',
       type: 'text',
     },
     {
