@@ -1,6 +1,6 @@
 import { isAdmin, isAdminFieldLevel } from "../access/isAdmin";
 import { isAdminOrSelf } from "../access/isAdminOrSelf";
-//import CustomList from "../customComponents/CustomList";
+import CustomList from "../customComponents/CustomList";
 const Leads = {
     slug: 'conversiones',
     labels: {
@@ -12,6 +12,11 @@ const Leads = {
       },
     },
     admin: {
+      components: {
+        views: {
+          List: CustomList
+        }
+      },
       listSearchableFields: ["names","city","contact","party","sended"],
       description: {
         es:'Aqui puedes ver las conversiones de tu pagina',

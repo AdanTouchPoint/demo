@@ -1,13 +1,14 @@
 import { isAdminFieldLevel } from "../access/isAdmin";
 import { isAdminOrSelf, isAdminOrPC } from "../access/isAdminOrSelf";
-import hooks from "../hooks/afterChange"
+import hooks from "../hooks/afterChange";
 // Example Collection - For reference only, this must be added to payload.config.js to be used.
 const Emails = {
-  slug: 'emails',
+  slug: "emails",
   admin: {
-    description:{ 
-      es: 'Aqui puedes cargar los mensajes y asuntos de email predefinidos', 
-      en:'Here you can load the predefined email messages and subjects'}
+    description: {
+      es: "Aqui puedes cargar los mensajes y asuntos de email predefinidos",
+      en: "Here you can load the predefined email messages and subjects",
+    },
   },
   access: {
     // Only admins can create users
@@ -21,67 +22,47 @@ const Emails = {
   },
   fields: [
     {
-      label:{es: 'Asunto', en:'Subject'},
-      name: 'subject', // required
-      type: 'text', // required
+      label: { es: "Asunto", en: "Subject" },
+      name: "subject", // required
+      type: "text", // required
       required: true,
     },
     {
-      label:{es: 'Mensaje', en :'Message'},
-      name: 'content', // required
-      type: 'richText', // required
-      defaultValue: [{
-        children: [{ text: 'Here is some default content for this field' }],
-      }],
+      label: { es: "Mensaje", en: "Message" },
+      name: "content", // required
+      type: "richText", // required
+      defaultValue: [
+        {
+          children: [{ text: "Here is some default content for this field" }],
+        },
+      ],
       required: true,
       admin: {
-        elements: [
-          'h2',
-          'h3',
-          'h4',
-          'h5',
-          'h6',
-          'link',
-          'upload',
-          'ul',
-          'ol',
-          
-        
-        ],
-        leaves: [
-          'bold',
-          'italic',
-          'underline',
-          'highlight',
-          'quote',
-       
-        ],
+        elements: ["h2", "h3", "h4", "h5", "h6", "link", "upload", "ul", "ol"],
+        leaves: ["bold", "italic", "underline", "highlight", "quote"],
         link: {
           // Inject your own fields into the Link element
           fields: [
             {
-              name: 'rel',
-              label: 'Rel Attribute',
-              type: 'select',
+              name: "rel",
+              label: "Rel Attribute",
+              type: "select",
               hasMany: true,
-              options: [
-                'noopener', 'noreferrer', 'nofollow',
-              ],
+              options: ["noopener", "noreferrer", "nofollow"],
             },
           ],
-        }
-      }
+        },
+      },
     },
     {
-
-      name: 'clientId',
-      type: 'relationship',
-      relationTo: 'users',
+      name: "clientId",
+      type: "relationship",
+      relationTo: "users",
       required: true,
-      admin:{hidden:true},
+      admin: { hidden: true },
       // If user is not admin, set the site by default
       // to the first site that they have access to
-      defaultValue:  ({ user }) => {
+      defaultValue: ({ user }) => {
         if (user) {
           return user.id;
         }
@@ -94,15 +75,15 @@ const Emails = {
       },
     },
     {
-      name: 'active', // required
-      type: 'checkbox', // required
-      label: 'Aplicar',
+      name: "active", // required
+      type: "checkbox", // required
+      label: "Aplicar",
       defaultValue: true,
       admin: {
-        readOnly:  true
-      }
-    },  
+        readOnly: true,
+      },
+    },
   ],
-}
+};
 
 export default Emails;

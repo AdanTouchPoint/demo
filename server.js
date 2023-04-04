@@ -1,8 +1,12 @@
 const express = require("express");
 const payload = require("payload");
 const cors = require("cors");
+const  Bull = require("bull");
+const ExcelJS = require("exceljs");
 const sendEmail = require("./controllers/emailController");
+let REDIS_URL = process.env.REDIS_URL || "redis://127.0.0.1:6379";
 require("dotenv").config();
+const queue = new Bull('xls-download', REDIS_URL);
 const app = express();
 
 app.use(cors({ origin: "*" }));
@@ -23,6 +27,109 @@ payload.init({
 });
 
 // Add your own express routes here
+
+app.get('/job/:id', async (req, res) => {
+   try{
+    let id = req.params.id;
+    let job = await queue.getJob(id);
+    console.log(job.returnvalue)
+    let returnData =  job.returnvalue
+    if (job === null) {
+      res.status(404).end();
+    } else {
+      res.contentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.status(200)
+      res.attachment('leads.xls')
+      res.send(Buffer.from(returnData));
+    }
+   } catch (error){
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+   }
+  });
+
+app.get("/xls-process", async (req, res) => {
+  try {
+    const { clientId } = req.query;
+    console.log(clientId)
+    const job = await queue.add({ clientId }, { attemps: 3 });
+    res.json({
+      status: 202,
+      success: true,
+      message: 'Tarea en cola', jobId: job.id
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+queue.process(async (job) => {
+  const { clientId } = job.data;
+  try {
+    const leadsReq = await payload.find({
+      collection: "conversiones",
+      sort: "-updatedAt",
+      limit: 0,
+      depth: 0,
+      where: {
+        clientId: {
+          equals: clientId,
+        },
+      },
+    });
+    console.log('process');
+    const leads = leadsReq.docs;
+    // Crear un archivo de Excel a partir de los datos de leads
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Leads");
+    worksheet.columns = [
+      { header: "Names", key: "names" },
+      { header: "Email", key: "contact" },
+      { header: "Postal Code ", key: "postalcode" },
+      { header: "Representative ", key: "representative" },
+      { header: "Subject ", key: "subject" },
+      { header: "Message ", key: "emailMessage" },
+      { header: "City ", key: "city" },
+      { header: "Party", key: "party" },
+      { header: "Email success", key: "sended" },
+    ];
+    leads.forEach((lead) => {
+      worksheet.addRow({
+        names: lead.names,
+        contact: lead.contact,
+        postalcode: lead.postalcode,
+        representative: lead.representative,
+        subject: lead.subject,
+        emailMessage: lead.emailMessage,
+        city: lead.city,
+        party: lead.party,
+        sended: lead.sended,
+      });
+    });
+
+    // Guardar el archivo de Excel en una variable
+    const buffer = await workbook.xlsx.writeBuffer();
+    //
+
+    // Verificar que el tamaño del archivo no exceda el límite permitido (en este ejemplo, 5 MB)
+    const maxSize = 5 * 1024 * 1024; // 5 MB en bytes
+    if (buffer.byteLength > maxSize) {
+      throw new Error("El archivo generado es demasiado grande");
+    }
+     return buffer
+    
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 app.post("/leads", async (req, res) => {
   try {
     const query = req.query;
@@ -70,9 +177,11 @@ app.post("/leads", async (req, res) => {
 app.get("/leads", async (req, res) => {
   try {
     const query = req.query;
-    const tweets = await payload.find({
+    const leads = await payload.find({
       collection: "conversiones",
       sort: "-updatedAt",
+      limit: 0,
+      depth: 0,
       where: {
         clientId: {
           equals: query.clientId,
@@ -82,7 +191,7 @@ app.get("/leads", async (req, res) => {
     res.json({
       success: true,
       message: "leads found",
-      data: tweets,
+      data: leads,
     });
   } catch (error) {
     res.status(400);
@@ -840,8 +949,8 @@ app.post("/email-builder", async (req, res) => {
       "yobbo",
       "zoophile",
     ];
-    let questions = JSON.parse(query.questions)
-    for (let key in questions) { 
+    let questions = JSON.parse(query.questions);
+    for (let key in questions) {
       if (questions.hasOwnProperty(key)) {
         let value = questions[key];
         for (let i = 0; i < keywords.length; i++) {
@@ -858,7 +967,7 @@ app.post("/email-builder", async (req, res) => {
       questions: questions,
     });
     console.log(input[0]);
-    let email = await sendEmail.emailBuilder(input[0])
+    let email = await sendEmail.emailBuilder(input[0]);
     res.json({
       success: true,
       data: email,
