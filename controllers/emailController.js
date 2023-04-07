@@ -86,7 +86,6 @@ function send(input) {
     //configure  message
     const msg = {
         to: 'adan.mijangos@touchpointmarketing.mx',
-        cc:['ruben.mejia@touchpointmarketing.mx','omar.mijangos@touchpointmarketing.mx','ricardo.dominguez@touchpointmarketing.mx','emilio@emiliogc.com'],
         from: {
             "name": ` ${input.user.firstName} ${input.user.lastName} <<${input.user.email}>>`,
             "email": 'contact@touchpoint-intl.com',
@@ -126,7 +125,6 @@ function sendOther(input) {
 //configure  message
     const msg = {
         to: 'adan.mijangos@touchpointmarketing.mx',
-        cc:['ruben.mejia@touchpointmarketing.mx','omar.mijangos@touchpointmarketing.mx','ricardo.dominguez@touchpointmarketing.mx','emilio@emiliogc.com'],
         from: {
             "name": ` ${ input.user.firstName} ${input.user.lastName} <<${input.user.email}>>`,
             "email": 'contact@touchpoint-intl.com',
@@ -166,7 +164,6 @@ console.log(input.questions)
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     const msg = {
         to: `${input.user.repEmail}`, //{sendTo}
-        cc:['ruben.mejia@touchpointmarketing.mx','omar.mijangos@touchpointmarketing.mx','ricardo.dominguez@touchpointmarketing.mx','emilio@emiliogc.com'],
         subject: 'Email Builder',
         from: {
             "name": ` ${input.user.firstName} ${input.user.lastName} <<${input.user.email}>>`,
