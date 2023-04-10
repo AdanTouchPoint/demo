@@ -28,12 +28,12 @@ const CustomList = (props) => {
       <div class="gutter--left gutter--right collection-list__wrap">
         <form id="myForm">
         <h5>descarga los leads en formato xls </h5>
-        <button
+      { /* <button
           onClick={Click}
           class="btn btn--style-secondary btn--icon btn--icon-style-none btn--size-medium"
         >
           Request Data
-        </button>
+  </button> */}
         </form>
       </div>
       <DefaultList {...props} />
