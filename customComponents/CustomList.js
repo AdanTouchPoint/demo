@@ -12,7 +12,7 @@ const CustomList = (props) => {
       redirect: "follow",
     };
     const data = await fetch(
-      `https://payload-demo-tpm.herokuapp.com/xls-process?clientId=${clientId}`,
+      `http://localhost:8080/xls-process?clientId=${clientId}`,
       requestOptions
     );
     const res = await data.json();
@@ -21,18 +21,7 @@ const CustomList = (props) => {
   };
   const Click = async (e) => {
    e.preventDefault()
-    await fetchData()
-      .then((data) => {
-        if (data.status === 202) {
-          const id = data.jobId
-          alert('tu descarga se iniciara en unos segundos ')
-          //agregar setTimeOut  para  descargar xlsx
-          setTimeout(() => {
-            window.open( `https://payload-demo-tpm.herokuapp.com/job/${id}`);
-          }, 5000);
-        }
-      })
-      .catch((error) => console.error(error));
+   window.open( `https://payload-demo-tpm.herokuapp.com/xls-process?clientId=${clientId}`);
   };
   return (
     <>

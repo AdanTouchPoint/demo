@@ -55,24 +55,6 @@ app.get("/xls-process", async (req, res) => {
   try {
     const { clientId } = req.query;
     console.log(clientId)
-    const job = await queue.add({ clientId }, { attemps: 3 });
-    res.json({
-      status: 202,
-      success: true,
-      message: 'Tarea en cola', jobId: job.id
-    });
-  } catch (error) {
-    res.status(400);
-    res.json({
-      success: false,
-      message: error.message,
-    });
-  }
-});
-
-queue.process(async (job) => {
-  const { clientId } = job.data;
-  try {
     const leadsReq = await payload.find({
       collection: "conversiones",
       sort: "-updatedAt",
@@ -123,10 +105,16 @@ queue.process(async (job) => {
     if (buffer.byteLength > maxSize) {
       throw new Error("El archivo generado es demasiado grande");
     }
-     return buffer
-    
+      res.contentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.status(200)
+      res.attachment('leads.xls')
+      res.send(Buffer.from(buffer));
   } catch (error) {
-    console.error(error);
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
   }
 });
 
