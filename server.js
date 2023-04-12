@@ -28,6 +28,7 @@ payload.init({
 
 // Add your own express routes here
 
+{/* 
 app.get('/job/:id', async (req, res) => {
    try{
     let id = req.params.id;
@@ -49,7 +50,8 @@ app.get('/job/:id', async (req, res) => {
       message: error.message,
     });
    }
-  });
+  }); 
+*/}
 
 app.get("/xls-process", async (req, res) => {
   try {
@@ -58,7 +60,7 @@ app.get("/xls-process", async (req, res) => {
     const leadsReq = await payload.find({
       collection: "conversiones",
       sort: "-updatedAt",
-      limit: 0,
+      limit: 5000,
       depth: 0,
       where: {
         clientId: {
