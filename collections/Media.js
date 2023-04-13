@@ -4,6 +4,12 @@ import { isAdminFieldLevel } from "../access/isAdmin";
 const myBucketUrl = 'https://api-tpm-images.s3.us-west-1.amazonaws.com/img'
 const Media = {
   slug: 'imagenes',
+  admin: {
+    description:{
+      es:'Si tienes algun prblema con tu imagen intenta convertirla a formato .jpg',
+      en: 'If you have any trouble with your image try convert to .jpg format'
+    }
+  },
   labels: {
     singular: {
       en: 'Image', es: 'Imagen',
