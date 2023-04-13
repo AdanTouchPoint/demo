@@ -1,12 +1,9 @@
 const express = require("express");
 const payload = require("payload");
 const cors = require("cors");
-const  Bull = require("bull");
 const ExcelJS = require("exceljs");
 const sendEmail = require("./controllers/emailController");
-let REDIS_URL = process.env.REDIS_URL || "redis://127.0.0.1:6379";
 require("dotenv").config();
-const queue = new Bull('xls-download', REDIS_URL);
 const app = express();
 
 app.use(cors({ origin: "*" }));
@@ -27,31 +24,6 @@ payload.init({
 });
 
 // Add your own express routes here
-
-{/* 
-app.get('/job/:id', async (req, res) => {
-   try{
-    let id = req.params.id;
-    let job = await queue.getJob(id);
-    console.log(job.returnvalue)
-    let returnData =  job.returnvalue
-    if (job === null) {
-      res.status(404).end();
-    } else {
-      res.contentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      res.status(200)
-      res.attachment('leads.xls')
-      res.send(Buffer.from(returnData));
-    }
-   } catch (error){
-    res.status(400);
-    res.json({
-      success: false,
-      message: error.message,
-    });
-   }
-  }); 
-*/}
 
 app.get("/xls-process", async (req, res) => {
   try {
@@ -83,6 +55,7 @@ app.get("/xls-process", async (req, res) => {
       { header: "City ", key: "city" },
       { header: "Party", key: "party" },
       { header: "Email success", key: "sended" },
+      {header: "CreatedAt", key: "createdAt"}
     ];
     leads.forEach((lead) => {
       worksheet.addRow({
@@ -95,6 +68,7 @@ app.get("/xls-process", async (req, res) => {
         city: lead.city,
         party: lead.party,
         sended: lead.sended,
+        createdAt: lead.createdAt
       });
     });
 
@@ -109,7 +83,7 @@ app.get("/xls-process", async (req, res) => {
     }
       res.contentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       res.status(200)
-      res.attachment('leads.xls')
+      res.attachment('leads.xlsx')
       res.send(Buffer.from(buffer));
   } catch (error) {
     res.status(400);
@@ -119,7 +93,6 @@ app.get("/xls-process", async (req, res) => {
     });
   }
 });
-
 app.post("/leads", async (req, res) => {
   try {
     const query = req.query;
@@ -163,7 +136,6 @@ app.post("/leads", async (req, res) => {
     });
   }
 });
-
 app.get("/leads", async (req, res) => {
   try {
     const query = req.query;
@@ -191,7 +163,6 @@ app.get("/leads", async (req, res) => {
     });
   }
 });
-
 app.post("/send-email", async (req, res) => {
   try {
     const query = req.query;
@@ -1030,6 +1001,7 @@ app.post("/state-email", async (req, res) => {
     });
   }
 });
+
 app.post("/tweets", async (req, res) => {
   try {
     const query = req.query;
@@ -1056,7 +1028,6 @@ app.post("/tweets", async (req, res) => {
     });
   }
 });
-
 app.post("/main-content", async (req, res) => {
   try {
     const query = req.query;
@@ -1109,7 +1080,6 @@ app.post("/emails-content", async (req, res) => {
     });
   }
 });
-
 app.post("/typ-content", async (req, res) => {
   try {
     const query = req.query;
@@ -1136,7 +1106,6 @@ app.post("/typ-content", async (req, res) => {
     });
   }
 });
-
 app.post("/representatives", async (req, res) => {
   try {
     const query = req.query;
@@ -1203,7 +1172,6 @@ app.get("/representatives-state", async (req, res) => {
     });
   }
 });
-
 app.get("/all-representatives", async (req, res) => {
   try {
     console.log("here");
@@ -1260,7 +1228,6 @@ app.get("/all-senators", async (req, res) => {
     });
   }
 });
-
 const getDivision = async (clientId, division) => {
   let mps = await payload.find({
     collection: "senators-and-mps",

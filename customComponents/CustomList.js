@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 
 import DefaultList from "payload/dist/admin/components/views/collections/List/Default.js";
 import { useAuth } from "payload/components/utilities";
@@ -6,34 +6,42 @@ import { useAuth } from "payload/components/utilities";
 const CustomList = (props) => {
   const user = useAuth();
   const clientId = user.user.id;
-  const fetchData = async () => {
-    const requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-    const data = await fetch(
-      `http://localhost:8080/xls-process?clientId=${clientId}`,
-      requestOptions
-    );
-    const res = await data.json();
-    console.log(res);
-    return res;
-  };
+  const reg = user.user.region;
   const Click = async (e) => {
-   e.preventDefault()
-   window.open( `https://payload-demo-tpm.herokuapp.com/xls-process?clientId=${clientId}`);
+    e.preventDefault();
+    window.open(
+      `https://payload-demo-tpm.herokuapp.com/xls-process?clientId=${clientId}`
+    );
   };
   return (
     <>
       <div class="gutter--left gutter--right collection-list__wrap">
         <form id="myForm">
-        <h5>descarga los leads en formato xls </h5>
-        <button
-          onClick={Click}
-          class="btn btn--style-secondary btn--icon btn--icon-style-none btn--size-medium"
-        >
-          Request Data
-        </button>
+          {reg == "MX" ? (
+            <h5 class="collection-list__sub-header">
+              Descarga los leads en formato xlsx
+            </h5>
+          ) : (
+            <h5 class="collection-list__sub-header">
+              Download leads in xlsx file
+            </h5>
+          )}
+          {reg == "MX" ? (
+            <div class="view-description">
+              Aqui puedes descargar las conversiones de tu pagina (hasta 5mil
+              registros)
+            </div>
+          ) : (
+            <div class="view-description">
+              Here you can download the leads from your page(up to 5k registers)
+            </div>
+          )}
+          <button
+            onClick={Click}
+            class="btn btn--style-secondary btn--icon btn--icon-style-none btn--size-medium"
+          >
+            {reg == "MX" ? "Descargar" : "Download"}
+          </button>
         </form>
       </div>
       <DefaultList {...props} />
