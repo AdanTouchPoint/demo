@@ -52,7 +52,7 @@ export default buildConfig({
 			}
 		})
   },
-  cors: ['https://app.overton.services', '*'],
+  cors: ['https://app.overton.services','https://payload-demo-tpm.herokuapp.com' ,'*'],
   collections: [
     Users,
     Representatives,

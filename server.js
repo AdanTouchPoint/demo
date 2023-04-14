@@ -7,10 +7,10 @@ require("dotenv").config();
 const app = express();
 
 app.use(cors({ origin: "*" }));
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080
 // Redirect root to Admin panel
 app.get("/", (_, res) => {
-  res.redirect("/admin");
+  res.redirect("https://app.overton.services/admin");
 });
 
 // Initialize Payload
