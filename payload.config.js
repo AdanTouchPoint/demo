@@ -52,7 +52,7 @@ export default buildConfig({
 			}
 		})
   },
-  cors: ['*'],
+  cors: ['https://app.overton.services', '*'],
   collections: [
     Users,
     Representatives,
