@@ -16,15 +16,6 @@ app.get('/', (req, res) => {
     res.redirect('/admin');
   }
 });
-
-// Redireccionar de www.demo.com/admin a www.app.com/admin
-app.get('/admin', (req, res) => {
-  if(req.headers.host === 'payload-demo-tpm.herokuapp.com'){
-    res.redirect('https://app.overton.services/admin');
-  } else {
-    res.redirect('/');
-  }
-});
 // Initialize Payload
 payload.init({
   secret: process.env.PAYLOAD_SECRET,
