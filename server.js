@@ -21,8 +21,6 @@ app.get('/', (req, res) => {
 app.get('/admin', (req, res) => {
   if(req.headers.host === 'payload-demo-tpm.herokuapp.com'){
     res.redirect('https://app.overton.services/admin');
-  } else {
-    res.send('Estás en www.app.overton.services/admin');
   }
 });
 // Initialize Payload
