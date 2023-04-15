@@ -9,14 +9,22 @@ const app = express();
 app.use(cors({ origin: "*" }));
 const PORT = process.env.PORT || 8080
 // Redirect root to Admin panel
-app.get("/", (_, res) => {
-  res.redirect("https://app.overton.services/admin");
-});
-// Redireccionar de www.demo.com/admin a www.app.com/admin
-app.get('/admin', (req, res) => {
-  res.redirect('https://app.overton.services/admin');
+app.get('/', (req, res) => {
+  if(req.headers.host === 'payload-demo-tpm.herokuapp.com'){
+    res.redirect('https://app.overton.services/admin');
+  } else {
+    res.redirect('/admin');
+  }
 });
 
+// Redireccionar de www.demo.com/admin a www.app.com/admin
+app.get('/admin', (req, res) => {
+  if(req.headers.host === 'payload-demo-tpm.herokuapp.com'){
+    res.redirect('https://app.overton.services/admin');
+  } else {
+    res.send('Estás en www.app.overton.services/admin');
+  }
+});
 // Initialize Payload
 payload.init({
   secret: process.env.PAYLOAD_SECRET,
