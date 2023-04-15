@@ -12,12 +12,6 @@ const PORT = process.env.PORT || 8080
 app.get("/", (_, res) => {
   res.redirect("https://app.overton.services/admin");
 });
-app.get("/admin", (_, res) => {
-  res.redirect("https://app.overton.services/admin");
-});
-app.get("/admin/login", (_, res) => {
-  res.redirect("https://app.overton.services/admin/login");
-});
 
 // Initialize Payload
 payload.init({
