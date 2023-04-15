@@ -14,7 +14,7 @@ app.get("/", (_, res) => {
 });
 // Redireccionar de www.demo.com/admin a www.app.com/admin
 app.get('/admin', (req, res) => {
-  res.redirect('https://www.app.com/admin');
+  res.redirect('https://app.overton.services/admin');
 });
 
 // Initialize Payload
