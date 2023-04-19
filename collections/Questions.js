@@ -26,40 +26,20 @@ const Questions = {
         required: true,
       },
       {
+        name:'questions',
+        type: 'array',
+        minRows: 1,
+        maxRows: 10,
         label: {
-        en: "Question 1",
-        es: "Pregunta 1",
-      },
-        name: "question1", // required
-        type: "text", // required
-        required: true,
-      },
-      {
-        label: {
-        en: "Question 2",
-        es: "Pregunta 2",
-      },
-        name: "question2", // required
-        type: "text", // required
-        required: true,
-      },
-      {
-        label: {
-        en: "Question 3",
-        es: "Pregunta 3",
-      },
-        name: "question3", // required
-        type: "text", // required
-        required: true,
-      },
-      {
-        label: {
-        en: "Question 4",
-        es: "Pregunta 4",
-      },
-        name: "question4", // required
-        type: "text", // required
-        required: true,
+          en: "Questions",
+          es: "Preguntas",
+        },
+        fields:[
+          {
+            name:'questions',
+            type: 'text',
+          }
+        ]
       },
       {
 

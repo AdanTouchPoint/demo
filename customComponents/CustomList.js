@@ -10,7 +10,7 @@ const CustomList = (props) => {
   const Click = async (e) => {
     e.preventDefault();
     window.open(
-      `https://payload-demo-tpm.herokuapp.com/xls-process?clientId=${clientId}`
+      `http://localhost:8080/xls-process?clientId=${clientId}`
     );
   };
   return (

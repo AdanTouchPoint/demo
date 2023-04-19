@@ -1,18 +1,14 @@
-const fetch = require("node-fetch");
+const payload = require("payload");
 const ExcelJS = require("exceljs");
-const Queue = require("bull");
-let REDIS_URL = process.env.REDIS_URL || "redis://127.0.0.1:6379";
-const queueXlsEmail = new Queue("xls-email", REDIS_URL);
 
-queueXlsEmail.process(async (job) => {
-  const { clientId } = job.data;
 
+const processExcel = async (clientId) => {
   try {
     // Obtener los datos de leads del endpoint
-    const leads = await payload.find({
+    const leadsReq = await payload.find({
       collection: "conversiones",
       sort: "-updatedAt",
-      limit: 0,
+      limit: 5000,
       depth: 0,
       where: {
         clientId: {
@@ -20,7 +16,8 @@ queueXlsEmail.process(async (job) => {
         },
       },
     });
-
+    console.log('process');
+    const leads = leadsReq.docs;
     // Crear un archivo de Excel a partir de los datos de leads
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet("Leads");
@@ -34,30 +31,27 @@ queueXlsEmail.process(async (job) => {
       { header: "City ", key: "city" },
       { header: "Party", key: "party" },
       { header: "Email success", key: "sended" },
+      {header: "CreatedAt", key: "createdAt"}
     ];
     leads.forEach((lead) => {
       worksheet.addRow({
-        name: lead.name,
-        email: lead.email,
-        phone: lead.phone,
+        names: lead.names,
+        contact: lead.contact,
         postalcode: lead.postalcode,
         representative: lead.representative,
         subject: lead.subject,
-        message: lead.message,
+        emailMessage: lead.emailMessage,
         city: lead.city,
         party: lead.party,
-        emailsucces: lead.sended
+        sended: lead.sended,
+        createdAt: lead.createdAt
       });
     });
-
     // Guardar el archivo de Excel en una variable
     const buffer = await workbook.xlsx.writeBuffer();
-
+    return buffer
   } catch (error) {
     console.error(error);
   }
-});
-
-// Función para obtener los leads a partir del ID de cliente
-
-module.exports = { queueXlsEmail };
+}
+module.exports = { processExcel };
