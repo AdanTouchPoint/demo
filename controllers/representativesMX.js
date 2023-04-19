@@ -53,6 +53,7 @@ const getAll = async (query) => {
           },
         },
       });
+      return content
 }
 
 module.exports = {representativesmxByCP,representativesmxByState, getAll}
