@@ -10,7 +10,7 @@ const CustomList = (props) => {
   const Click = async (e) => {
     e.preventDefault();
     window.open(
-      `http://app.overton.services/dashboardServices/xls-process?clientId=${clientId}`
+      `https://app.overton.services/dashboardServices/xls-process?clientId=${clientId}`
     );
   };
   return (
