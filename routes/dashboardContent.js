@@ -9,70 +9,11 @@ const typMessageController = require("../controllers/typMessage")
 const representativesmxController = require("../controllers/representativesMX")
 const representativesausController = require("../controllers/representativesAUS");
 const questionsController = require("../controllers/questions")
-/*
-  const getDivision = async (clientId, division) => {
-    let mps = await payload.find({
-      collection: "senators-and-mps",
-      sort: "-updatedAt",
-      depth: 0,
-      limit: 0,
-      where: {
-        clientId: {
-          equals: clientId,
-        },
-        and: [
-          {
-            electorates: {
-              equals: division,
-            },
-          },
-        ],
-      },
-    });
-    return mps;
-  };
-  const getElectorate = async (clientId, postcode) => {
-    const content = await payload.find({
-      collection: "electorates",
-      sort: "-updatedAt",
-      depth: 0,
-      where: {
-        clientId: {
-          equals: clientId,
-        },
-        and: [
-          {
-            postcode: {
-              equals: postcode,
-            },
-          },
-        ],
-      },
-    });
-    let data = content.docs;
-    return data;
-  };
-  */
+
   router.post("/leads", async (req, res) => {
     try {
       const query = req.query;
       const create = await leadController.createLeads(query)
-      /*const post = await payload.create({
-        collection: "conversiones", // required
-        data: {
-          // required
-          names: firstName,
-          postalcode: postalcode,
-          contact: emailData,
-          representative: representative,
-          emailMessage: emailMessage,
-          city: city,
-          party: party,
-          clientId: clientId,
-          sended: sended,
-        },
-        overrideAccess: true,
-      });*/
       res.json({
         success: true,
         message: "leads created",
@@ -90,17 +31,6 @@ const questionsController = require("../controllers/questions")
     try {
       const query = req.query;
       const allLeads = await leadController.getAllLeads(query)
-    /*  const leads = await payload.find({
-        collection: "conversiones",
-        sort: "-updatedAt",
-        limit: 0,
-        depth: 0,
-        where: {
-          clientId: {
-            equals: query.clientId,
-          },
-        },
-      }); */
       res.json({
         success: true,
         message: "leads found",
@@ -118,17 +48,6 @@ const questionsController = require("../controllers/questions")
     try {
       const query = req.query;
       const tweets = await tweetController(query)
-     /* const tweets = await payload.find({
-        collection: "tweets",
-        sort: "-updatedAt",
-        limit: 1,
-        depth: 0,
-        where: {
-          clientId: {
-            equals: query.clientId,
-          },
-        },
-      });*/
       res.json({
         success: true,
         message: "tweets found",
@@ -146,17 +65,6 @@ const questionsController = require("../controllers/questions")
     try {
       const query = req.query;
       const content = await mainContentController(query)
-     /* const content = await payload.find({
-        collection: "paginas-principales",
-        sort: "-updatedAt",
-        limit: 1,
-        depth: 0,
-        where: {
-          clientId: {
-            equals: query.clientId,
-          },
-        },
-      });*/
       res.json({
         success: true,
         message: "pagecontent found",
@@ -173,19 +81,7 @@ const questionsController = require("../controllers/questions")
   router.get("/email-message", async (req, res) => {
     try {
       const query = req.query;
-      console.log(query)
       const content = await emailMessageController(query)
-     /* const content = await payload.find({
-        collection: "emails",
-        sort: "-updatedAt",
-        limit: 1,
-        depth: 0,
-        where: {
-          clientId: {
-            equals: query.clientId,
-          },
-        },
-      });*/
       res.json({
         success: true,
         message: "emails content found",
@@ -203,17 +99,6 @@ const questionsController = require("../controllers/questions")
     try {
       const query = req.query;
       const content = await typMessageController(query)
-      /*const content = await payload.find({
-        collection: "mensaje-de-agradecimientos",
-        sort: "-updatedAt",
-        limit: 1,
-        depth: 0,
-        where: {
-          clientId: {
-            equals: query.clientId,
-          },
-        },
-      });*/
       res.json({
         success: true,
         message: "typ content found",
@@ -231,23 +116,6 @@ const questionsController = require("../controllers/questions")
     try {
       const query = req.query;
       const content = await representativesmxController.representativesmxByCP(query)
-     /* const content = await payload.find({
-        collection: "diputados-y-senadores",
-        sort: "-updatedAt",
-        depth: 0,
-        where: {
-          clientId: {
-            equals: query.clientId,
-          },
-          and: [
-            {
-              postalcode: {
-                equals: query.postalcode,
-              },
-            },
-          ],
-        },
-      });*/
       let data = content.docs;
       res.json({
         success: true,
@@ -266,23 +134,6 @@ const questionsController = require("../controllers/questions")
     try {
       const query = req.query;
       const content = await representativesmxController.representativesmxByState(query)
-      /*const content = await payload.find({
-        collection: "diputados-y-senadores",
-        sort: "-updatedAt",
-        depth: 0,
-        where: {
-          clientId: {
-            equals: query.clientId,
-          },
-          and: [
-            {
-              state: {
-                equals: query.state,
-              },
-            },
-          ],
-        },
-      });*/
       let data = content.docs;
       res.json({
         success: true,
@@ -302,17 +153,6 @@ const questionsController = require("../controllers/questions")
       const query = req.query;
       console.log(query);
       const content = await representativesmxController.getAll(query)
-      /*const content = await payload.find({
-        collection: "diputados-y-senadores",
-        sort: "-updatedAt",
-        limit: 0,
-        where: {
-          clientId: {
-            equals: query.clientId,
-          },
-        },
-      });*/
-      console.log(content)
       let data = content.docs;
       res.json({
         success: true,
@@ -329,20 +169,8 @@ const questionsController = require("../controllers/questions")
   });
   router.get("/all-senators", async (req, res) => {
     try {
-      console.log("here");
       const query = req.query;
       const content = await representativesausController.getAll(query)
-     /* const content = await payload.find({
-        collection: "senators-and-mps",
-        sort: "-updatedAt",
-        limit: 0,
-        depth: 0,
-        where: {
-          clientId: {
-            equals: query.clientId,
-          },
-        },
-      });*/
       let data = content.docs;
       res.json({
         success: true,
@@ -426,17 +254,7 @@ const questionsController = require("../controllers/questions")
     try {
       const query = req.query;
       const content = await questionsController(query)
-      /*const content = await payload.find({
-        collection: "questions",
-        sort: "-updatedAt",
-        limit: 1,
-        depth: 0,
-        where: {
-          clientId: {
-            equals: query.clientId,
-          },
-        },
-      });*/
+
       res.json({
         success: true,
         message: "questions content found",
