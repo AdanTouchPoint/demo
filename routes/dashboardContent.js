@@ -299,8 +299,8 @@ const questionsController = require("../controllers/questions")
   });
   router.get("/all-representatives", async (req, res) => {
     try {
-      console.log("here");
       const query = req.query;
+      console.log(query);
       const content = await representativesmxController.getAll(query)
       /*const content = await payload.find({
         collection: "diputados-y-senadores",
@@ -312,6 +312,7 @@ const questionsController = require("../controllers/questions")
           },
         },
       });*/
+      console.log(content)
       let data = content.docs;
       res.json({
         success: true,
