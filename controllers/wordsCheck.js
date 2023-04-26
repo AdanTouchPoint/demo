@@ -1,5 +1,5 @@
 const checker = ( questions,keywords ) => {
-    for (let key in questions) {
+   for (let key in questions) {
         if (questions.hasOwnProperty(key)) {
           let value = questions[key];
           for (let i = 0; i < keywords.length; i++) {
@@ -10,6 +10,7 @@ const checker = ( questions,keywords ) => {
           questions[key] = value;
         }
       }
+      return questions
 }
 
 module.exports = checker

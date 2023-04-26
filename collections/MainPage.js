@@ -235,7 +235,7 @@ const MainPAge = {
           fields:[
             {
               label: { es: "Etiqueta Asunto", en: "Subject label" },
-              name: "infoRepLabel", // required
+              name: "subjectLabel", // required
               type: "text", // required
               admin: {
                 width: "50%",

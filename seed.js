@@ -10,19 +10,19 @@ export const seed = async (payload = Payload) => {
       collection: 'senators-and-mps',
       data: {
         clientId:element.clientId,
-        labelpostcode: element.LabelPostCode?.toString(),
+        labelpostcode: element.labelpostcode?.toString(),
         division: element.division,
-        name: element.Name,
-        phone: element.Phone,
-        addres: element.Addres,
-        state: element.State,
-        city: element.City,
-        party: element.Party,
+        name: element.name,
+        phone: element.phone,
+        addres: element.addres,
+        state: element.state,
+        city: element.city,
+        party: element.party,
         email: element.email,
         twitter: element.twitter,
         govt_type: element.govt_type,
         vote_type: element.vote_type,
-        electorates: element.Electorates,
+        electorates: element.electorates,
       }
     })
   })

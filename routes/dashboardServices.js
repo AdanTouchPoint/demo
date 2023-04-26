@@ -2,8 +2,8 @@ const {Router} = require('express');
 const router = Router();
 const processExcel = require("../controllers/convertToXls")
 const sendEmail = require("../controllers/emailController");
-const keywords = require("../controllers/restrictedWords.js")
-
+const keywords = require("../controllers/restrictedWords.js");
+const checker = require('../controllers/wordsCheck');
 
 router.get("/xls-process", async (req, res) => {
     try {
@@ -47,25 +47,14 @@ router.get("/xls-process", async (req, res) => {
   router.get("/email-builder", async (req, res) => {
     const query = req.query;
     try {
-      let questions = JSON.parse(query.questions);
-      for (let key in questions) {
-        if (questions.hasOwnProperty(key)) {
-          let value = questions[key];
-          for (let i = 0; i < keywords.length; i++) {
-            if (value.includes(keywords[i])) {
-              value = value.replace(new RegExp(keywords[i], "gi"), "abcd");
-            }
-          }
-          questions[key] = value;
-        }
-      }
-      let input = [];
-      input.push({
-        user: JSON.parse(query.user),
-        questions: questions,
-      });
-      console.log(input[0]);
-      let email = await sendEmail.emailBuilder(input[0]);
+     let email 
+     let user = JSON.parse(query.user)
+     let questions = JSON.parse(query.questions);
+     const checkText = await checker(questions, keywords)
+     if(checkText)
+     {
+      email = await sendEmail.emailBuilder(questions,user);
+     }
       res.json({
         success: true,
         data: email,
