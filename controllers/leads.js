@@ -11,6 +11,7 @@ const createLeads = async (query) => {
         party,
         sended,
         clientId,
+        subject
       } = query;
     const leads = await payload.create({
         collection: "conversiones", // required
@@ -25,6 +26,7 @@ const createLeads = async (query) => {
           party: party,
           clientId: clientId,
           sended: sended,
+          subject:subject
         },
         overrideAccess: true,
       });
