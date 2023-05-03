@@ -45,6 +45,7 @@ const getAllLeads = async (query) => {
           },
         },
       });
+      return leads
 }
 
 module.exports = { createLeads,getAllLeads}

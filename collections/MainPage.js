@@ -56,6 +56,16 @@ const MainPAge = {
           name: "instructions", // required
           type: "textarea", // required
         },
+        {
+          label: { es: "Titulo barra de progreso", en: "progressBar title" },
+          name: "progressBarTitle", // required
+          type: "text", // required
+        },
+        {
+          label: { es: "Subtitulo barra de progreso", en: "progressBar subtitle" },
+          name: "progressBarSubtitle", // required
+          type: "text", // required
+        },
       ],
     },
     {

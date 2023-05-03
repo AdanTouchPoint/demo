@@ -34,7 +34,7 @@ const questionsController = require("../controllers/questions")
       res.json({
         success: true,
         message: "leads found",
-        data: allLeads,
+        data: allLeads.totalDocs,
       });
     } catch (error) {
       res.status(400);
