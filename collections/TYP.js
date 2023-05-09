@@ -37,6 +37,11 @@ const ThankYouMessage = {
             type: 'text', // required
           },
           {
+            label: {es:'Texto compartir ', en:'Share Text'},
+            name: 'shareText', // required
+            type: 'text', // required
+          },
+          {
             label: {es:'Boton Repetir', en:'Repeat Button'},
             name: 'repeatButtonTyp', // required
             type: 'text', // required
