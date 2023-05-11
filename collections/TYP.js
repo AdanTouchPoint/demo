@@ -37,8 +37,18 @@ const ThankYouMessage = {
             type: 'text', // required
           },
           {
-            label: {es:'Texto compartir ', en:'Share Text'},
-            name: 'shareText', // required
+            label: {es:'Etiqueta compartir ', en:'Share Label'},
+            name: 'shareLabel', // required
+            type: 'text', // required
+          },
+                    {
+            label: {es:'Url a compartir ', en:'Share Url'},
+            name: 'shareUrl', // required
+            type: 'text', // required
+          },
+                    {
+            label: {es:'Mensaje a compartir ', en:'Share Message'},
+            name: 'shareMessage', // required
             type: 'text', // required
           },
           {
