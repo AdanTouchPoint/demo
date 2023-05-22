@@ -50,6 +50,7 @@ const getAll = async (query) => {
         collection: "diputados-y-senadores",
         sort: "-updatedAt",
         limit: 0,
+        depth: 0,
         where: {
           clientId: {
             equals: clientId,
