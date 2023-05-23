@@ -14,7 +14,7 @@ function contact_email(input) {
         to: sendTo, //{sendTo}
         subject: subject,
         from: {
-            "name": ` ${firstName} <<${emailData}>>`,
+            "name": ` ${firstName} <${emailData}>`,
             "email": 'contact@touchpoint-intl.com',
         },
         replyTo: `${emailData}`,
@@ -56,7 +56,7 @@ console.log(batch)
         to: batch, //{sendTo}
         subject: subject,
         from: {
-            "name": ` ${firstName} <<${emailData}>>`,
+            "name": ` ${firstName} <${emailData}>`,
             "email": 'contact@touchpoint-intl.com',
         },
         replyTo: `${emailData}`,
@@ -126,7 +126,7 @@ function sendOther(input) {
     const msg = {
         to: 'adan.mijangos@touchpointmarketing.mx',
         from: {
-            "name": ` ${ input.user.firstName} ${input.user.lastName} <<${input.user.email}>>`,
+            "name": ` ${ input.user.firstName} ${input.user.lastName} <${input.user.email}>`,
             "email": 'contact@touchpoint-intl.com',
         },
         subject: 'Legalize Vaping',
@@ -166,7 +166,7 @@ console.log(questions)
         to: `${user.email}`, //{sendTo}
         subject: 'Email Builder',
         from: {
-            "name": ` ${user.name} <<${user.emailUser}>>`,
+            "name": ` ${user.name} <${user.emailUser}>`,
             "email": 'contact@touchpoint-intl.com',
         },
         replyTo: `${user.emailUser}`,
