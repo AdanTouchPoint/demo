@@ -156,7 +156,47 @@ export const isAdminOrSelf = ( user ) => {
       const type = user.req.user.type
       const role = user.req.user.roles
       // If user has role of 'admin'
-      if (role === 'admin' || type === 'SB') {
+      if (role === 'admin' || type === 'SB' || type === 'SB2') {
+        const clientId = user.req.user.id
+      const query = {
+          clientId: {
+              equals: clientId,
+            }
+      }
+      return query;
+     
+      }
+      return false
+    }
+  }
+
+  export const isAdminOrPCorSB = ( user ) => {
+    console.log(user.req.user.plan)
+    // Need to be logged in
+    if (user) {
+      const type = user.req.user.type
+      const role = user.req.user.roles
+      // If user has role of 'admin'
+      if (role === 'admin' || type === 'SB' || type === 'PC') {
+        const clientId = user.req.user.id
+      const query = {
+          clientId: {
+              equals: clientId,
+            }
+      }
+      return query;
+      }
+      return false
+    }
+  }
+  export const isAdminOrSB2 = ( user ) => {
+    console.log(user.req.user.plan)
+    // Need to be logged in
+    if (user) {
+      const type = user.req.user.type
+      const role = user.req.user.roles
+      // If user has role of 'admin'
+      if (role === 'admin' || type === 'SB2') {
         const clientId = user.req.user.id
       const query = {
           clientId: {

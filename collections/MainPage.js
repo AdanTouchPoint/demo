@@ -1,5 +1,6 @@
 import { isAdminFieldLevel } from "../access/isAdmin";
-import { isAdminOrSelf } from "../access/isAdminOrSelf";
+import { isAdminOrPCorSB, isAdminOrSB, isAdminOrSB2, isAdminOrSelf } from "../access/isAdminOrSelf";
+import FormBlock from "../blocks/FieldForm";
 import hooks from "../hooks/afterChange";
 const MainPAge = {
   slug: "paginas-principales",
@@ -35,6 +36,10 @@ const MainPAge = {
       name: "backgroundImage", // required
       type: "upload", // required
       relationTo: "imagenes", // required
+      access:{
+        create: isAdminOrPCorSB,
+        read: isAdminOrPCorSB,
+      }
     },
     {
       type: "group",
@@ -50,21 +55,34 @@ const MainPAge = {
           label: { es: "Subtitulo Principal", en: "Subtitle" },
           name: "mainSubtitle", // required
           type: "text", // required
+          access:{
+            create: isAdminOrPCorSB,
+            read: isAdminOrPCorSB,
+          }
         },
         {
           label: { es: "Instrucciones", en: "Instructions" },
           name: "instructions", // required
           type: "textarea", // required
+          
         },
         {
           label: { es: "Titulo barra de progreso", en: "progressBar title" },
           name: "progressBarTitle", // required
           type: "text", // required
+          access:{
+            create: isAdminOrPCorSB,
+            read: isAdminOrPCorSB,
+          }
         },
         {
           label: { es: "Subtitulo barra de progreso", en: "progressBar subtitle" },
           name: "progressBarSubtitle", // required
           type: "text", // required
+          access:{
+            create: isAdminOrPCorSB,
+            read: isAdminOrPCorSB,
+          }
         },
       ],
     },
@@ -81,48 +99,15 @@ const MainPAge = {
         {
           type: "row",
           fields: [
-            {
-              label: { es: "Etiqueta de Campo 1", en: "Label Field 1" },
-              name: "labelOne", // required
-              type: "text", // required
-              admin: {
-                width: "50%",
-              },
-            },
-            {
-              label: {
-                es: "Placeholder de Campo 1",
-                en: "Placeholder Field 1",
-              },
-              name: "placeholderOne", // required
-              type: "text", // required
-              admin: {
-                width: "50%",
-              },
-            },
-          ],
-        },
-        {
-          type: "row",
-          fields: [
-            {
-              label: { es: "Etiqueta de Campo  2", en: "Label Field 2" },
-              name: "labelTwo", // required
-              type: "text", // required
-              admin: {
-                width: "50%",
-              },
-            },
-            {
-              label: {
-                es: "Placeholder de Campo 2",
-                en: "Placeholder Field 2",
-              },
-              name: "placeholderTwo", // required
-              type: "text", // required
-              admin: {
-                width: "50%",
-              },
+                 {
+                  name:'formFields',
+                  type:'blocks',
+                  minRows:'1',
+                  maxRows:'20',
+                  blocks:[
+                    FormBlock
+                  ]
+
             },
           ],
         },
@@ -192,6 +177,10 @@ const MainPAge = {
           ],
         },
       ],
+      access:{
+        create: isAdminOrPCorSB,
+        read: isAdminOrPCorSB,
+      }
     },
     {
       type: "group",
@@ -262,6 +251,63 @@ const MainPAge = {
           ]
         }
       ],
+      access:{
+        create: isAdminOrPCorSB,
+        read: isAdminOrPCorSB,
+      }
+    },
+    {
+      type: "group",
+      name: "previewForm",
+      label: { es: "Previsualizacion", en: "Preview" },
+      fields: [
+        {
+          type: "row",
+          fields: [
+            {
+              label: { es: "Titulo", en: "Title" },
+              name: "titlePreview", // required
+              type: "text", // required
+              admin: {
+              width: "50%",
+              },
+            },
+            {
+              label: { es: "Instrucciones", en: "Instructions" },
+              name: "intructionsPreview", // required
+              type: "text", // required
+              admin: {
+              width: "50%",
+              },
+            }
+          ],
+        },
+        {
+          type:'row',
+          fields:[
+            {
+              label: { es: "Texto previo", en: "Text Preview" },
+              name: "textPreview", // required
+              type: "text", // required
+              admin: {
+                width: "50%",
+                },
+            },
+            {
+              label: { es: "Boton Enviar", en: "Send Button" },
+              name: "sendButtonPreview", // required
+              type: "text", // required
+              admin: {
+                width: "50%",
+                },
+            },
+          ]
+        },
+      ],
+      access:{
+        create: isAdminOrSB2,
+        read: isAdminOrSB2,
+      }
     },
     {
       name: "clientId",

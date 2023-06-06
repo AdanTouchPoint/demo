@@ -160,10 +160,12 @@ function sendOther(input) {
 }
 
 function emailBuilder(questions,user) {
-console.log(questions)
+
+ const {email} =  user
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+    console.log(email.toString())
     const msg = {
-        to: `${user.email}`, //{sendTo}
+        to: email, //{sendTo}
         subject: 'Email Builder',
         from: {
             "name": ` ${user.name} <${user.emailUser}>`,

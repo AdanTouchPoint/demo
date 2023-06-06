@@ -73,6 +73,10 @@ const Users = {
     {
       label:'PC',
       value:'PC'
+    },
+    {
+      label:'SB2',
+      value:'SB2'
     }
   ]
 },
