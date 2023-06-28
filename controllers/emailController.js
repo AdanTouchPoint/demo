@@ -15,7 +15,7 @@ function contact_email(input) {
         subject: subject,
         from: {
             "name": ` ${firstName} <${emailData}>`,
-            "email": 'contact@touchpoint-intl.com',
+            "email": 'contact@overton.services',
         },
         replyTo: `${emailData}`,
         bcc:  'domainstpm@gmail.com',

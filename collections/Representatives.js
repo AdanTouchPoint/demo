@@ -28,7 +28,6 @@ const Representatives = {
       label: "apellidos",
       name: "lastName",
       type: "text",
-      required: true,
     },
     {
       label: "codigo postal",
@@ -68,6 +67,11 @@ const Representatives = {
     {
       label: "instagram",
       name: "instagram",
+      type: "text",
+    },
+     {
+      label: "tipo",
+      name: "govt_type",
       type: "text",
     },
     {

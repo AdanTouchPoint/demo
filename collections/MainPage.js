@@ -98,9 +98,11 @@ const MainPAge = {
         },
         {
           type: "row",
+          label:{es:'Input', en:'Input'},
           fields: [
                  {
                   name:'formFields',
+                  label:{es:'Campos del Formulario', en:'Form Fields'},
                   type:'blocks',
                   minRows:'1',
                   maxRows:'20',
@@ -167,7 +169,7 @@ const MainPAge = {
               },
             },
             {
-              label: { es: "Etiqueta Mps", en: "Mps Label" },
+              label: { es: "Etiqueta Diputados", en: "Mps Label" },
               name: "mpLabel", // required
               type: "text", // required
               admin: {

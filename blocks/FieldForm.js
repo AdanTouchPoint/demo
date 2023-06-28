@@ -1,7 +1,7 @@
 const FormBlock = {
-    slug: 'fieldForm', // required
+    slug: 'input', // required
     imageURL: 'https://google.com/path/to/image.jpg',
-    imageAltText: 'A nice thumbnail image to show what this block looks like',
+    //imageAltText: 'A nice thumbnail image to show what this block looks like',
     fields: [ // required
       {
         name: 'label',
@@ -19,35 +19,35 @@ const FormBlock = {
         saveToJWT: true,
         options: [
           {
-            label: 'Name',
+            label: {es:'Nombre', en:'Name'},
             value:'name'
           },
           {
-            label:'Last Name',
+            label:{es:'Apellido', en:'Last Name'},
             value:'lastName'
           },
           {
-            label:'emailUser',
+            label:{es:'Email', en:'Email'},
             value:'emailUser'
           },
           {
-            label:'State',
+            label:{es:'Estado', en:'State'},
             value:'state'
           },
           {
-            label:'Postal Code',
+            label:{es:'Codigo Postal', en:'Postal Code'},
             value:'postalCode'
           },
           {
-            label:'Age',
+            label:{es:'Edad', en:'Age'},
             value:'age'
           },
           {
-            label:'City',
+            label:{es:'Ciudad', en:'City'},
             value:'city'
           },
           {
-            label:'Other',
+            label:{es:'Otro', en:'Other'},
             value:'other'
           },
         ]
