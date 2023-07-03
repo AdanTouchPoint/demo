@@ -4,13 +4,10 @@
 
 _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local._
 
-Mira **Deployment** para conocer como desplegar el proyecto.
-
-
 ### Pre-requisitos 📋
 
-_NodeJS_
-_Servidor local o URI de mongoDB_
+- NodeJS
+- Servidor local o URI de mongoDB
 
 
 ### Instalación 🔧
