@@ -1,9 +1,6 @@
-# test
+## Como Usar
 
-This project was created using create-payload-app using the js-blank template.
-
-## How to Use
-
-`yarn dev` will start up your application and reload on any changes.
-
-If you have docker and docker-compose installed, you can run `docker-compose up`
+1.- Clona o descarga el proyecto en tu entorno local.
+2.- Instala el proyecto y sus dependencias  con el comando "npm install".
+3.- Pegar el archivo .env correspondiente en la raiz del proyecto.
+4.- Insertar una URI de mongo para este proyecto  en el archivo .env (necesario para poder correr el proyecto).
