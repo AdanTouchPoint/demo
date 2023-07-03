@@ -1,6 +1,6 @@
 const FormBlock = {
-    slug: 'input', // required
-    imageURL: 'https://google.com/path/to/image.jpg',
+    slug: 'Input',
+   // imageURL: 'https://google.com/path/to/image.jpg',
     //imageAltText: 'A nice thumbnail image to show what this block looks like',
     fields: [ // required
       {
