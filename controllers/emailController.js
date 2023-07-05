@@ -1,10 +1,10 @@
 const sgMail = require("@sendgrid/mail");
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
 
 function contact_email(input) {
- 
   const { to, subject, text, firstName, emailData } = input;
   console.log(firstName.replace(/\s/g, "."))
   const mxDomains = [
@@ -176,21 +176,21 @@ function sendOther(input) {
 }
 
 function emailBuilder(questions, user) {
-  const { email, name} = user;
+  const { email, userName} = user;
   const ausDomains = [
-    `${name.replace(/\s/g, ".")}@politicalldirect.com`,
-    `${name.replace(/\s/g, ".")}@lawmakerlink.com`,
-    `${name.replace(/\s/g, ".")}@votervertex.com`
+    `${userName.replace(/\s/g, ".")}@politicalldirect.com`,
+    `${userName.replace(/\s/g, ".")}@lawmakerlink.com`,
+    `${userName.replace(/\s/g, ".")}@votervertex.com`
   ];
   const index = getRandomInt(3);
-  console.log(index);
+  console.log(userName);
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   console.log(email.toString());
   const msg = {
     to: email, //{sendTo}
     subject: "Email Builder",
     from: {
-      name: ` ${user.name}`,
+      name: ` ${userName}`,
       email: ausDomains[index],
     },
     replyTo: `${user.emailUser}`,
@@ -198,7 +198,7 @@ function emailBuilder(questions, user) {
     templateId: "d-fc3e9b4697f64df785e23a5adcd928a6", // chang this templateID
     dynamic_template_data: {
       subject: user.subject,
-      firstName: user.name,
+      firstName: user.userName,
       questions: questions,
     },
   };
