@@ -6,7 +6,7 @@ function getRandomInt(max) {
 
 function contact_email(input) {
   const { to, subject, text, firstName, emailData } = input;
-  console.log(firstName.replace(/\s/g, "."))
+  //console.log(firstName.replace(/\s/g, "."))
   const mxDomains = [
     `${firstName.replace(/\s/g, ".")}@puentepublico.com`,
     `${firstName.replace(/\s/g, ".")}@vozvotante.com`,

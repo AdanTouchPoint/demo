@@ -1,4 +1,4 @@
-const FormBlock = {
+const configFields = {
     slug: 'Input',
    // imageURL: 'https://google.com/path/to/image.jpg',
     //imageAltText: 'A nice thumbnail image to show what this block looks like',
@@ -54,4 +54,4 @@ const FormBlock = {
       },
     ]
   };
-  module.exports = FormBlock
+  module.exports = configFields

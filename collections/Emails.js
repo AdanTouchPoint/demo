@@ -41,7 +41,6 @@ const Emails = {
         elements: ["h2", "h3", "h4", "h5", "h6", "link", "upload", "ul", "ol"],
         leaves: ["bold", "italic", "underline", "highlight", "quote"],
         link: {
-          // Inject your own fields into the Link element
           fields: [
             {
               name: "rel",

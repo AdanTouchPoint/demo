@@ -109,7 +109,6 @@ const MainPAge = {
                   blocks:[
                     FormBlock
                   ]
-
             },
           ],
         },

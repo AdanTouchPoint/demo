@@ -20,8 +20,8 @@ const representativesmxByCP = async (query) => {
         },
       });
       return content
-}
-
+    }    
+    
 const representativesmxByState = async (query) => {
   const {clientId, state} =  query
     const content = await payload.find({
@@ -37,6 +37,28 @@ const representativesmxByState = async (query) => {
             {
               state: {
                 equals: state,
+              },
+            },
+          ],
+        },
+      });
+      return content
+}
+const representativesmxByParty = async (query) => {
+  const {clientId, party} =  query
+    const content = await payload.find({
+        collection: "diputados-y-senadores",
+        sort: "-updatedAt",
+        depth: 0,
+        limit: 0,
+        where: {
+          clientId: {
+            equals: clientId,
+          },
+          and: [
+            {
+              party: {
+                equals: party,
               },
             },
           ],
@@ -60,4 +82,4 @@ const getAll = async (query) => {
       return content
 }
 
-module.exports = {representativesmxByCP,representativesmxByState, getAll}
+module.exports = {representativesmxByCP,representativesmxByState, getAll,representativesmxByParty}

@@ -9,7 +9,32 @@ const typMessageController = require("../controllers/typMessage");
 const representativesmxController = require("../controllers/representativesMX");
 const representativesausController = require("../controllers/representativesAUS");
 const questionsController = require("../controllers/questions");
+const ConfsController = require("../controllers/confsController");
 
+router.get("/confs", async (req, res) => {
+  try {
+    const query = req.query;
+    const confs = await ConfsController.Confs(query);
+    const newData = [{
+      "lenguage": confs.docs[0].lenguage.lenguage,
+      "SearchBy": confs.docs[0].SearchBy.SearchBy,
+      "sendMany": confs.docs[0].sendMany.sendMany,
+      "region": confs.docs[0].region.region,
+      "filter": confs.docs[0].filter.filter
+    }]
+    res.json({
+      success: true,
+      message: "confs founded",
+      data: newData,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 router.post("/leads", async (req, res) => {
   try {
     const query = req.query;
@@ -112,7 +137,7 @@ router.get("/typ-message", async (req, res) => {
     });
   }
 });
-router.get("/representatives", async (req, res) => {
+router.get("/representatives-cp", async (req, res) => {
   try {
     const query = req.query;
     const content = await representativesmxController.representativesmxByCP(
@@ -136,6 +161,26 @@ router.get("/representatives-state", async (req, res) => {
   try {
     const query = req.query;
     const content = await representativesmxController.representativesmxByState(
+      query
+    );
+    let data = content.docs;
+    res.json({
+      success: true,
+      message: "representatives found",
+      data: data,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+router.get("/representatives-party", async (req, res) => {
+  try {
+    const query = req.query;
+    const content = await representativesmxController.representativesmxByParty(
       query
     );
     let data = content.docs;
@@ -225,12 +270,12 @@ router.get("/find-mp", async (req, res) => {
           limit: 0,
           where: {
             clientId: {
-              equals: resp[0][0].clientId,
+              equals: resp[0][0]?.clientId ? resp[0][0]?.clientId : resp[1][0]?.clientId ,
             },
             and: [
               {
                 state: {
-                  equals: resp[0][0].state,
+                  equals: resp[0][0]?.state ? resp[0][0]?.state : resp[1][0]?.state ,
                 },
               },
             ],

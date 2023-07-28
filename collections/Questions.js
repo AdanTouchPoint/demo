@@ -42,7 +42,6 @@ const Questions = {
         ]
       },
       {
-
         name: 'clientId',
         type: 'relationship',
         relationTo: 'users',
