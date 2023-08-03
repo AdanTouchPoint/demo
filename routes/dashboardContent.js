@@ -9,8 +9,53 @@ const typMessageController = require("../controllers/typMessage");
 const representativesmxController = require("../controllers/representativesMX");
 const representativesausController = require("../controllers/representativesAUS");
 const questionsController = require("../controllers/questions");
-const ConfsController = require("../controllers/confsController");
+const Forms = require("../controllers/formController");
 
+router.get("/representatives-aus-cp", async (req, res) => {
+  try {
+    const query = req.query;
+    const content = await representativesausController.representativesAusByCP(
+      query
+    );
+    let data = content.docs;
+    res.json({
+      success: true,
+      message: "representatives found",
+      data: data,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+router.get("/forms", async (req, res) => {
+  try {
+    const query = req.query;
+    const data = await Forms.Forms(query);
+    console.log(data)
+   /* const newData = [{
+      "lenguage": confs.docs[0].lenguage.lenguage,
+      "SearchBy": confs.docs[0].SearchBy.SearchBy,
+      "sendMany": confs.docs[0].sendMany.sendMany,
+      "region": confs.docs[0].region.region,
+      "filter": confs.docs[0].filter.filter
+    }] */
+    res.json({
+      success: true,
+      message: "confs founded",
+      data: data,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 router.get("/confs", async (req, res) => {
   try {
     const query = req.query;
@@ -37,7 +82,9 @@ router.get("/confs", async (req, res) => {
 });
 router.post("/leads", async (req, res) => {
   try {
+    
     const query = req.query;
+    console.log(req.query)
     const create = await leadController.createLeads(query);
     res.json({
       success: true,
@@ -283,7 +330,7 @@ router.get("/find-mp", async (req, res) => {
         });
         let response = states.docs;
         statesFilter = response.filter(
-          (senator) => senator.govt_type === "Federal Senators"
+          (senator) => senator.govt_type === "Federal Senators" || senator.govt_type === "State Senators"
         );
       });
     res.json({
