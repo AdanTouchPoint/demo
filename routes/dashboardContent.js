@@ -330,7 +330,7 @@ router.get("/find-mp", async (req, res) => {
         });
         let response = states.docs;
         statesFilter = response.filter(
-          (senator) => senator.govt_type === "Federal Senators" || senator.govt_type === "State Senators"
+          (senator) => senator.govt_type === "Federal Senators"
         );
       });
     res.json({
@@ -347,6 +347,128 @@ router.get("/find-mp", async (req, res) => {
     });
   }
 });
+
+router.get("/find-states-reps", async (req, res) => {
+function  eliminarDuplicadosPorEmail(arrayObjetos) {
+    // Paso 1: Identificar los objetos duplicados
+    const correosVistos = {};
+    const objetosDuplicados = [];
+  
+    arrayObjetos.forEach((objeto) => {
+      const email = objeto.email;
+      if (correosVistos[email]) {
+        objetosDuplicados.push(objeto);
+      } else {
+        correosVistos[email] = true;
+      }
+    });
+  
+    // Paso 2: Filtrar el array original
+    const arrayFiltrado = arrayObjetos.filter(
+      (objeto) => !objetosDuplicados.includes(objeto)
+    );
+  
+    return arrayFiltrado;
+  }
+  function  eliminarDuplicadosPorDivision(arrayObjetos) {
+    // Paso 1: Identificar los objetos duplicados
+    const correosVistos = {};
+    const objetosDuplicados = [];
+  
+    arrayObjetos.forEach((objeto) => {
+      const divison = objeto.division;
+      if (correosVistos[divison]) {
+        objetosDuplicados.push(objeto);
+      } else {
+        correosVistos[divison] = true;
+      }
+    });
+  
+    // Paso 2: Filtrar el array original
+    const arrayFiltrado = arrayObjetos.filter(
+      (objeto) => !objetosDuplicados.includes(objeto)
+    );
+  
+    return arrayFiltrado;
+  }
+  try {
+    const query = req.query;
+    let resp = [];
+    let statesFilter = [];
+    let mpsMap = []
+    let sen = []
+    let mpsFilter = []
+    console.log(query);
+    const data = await representativesausController.getElectorate(query);
+    const divFilter = await eliminarDuplicadosPorDivision(data)
+    console.log(divFilter);
+    if (data.length === 0) {
+      console.log("hola");
+      return res.json({
+        message: "Postal Code has not Found",
+        data: data,
+        statesFilter,
+        success: true,
+      });
+    }
+    await Promise.all(
+      divFilter.map(async (el) => {
+        console.log(el)
+        let request = await representativesausController.getDivision(el);
+        return request;
+      })
+    )
+      .then(async (request)  => {
+        resp = request.map((el) => {
+          return el;
+        });
+         mpsMap= resp.map((el)=> {
+        return  eliminarDuplicadosPorEmail(el)
+        })
+        console.log(mpsMap)
+      })
+      .then(async () => {
+        const states = await payload.find({
+          collection: "senators-and-mps",
+          sort: "-updatedAt",
+          depth: 0,
+          limit: 0,
+          where: {
+            clientId: {
+              equals: query.clientId ,
+            },
+            and: [
+              {
+                postalcode: {
+                  equals: query.postcode ,
+                },
+              },
+            ],
+          },
+        });
+        let response = states.docs;
+        statesFilter = response.filter(
+          (senator) => senator.govt_type === "State Senators"
+        );
+      }).then( async() =>{
+        console.log(resp.length, statesFilter.length)
+        sen = eliminarDuplicadosPorEmail(statesFilter)
+      })
+      res.json({
+        success: true,
+        message: "all representatives found",
+        data: mpsMap,
+        sen,
+      });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
 router.get("/questions", async (req, res) => {
   try {
     const query = req.query;
@@ -365,4 +487,7 @@ router.get("/questions", async (req, res) => {
     });
   }
 });
+
+
 module.exports = router;
+
