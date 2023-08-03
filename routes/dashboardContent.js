@@ -9,7 +9,7 @@ const typMessageController = require("../controllers/typMessage");
 const representativesmxController = require("../controllers/representativesMX");
 const representativesausController = require("../controllers/representativesAUS");
 const questionsController = require("../controllers/questions");
-const Forms = require("../controllers/formController");
+//const Forms = require("../controllers/formController");
 
 router.get("/representatives-aus-cp", async (req, res) => {
   try {
@@ -31,19 +31,19 @@ router.get("/representatives-aus-cp", async (req, res) => {
     });
   }
 });
-router.get("/forms", async (req, res) => {
+/*router.get("/forms", async (req, res) => {
   try {
     const query = req.query;
     const data = await Forms.Forms(query);
     console.log(data)
-   /* const newData = [{
+ const newData = [{
       "lenguage": confs.docs[0].lenguage.lenguage,
       "SearchBy": confs.docs[0].SearchBy.SearchBy,
       "sendMany": confs.docs[0].sendMany.sendMany,
       "region": confs.docs[0].region.region,
       "filter": confs.docs[0].filter.filter
-    }] */
-    res.json({
+    }] 
+   res.json({
       success: true,
       message: "confs founded",
       data: data,
@@ -55,7 +55,7 @@ router.get("/forms", async (req, res) => {
       message: error.message,
     });
   }
-});
+});*/
 router.get("/confs", async (req, res) => {
   try {
     const query = req.query;
