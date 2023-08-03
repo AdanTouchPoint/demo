@@ -10,8 +10,8 @@ const representativesmxController = require("../controllers/representativesMX");
 const representativesausController = require("../controllers/representativesAUS");
 const questionsController = require("../controllers/questions");
 //const Forms = require("../controllers/formController");
-
-router.get("/representatives-aus-cp", async (req, res) => {
+const ConfsController = require("../controllers/confsController")
+/*router.get("/representatives-aus-cp", async (req, res) => {
   try {
     const query = req.query;
     const content = await representativesausController.representativesAusByCP(
@@ -30,7 +30,7 @@ router.get("/representatives-aus-cp", async (req, res) => {
       message: error.message,
     });
   }
-});
+}); */
 /*router.get("/forms", async (req, res) => {
   try {
     const query = req.query;
