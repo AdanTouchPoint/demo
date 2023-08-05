@@ -1,5 +1,5 @@
 import { isAdminFieldLevel } from "../access/isAdmin";
-import { isAdminOrSB } from "../access/isAdminOrSelf";
+import {  isAdminOrSelf } from "../access/isAdminOrSelf";
 const pageConfig = {
   slug: "page-config",
   admin: {
@@ -9,7 +9,16 @@ const pageConfig = {
         en: "Here you can find some configurations of your page. \n Like the language, the search method, group sending and the country to which the page is directed.",
     },
   },
-  access: {},
+  access: {
+        // Only admins can create users
+        create: isAdminOrSelf,
+        // Admins can read all, but any other logged in user can only read themselves
+        read: isAdminOrSelf,
+        // Admins can update all, but any other logged in user can only update themselves
+        update: isAdminOrSelf,
+        // Only admins can delete
+        delete: isAdminOrSelf,
+  },
   fields: [
     {
       type: "group",
@@ -199,11 +208,15 @@ const pageConfig = {
           options: [
             {
               label: "N/A",
-              value: "N/A",
+              value: "No",
             },
             {
               label: "Party",
               value: "party",
+            },
+            {
+              label: "State",
+              value: "state",
             }
           ],// The first value in options.
           admin: {

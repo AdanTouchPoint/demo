@@ -50,6 +50,10 @@ const FormBlock = {
             label:{es:'Partido', en:'Party'},
             value:'party'
           },
+          {
+            label:{es:'Mensaje', en:'Message'},
+            value:'message'
+          },
         ]
       },
     ]

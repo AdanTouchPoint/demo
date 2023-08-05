@@ -12,6 +12,7 @@ import ThankYouMessage from './collections/TYP';
 import Tweet from './collections/TweetMessage';
 import Leads from './collections/Leads';
 import pageConfig from './collections/pageConfig';
+import Form from './collections/Form';
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 });
@@ -66,7 +67,8 @@ export default buildConfig({
     RepAus,
     Electorates,
     Questions,
-    pageConfig
+    pageConfig,
+    Form
   ],
   plugins: [
     s3Upload({

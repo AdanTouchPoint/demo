@@ -1,9 +1,38 @@
 
-export const isAdminOrSelf = ( user ) => {
+export const isAdminOrSelfAll = ( user ) => {
     console.log(user.req.user.roles)
     // Need to be logged in
     if (user) {
     const role = user.req.user.roles
+      // If user has role of 'admin'
+      if (role === 'admin') {
+        return true;
+      }
+        const clientId = user.req.user.id
+
+        const query = {
+            clientId: {
+                equals: clientId,
+              }
+        }
+       // If any other type of user, only provide access to themselves
+      return query 
+         
+    }
+  
+    // Reject everyone else
+    return false;
+  }
+
+  export const isAdminOrSelf = ( user ) => {
+    console.log(user.req.user.roles)
+    // Need to be logged in
+    if (user) {
+    const role = user.req.user.roles
+    const type = user.req.user.type
+    if (type === 'FORM') {
+      return false
+    }
       // If user has role of 'admin'
       if (role === 'admin') {
         return true;
@@ -53,6 +82,10 @@ export const isAdminOrSelf = ( user ) => {
     console.log(user.req.user.plan)
     // Need to be logged in
     if (user) {
+      const type = user.req.user.type
+      if (type === 'FORM') {
+        return false
+      }
     const plan = user.req.user.plan
       // If user has role of 'admin'
       if (plan === 'pro') {
@@ -90,6 +123,10 @@ export const isAdminOrSelf = ( user ) => {
     const plan = user.req.user.plan
     const role = user.req.user.roles
     const region = user.req.user.region
+    const type = user.req.user.type
+    if (type === 'FORM') {
+      return false
+    }
       // If user has role of 'admin'
       if(role === 'admin' || region === 'AU') {
         const clientId = user.req.user.id
@@ -110,6 +147,10 @@ export const isAdminOrSelf = ( user ) => {
     console.log(user.req.user.plan)
     // Need to be logged in
     if (user) {
+    const type = user.req.user.type
+      if (type === 'FORM') {
+        return false
+      }
     const region = user.req.user.region
     const role = user.req.user.roles
       // If user has role of 'admin'
@@ -132,7 +173,11 @@ export const isAdminOrSelf = ( user ) => {
     console.log(user.req.user.plan)
     // Need to be logged in
     if (user) {
+
     const type = user.req.user.type
+    if (type === 'FORM') {
+      return false
+    }
     const role = user.req.user.roles
       // If user has role of 'admin'
      if(role === 'admin' || type === 'PC') {
@@ -154,6 +199,9 @@ export const isAdminOrSelf = ( user ) => {
     // Need to be logged in
     if (user) {
       const type = user.req.user.type
+      if (type === 'FORM') {
+        return false
+      }
       const role = user.req.user.roles
       // If user has role of 'admin'
       if (role === 'admin' || type === 'SB' || type === 'SB2') {
@@ -169,7 +217,6 @@ export const isAdminOrSelf = ( user ) => {
       return false
     }
   }
-
   export const isAdminOrPCorSB = ( user ) => {
     console.log(user.req.user.plan)
     // Need to be logged in
@@ -209,3 +256,23 @@ export const isAdminOrSelf = ( user ) => {
       return false
     }
   }
+
+  export const isAdminOrForm = (user) => {
+    console.log(user.req.user.plan);
+    // Need to be logged in
+    if (user) {
+      const type = user.req.user.type;
+      const role = user.req.user.roles;
+      // If user has role of 'admin'
+      if (role === "admin" || type === "FORM") {
+        const clientId = user.req.user.id;
+        const query = {
+          clientId: {
+            equals: clientId,
+          },
+        };
+        return query;
+      }
+      return false;
+    }
+  };

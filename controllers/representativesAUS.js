@@ -1,8 +1,33 @@
 const payload = require("payload");
 
+const representativesAusByCP = async (query) => {
+  console.log(query)
+    const content = await payload.find({
+        collection: "senators-and-mps",
+        sort: "-updatedAt",
+        depth: 0,
+        limit:0,
+        where: {
+          clientId: {
+            equals: query.clientId,
+          },
+          and: [
+            {
+              labelpostcode: {
+                equals: query.labelpostcode,
+              },
+            },
+          ],
+        },
+      });
+      //console.log(content)
+      return content
+    }    
+
+
 const getDivision = async (el) => {
   const {clientId, division} = el
-  console.log(clientId, division)
+console.log(clientId, division)
     let content = await payload.find({
       collection: "senators-and-mps",
       sort: "-updatedAt",
@@ -23,7 +48,7 @@ const getDivision = async (el) => {
     });
     
     let data = content.docs;
-    console.log(data)
+    //console.log(data)
     return data;
   };
   const getElectorate = async (query) => {
@@ -64,4 +89,4 @@ const getDivision = async (el) => {
       });
       return content
   }
-  module.exports = {getDivision,getElectorate,getAll}
+  module.exports = {getDivision,getElectorate,getAll,representativesAusByCP}
