@@ -257,6 +257,24 @@ router.get("/all-representatives", async (req, res) => {
     });
   }
 });
+router.get("/all-senators-demo", async (req, res) => {
+  try {
+    const query = req.query;
+    const content = await representativesausController.getAllDemo(query);
+    let data = content.docs;
+    res.json({
+      success: true,
+      message: "all representatives found",
+      data: data,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 router.get("/all-senators", async (req, res) => {
   try {
     const query = req.query;
@@ -341,7 +359,72 @@ router.get("/find-mp", async (req, res) => {
     });
   }
 });
-
+router.get("/find-mp-demo", async (req, res) => {
+  try {
+    const query = req.query;
+    let resp = [];
+    let statesFilter = [];
+    console.log(query);
+    const data = await representativesausController.getElectorateDemo(query);
+    console.log(data);
+    if (data.length === 0) {
+      console.log("hola");
+      return res.json({
+        message: "Postal Code has not Found",
+        data: data,
+        statesFilter,
+        success: true,
+      });
+    }
+    await Promise.all(
+      data.map(async (el) => {
+        let request = await representativesausController.getDivisionDemo(el);
+        return request;
+      })
+    )
+      .then((request) => {
+        resp = request.map((el) => {
+          return el;
+        });
+      })
+      .then(async () => {
+        const states = await payload.find({
+          collection: "senators-and-mps",
+          sort: "-updatedAt",
+          depth: 0,
+          limit: 0,
+          where: {
+            clientId: {
+              equals: resp[0][0]?.clientId ? resp[0][0]?.clientId : resp[1][0]?.clientId ,
+            },
+            and: [
+              {
+                state: {
+                  equals: resp[0][0]?.state ? resp[0][0]?.state : resp[1][0]?.state ,
+                },
+              },
+            ],
+          },
+        });
+        let response = states.docs;
+        statesFilter = response.filter(
+          (senator) => senator.govt_type === "Federal Senators"
+        );
+      });
+    res.json({
+      success: true,
+      message: "all representatives found",
+      data: resp,
+      statesFilter,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 router.get("/find-states-reps", async (req, res) => {
 function  eliminarDuplicadosPorEmail(arrayObjetos) {
     // Paso 1: Identificar los objetos duplicados
@@ -462,7 +545,6 @@ function  eliminarDuplicadosPorEmail(arrayObjetos) {
     });
   }
 });
-
 router.get("/questions", async (req, res) => {
   try {
     const query = req.query;

@@ -23,6 +23,8 @@ import Electorates from './collections/Electorates';
 import Analytics from './customComponents/Analytics';
 import  AfterNavLinks from './customComponents/AfterNavLinks'
 import Questions from './collections/Questions';
+import ElectoratesDemo from './collections/ElectoratesDemo';
+import RepAuDemo from './collections/RepAuDemo';
 const beforeChangeHook = path.resolve(__dirname, 'hooks/afterChange');
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
 
@@ -68,7 +70,9 @@ export default buildConfig({
     Electorates,
     Questions,
     pageConfig,
-    Form
+    Form,
+    ElectoratesDemo,
+    RepAuDemo
   ],
   plugins: [
     s3Upload({
