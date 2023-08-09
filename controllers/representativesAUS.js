@@ -46,7 +46,7 @@ console.log(clientId, division)
     const {clientId, postcode} = query
     console.log('here')
     const content = await payload.find({
-      collection: "electoratesDemo",
+      collection: "electorates-demo",
       sort: "-updatedAt",
       depth: 0,
       where: {
