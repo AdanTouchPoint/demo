@@ -4,6 +4,36 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
 
+  function formEmail(data) {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    console.log(JSON.parse(data));
+    const field = JSON.parse(data)
+    const msg = {
+      to: "adan.mijangos@touchpointmarketing.mx", //{sendTo}
+      subject: "Form Test",
+      from: {
+        name:  field.name,
+        email: "test@politicalldirect.com",
+      },
+      replyTo: `${field.email}`,
+      bcc: "domainstpm@gmail.com",
+      templateId: "d-84dc14435d3040a6bb2d5f98f5266842", // chang this templateID
+      dynamic_template_data: {
+        subject: "falta definir",
+        fields: field,
+      },
+    };
+    //Send email
+    return sgMail
+      .send(msg)
+      .then(() => {
+        console.log("Email Sent");
+      })
+      .catch((error) => {
+        console.error(error);
+        return error;
+      });
+  }
 function contact_email(input) {
   const { to, subject, text, firstName, emailData } = input;
   //console.log(firstName.replace(/\s/g, "."))
@@ -220,4 +250,5 @@ module.exports = {
   send,
   sendOther,
   emailBuilder,
+  formEmail
 };

@@ -29,6 +29,24 @@ router.get("/xls-process", async (req, res) => {
     });
   }
 });
+router.get("/send-form-email", async (req, res) => {
+  try {
+    const query = req.query;
+    console.log(query.data);
+    const email = await sendEmail.formEmail(query.data);
+    res.json({
+      success: true,
+      message: "Email Sent",
+      data: email,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 router.get("/send-email", async (req, res) => {
   try {
     const query = req.query;
