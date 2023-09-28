@@ -1,10 +1,9 @@
 const sgMail = require("@sendgrid/mail");
-
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
-  }
+}
 
-  function formEmail(data) {
+function formEmail(data) {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     console.log(JSON.parse(data));
     const field = JSON.parse(data)
@@ -33,7 +32,7 @@ function getRandomInt(max) {
         console.error(error);
         return error;
       });
-  }
+}
 function contact_email(input) {
   const { to, subject, text, firstName, emailData } = input;
   //console.log(firstName.replace(/\s/g, "."))
@@ -245,10 +244,10 @@ function emailBuilder(questions, user) {
 }
 
 module.exports = {
+  formEmail,
   contact_email,
   batch_email,
   send,
   sendOther,
-  emailBuilder,
-  formEmail
+  emailBuilder
 };

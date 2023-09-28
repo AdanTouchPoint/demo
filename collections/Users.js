@@ -81,6 +81,10 @@ const Users = {
     {
       label:'FORM',
       value:'FORM'
+    },
+    {
+      label:'AI',
+      value:'AI'
     }
   ]
 },

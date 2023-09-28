@@ -276,3 +276,28 @@ export const isAdminOrSelfAll = ( user ) => {
       return false;
     }
   };
+  export const isAdminOrAI = ( user ) => {
+    console.log(user.req.user.plan)
+    // Need to be logged in
+    if (user) {
+
+    const type = user.req.user.type
+    if (type === 'FORM') {
+      return false
+    }
+    const role = user.req.user.roles
+      // If user has role of 'admin'
+     if(role === 'admin' || type === 'AI') {
+      const clientId = user.req.user.id
+      const query = {
+          clientId: {
+              equals: clientId,
+            }
+      }
+      return query;
+     }
+    }
+  
+    // Reject everyone else
+    return false;
+  }

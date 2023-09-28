@@ -2,6 +2,8 @@ import { isAdminFieldLevel } from "../access/isAdmin";
 import { isAdminOrPCorSB, isAdminOrSB, isAdminOrSB2, isAdminOrSelf } from "../access/isAdminOrSelf";
 import FormBlock from "../blocks/FieldForm";
 import hooks from "../hooks/afterChange";
+//import { ColourTextField } from '@nouance/payload-better-fields-plugin'
+import colorField from "../customComponents/color-picker/config";
 const MainPAge = {
   slug: "paginas-principales",
   labels: {
@@ -41,6 +43,7 @@ const MainPAge = {
         read: isAdminOrPCorSB,
       }
     },
+    colorField,
     {
       type: "group",
       name: "header",

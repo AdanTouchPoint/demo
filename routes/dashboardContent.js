@@ -75,8 +75,7 @@ router.get("/confs", async (req, res) => {
   }
 });
 router.post("/leads", async (req, res) => {
-  try {
-    
+  try { 
     const query = req.query;
     console.log(req.query)
     const create = await leadController.createLeads(query);
@@ -388,8 +387,9 @@ router.get("/find-mp-demo", async (req, res) => {
         });
       })
       .then(async () => {
+        console.log(resp)
         const states = await payload.find({
-          collection: "senators-and-mps",
+          collection: "senators-and-mps-demo",
           sort: "-updatedAt",
           depth: 0,
           limit: 0,
@@ -406,6 +406,7 @@ router.get("/find-mp-demo", async (req, res) => {
             ],
           },
         });
+        console.log(states)
         let response = states.docs;
         statesFilter = response.filter(
           (senator) => senator.govt_type === "Federal Senators"
