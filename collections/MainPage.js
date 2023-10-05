@@ -43,7 +43,6 @@ const MainPAge = {
         read: isAdminOrPCorSB,
       }
     },
-    colorField,
     {
       type: "group",
       name: "header",

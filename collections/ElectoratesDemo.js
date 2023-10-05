@@ -10,7 +10,7 @@ const ElectoratesDemo = {
        // Only admins can create users
     create: isAdminOrSelf,
     // Admins can read all, but any other logged in user can only read themselves
-    read: isAdminOrSelfForAu,
+    read:() => false,
     // Admins can update all, but any other logged in user can only update themselves
     update: isAdminOrSelf,
     // Admins can update all, but any other logged in user can only update themselves

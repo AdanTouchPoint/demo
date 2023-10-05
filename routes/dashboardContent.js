@@ -10,7 +10,8 @@ const representativesmxController = require("../controllers/representativesMX");
 const representativesausController = require("../controllers/representativesAUS");
 const questionsController = require("../controllers/questions");
 const Forms = require("../controllers/formController");
-const ConfsController = require("../controllers/confsController")
+const ThemeController = require("../controllers/themeController")
+
 /*router.get("/representatives-aus-cp", async (req, res) => {
   try {
     const query = req.query;
@@ -31,6 +32,38 @@ const ConfsController = require("../controllers/confsController")
     });
   }
 }); */
+router.get("/theme", async (req, res) => {
+  try {
+    const query = req.query;
+    const theme = await ThemeController.Theme(query);
+    console.log(theme)
+    const newData = [{
+      "background_color": theme.docs[0].background_color.color,
+      "text_color": theme.docs[0].text_color.color,
+      "label_color": theme.docs[0].label_color.color,
+      "input_color": theme.docs[0].input_color.color,
+      "link_color": theme.docs[0].link_color.color,
+      "input_text_color": theme.docs[0].input_text_color.color,
+      "buttonA_color": theme.docs[0].buttonA_color.color,
+      "buttonA_text_color": theme.docs[0].buttonA_text_color.color,
+      "buttonB_color": theme.docs[0].buttonB_color.color,
+      "buttonB_text_color": theme.docs[0].buttonB_text_color.color,
+    }]
+    res.json({
+      success: true,
+      message: "theme founded",
+      data: newData,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+
 router.get("/forms", async (req, res) => {
   try {
     const query = req.query;

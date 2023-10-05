@@ -25,6 +25,7 @@ import  AfterNavLinks from './customComponents/AfterNavLinks'
 import Questions from './collections/Questions';
 import ElectoratesDemo from './collections/ElectoratesDemo';
 import RepAuDemo from './collections/RepAuDemo';
+import Theme from './collections/Theme';
 const beforeChangeHook = path.resolve(__dirname, 'hooks/afterChange');
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
 
@@ -72,7 +73,8 @@ export default buildConfig({
     pageConfig,
     Form,
     ElectoratesDemo,
-    RepAuDemo
+    RepAuDemo,
+    Theme
   ],
   plugins: [
     s3Upload({
