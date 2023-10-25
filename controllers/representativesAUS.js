@@ -141,6 +141,28 @@ console.log(clientId, division)
     return data;
   };
 
+  const getAllByState = async (query) => {
+    console.log(query)
+    const content = await payload.find({
+        collection: "senators-and-mps",
+        sort: "-updatedAt",
+        limit: 0,
+        depth: 0,
+        where: {
+          clientId: {
+            equals: query.clientId,
+          },
+          and: [
+            {
+              state: {
+                equals: query.state,
+              },
+            },
+          ],
+        },
+      });
+      return content
+  }
   const getAll = async (query) => {
     const content = await payload.find({
         collection: "senators-and-mps",
@@ -155,4 +177,4 @@ console.log(clientId, division)
       });
       return content
   }
-  module.exports = {getAllDemo,getDivision,getElectorate,getAll,representativesAusByCP,getDivisionDemo,getElectorateDemo,}
+  module.exports = {getAllDemo,getDivision,getElectorate,getAll,representativesAusByCP,getDivisionDemo,getElectorateDemo,getAllByState}

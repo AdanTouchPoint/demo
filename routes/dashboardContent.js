@@ -597,7 +597,24 @@ router.get("/questions", async (req, res) => {
     });
   }
 });
-
+router.get("/all-senators-state", async (req, res) => {
+  try {
+    const query = req.query;
+    const content = await representativesausController.getAllByState(query);
+    let data = content.docs;
+    res.json({
+      success: true,
+      message: "all representatives found",
+      data: data,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 
 module.exports = router;
 
