@@ -242,7 +242,7 @@ function emailBuilder(questions, user) {
     });
 }
 function original_builder (questions, user) {
-  const { email, userName,submissionType} = user;
+  const { email, userName,submissionType, comittee} = user;
   const hoy = new Date();
   const today = hoy.toDateString();
   const ausDomains = [
@@ -269,7 +269,8 @@ function original_builder (questions, user) {
       firstName: user.userName,
       questions: questions,
       //today: today,
-      submissionType: submissionType 
+      submissionType: submissionType,
+      comittee: comittee
     },
   };
   //Send email
