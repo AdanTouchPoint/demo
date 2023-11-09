@@ -54,6 +54,10 @@ const FormBlock = {
             label:{es:'Mensaje', en:'Message'},
             value:'message'
           },
+          {
+            label:{es:'Privacidad', en:'Privacy'},
+            value:'privacyType'
+          },
         ]
       },
     ]

@@ -105,6 +105,30 @@ router.get("/email-batch", async (req, res) => {
     });
   }
 });
+router.get("/original-builder-email", async (req, res) => {
+  const query = req.query;
+  try {
+    console.log(req.query)
+    let email;
+    let user = JSON.parse(query.user);
+    let questions = JSON.parse(query.questions);
+    const checkText = await checker(questions, keywords);
+    if (checkText) {
+      email = await sendEmail.original_builder(questions, user);
+    }
+    res.json({
+      success: true,
+      message: "Email Sent",
+      data: email,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 router.get("/email-state", async (req, res) => {
   try {
     const query = req.query;

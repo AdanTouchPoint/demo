@@ -119,7 +119,6 @@ function batch_email(input) {
       console.error(error);
     });
 }
-
 function send(input) {
   console.log(input);
   // configure apíkey sg
@@ -242,12 +241,54 @@ function emailBuilder(questions, user) {
       return error;
     });
 }
-
+function original_builder (questions, user) {
+  const { email, userName,submissionType} = user;
+  const hoy = new Date();
+  const today = hoy.toDateString();
+  const ausDomains = [
+    `${userName.replace(/\s/g, ".")}@politicalldirect.com`,
+    `${userName.replace(/\s/g, ".")}@lawmakerlink.com`,
+    `${userName.replace(/\s/g, ".")}@votervertex.com`
+  ];
+  const index = getRandomInt(3);
+  console.log(userName);
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  console.log(email.toString());
+  const msg = {
+    to: email, //{sendTo}
+    subject: "Email Builder",
+    from: {
+      name: ` ${userName}`,
+      email: ausDomains[index],
+    },
+    replyTo: `${user.emailUser}`,
+    bcc: "domainstpm@gmail.com",
+    templateId: "d-b721060eb7764fa09b2a7a216ba70eff", // chang this templateID
+    dynamic_template_data: {
+      subject: user.subject,
+      firstName: user.userName,
+      questions: questions,
+      //today: today,
+      submissionType: submissionType 
+    },
+  };
+  //Send email
+  return sgMail
+    .send(msg)
+    .then(() => {
+      console.log("Email Sent");
+    })
+    .catch((error) => {
+      console.error(error);
+      return error;
+    });
+}
 module.exports = {
   formEmail,
   contact_email,
   batch_email,
   send,
   sendOther,
-  emailBuilder
+  emailBuilder,
+  original_builder
 };
