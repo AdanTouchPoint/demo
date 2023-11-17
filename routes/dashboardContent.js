@@ -420,7 +420,6 @@ router.get("/find-mp-demo", async (req, res) => {
         });
       })
       .then(async () => {
-        console.log(resp)
         const states = await payload.find({
           collection: "senators-and-mps-demo",
           sort: "-updatedAt",
@@ -439,17 +438,38 @@ router.get("/find-mp-demo", async (req, res) => {
             ],
           },
         });
-        console.log(states)
         let response = states.docs;
         statesFilter = response.filter(
           (senator) => senator.govt_type === "Federal Senators"
         );
       });
+      const mpsUniq = resp.flatMap((element) => element)
+      function filtrarObjetosUnicos(array) {
+        let emailsVistos = {};
+        let arraySinRepetidos = [];
+        for (let objeto of array) {
+          if (objeto.hasOwnProperty('email')) {
+            if (!emailsVistos[objeto.email]) {
+              // Si el email no ha sido visto antes, agregarlo al array y marcarlo como visto
+              emailsVistos[objeto.email] = true;
+              arraySinRepetidos.push(objeto);
+            }
+          } else {
+            // Si el objeto no tiene el campo 'email', agregarlo directamente al array
+            arraySinRepetidos.push(objeto);
+          }
+        }
+      
+        return arraySinRepetidos;
+      }
+     let senators = filtrarObjetosUnicos(statesFilter)
+     let mpEmails = filtrarObjetosUnicos(mpsUniq)
+      //console.log(senators)
+      console.log(resp)
     res.json({
       success: true,
       message: "all representatives found",
-      data: resp,
-      statesFilter,
+      data: senators, mpEmails
     });
   } catch (error) {
     res.status(400);
