@@ -463,13 +463,13 @@ router.get("/find-mp-demo", async (req, res) => {
         return arraySinRepetidos;
       }
      let senators = filtrarObjetosUnicos(statesFilter)
-     let mpEmails = filtrarObjetosUnicos(mpsUniq)
+     let mps = filtrarObjetosUnicos(mpsUniq)
       //console.log(senators)
       //console.log(resp)
     res.json({
       success: true,
       message: "all representatives found",
-      data: senators, mpEmails
+      data: senators, mps
     });
   } catch (error) {
     res.status(400);
