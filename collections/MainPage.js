@@ -1,5 +1,5 @@
 import { isAdminFieldLevel } from "../access/isAdmin";
-import { isAdminOrPCorSB, isAdminOrSB, isAdminOrSB2, isAdminOrSelf } from "../access/isAdminOrSelf";
+import { isAdminOrAI, isAdminOrPCorSB, isAdminOrSB, isAdminOrSB2, isAdminOrSelf } from "../access/isAdminOrSelf";
 import FormBlock from "../blocks/FieldForm";
 import hooks from "../hooks/afterChange";
 //import { ColourTextField } from '@nouance/payload-better-fields-plugin'
@@ -310,6 +310,72 @@ const MainPAge = {
       access:{
         create: isAdminOrSB2,
         read: isAdminOrSB2,
+      }
+    },
+    {
+      type: "group",
+      name: "Email View with AI",
+      label: { es: "Previsualizacion", en: "Email AI" },
+      fields: [
+        {
+          type: "row",
+          fields: [
+            {
+              label: { es: "Titulo", en: "Title" },
+              name: "titleAI", // required
+              type: "text", // required
+              admin: {
+              width: "50%",
+              },
+            },
+            {
+              label: { es: "Instrucciones", en: "Instructions" },
+              name: "intructionsAI", // required
+              type: "text", // required
+              admin: {
+              width: "50%",
+              },
+            }
+          ],
+        },
+      ],
+      access:{
+        create: isAdminOrAI,
+        read: isAdminOrAI,
+        update: isAdminOrAI
+      }
+    },
+    {
+      type: "group",
+      name: "Email View no AI",
+      label: { es: "Previsualizacion", en: "Email No AI" },
+      fields: [
+        {
+          type: "row",
+          fields: [
+            {
+              label: { es: "Titulo", en: "Title" },
+              name: "titleNoAI", // required
+              type: "text", // required
+              admin: {
+              width: "50%",
+              },
+            },
+            {
+              label: { es: "Instrucciones", en: "Instructions" },
+              name: "intructionsNoAI", // required
+              type: "text", // required
+              admin: {
+              width: "50%",
+              },
+            }
+          ],
+        },
+      ],
+      access:{
+        create: isAdminOrAI,
+        read: isAdminOrAI,
+        update: isAdminOrAI
       }
     },
     {
