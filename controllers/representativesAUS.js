@@ -25,16 +25,9 @@ console.log(clientId, division)
       depth: 0,
       limit: 0,
       where: {
-        clientId: {
-          equals: clientId,
+        electorates: {
+          equals: division,
         },
-        and: [
-          {
-            electorates: {
-              equals: division,
-            },
-          },
-        ],
       },
     });
     
@@ -50,16 +43,9 @@ console.log(clientId, division)
       sort: "-updatedAt",
       depth: 0,
       where: {
-        clientId: {
-          equals: clientId,
+        postcode: {
+          equals: postcode,
         },
-        and: [
-          {
-            postcode: {
-              equals: postcode,
-            },
-          },
-        ],
       },
     });
     let data = content.docs;
@@ -88,7 +74,7 @@ const representativesAusByCP = async (query) => {
       });
       //console.log(content)
       return content
-    }    
+}    
 
 
 const getDivision = async (el) => {

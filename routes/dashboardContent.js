@@ -426,16 +426,9 @@ router.get("/find-mp-demo", async (req, res) => {
           depth: 0,
           limit: 0,
           where: {
-            clientId: {
-              equals: resp[0][0]?.clientId ? resp[0][0]?.clientId : resp[1][0]?.clientId ,
+            state: {
+              equals: resp[0][0]?.state ? resp[0][0]?.state : resp[1][0]?.state ,
             },
-            and: [
-              {
-                state: {
-                  equals: resp[0][0]?.state ? resp[0][0]?.state : resp[1][0]?.state ,
-                },
-              },
-            ],
           },
         });
         let response = states.docs;
