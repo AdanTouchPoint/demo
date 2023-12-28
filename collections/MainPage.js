@@ -379,6 +379,31 @@ const MainPAge = {
       }
     },
     {
+      type: "group",
+      name: "Prompt AI",
+      label: { es: "Prompt", en: "Prompt AI" },
+      fields: [
+        {
+          type: "row",
+          fields: [
+            {
+              label: { es: "Prompt AI", en: "Prompt AI" },
+              name: "promptAI", // required
+              type: "text", // required
+              admin: {
+              width: "50%",
+              },
+            },
+          ],
+        },
+      ],
+      access:{
+        create: isAdminOrAI,
+        read: isAdminOrAI,
+        update: isAdminOrAI
+      }
+    },
+    {
       name: "clientId",
       type: "relationship",
       relationTo: "users",
