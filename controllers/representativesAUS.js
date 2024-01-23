@@ -1,5 +1,38 @@
 const payload = require("payload");
 
+const getDivisionStates = async (el,query) => {
+    let content = await payload.find({
+      collection: query.state,
+      sort: "-updatedAt",
+      depth: 0,
+      limit: 0,
+      where: {
+        electorates: {
+          equals: el.division,
+        },
+      },
+    });
+    let data = content.docs;
+    return data;
+  };
+  const getElectorateStates = async (query) => {
+    const {postcode,state} = query
+    console.log(`${state}_electorates`)
+    const content = await payload.find({
+      collection: `${state}_electorates`,
+      sort: "-updatedAt",
+      depth: 0,
+      limit: 0,
+      where: {
+        postcode: {
+          equals: postcode
+        },
+      },
+    });
+    let data = content.docs;
+    return data;
+  };
+
 
 const getAllDemo= async (query) => {
   const content = await payload.find({
@@ -32,7 +65,6 @@ console.log(clientId, division)
     });
     
     let data = content.docs;
-    //console.log(data)
     return data;
   };
   const getElectorateDemo = async (query) => {
@@ -163,4 +195,4 @@ console.log(clientId, division)
       });
       return content
   }
-  module.exports = {getAllDemo,getDivision,getElectorate,getAll,representativesAusByCP,getDivisionDemo,getElectorateDemo,getAllByState}
+  module.exports = {getAllDemo,getDivision,getElectorate,getAll,representativesAusByCP,getDivisionDemo,getElectorateDemo,getAllByState,getDivisionStates,getElectorateStates}

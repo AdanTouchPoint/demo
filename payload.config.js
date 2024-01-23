@@ -26,6 +26,12 @@ import Questions from './collections/Questions';
 import ElectoratesDemo from './collections/ElectoratesDemo';
 import RepAuDemo from './collections/RepAuDemo';
 import Theme from './collections/Theme';
+import NSW from './collections/NSW';
+import NSW_Electorates from './collections/NSW_Electorates';
+import Vic from './collections/Vic';
+import SA from './collections/SA';
+import sa_electorates from './collections/SA_Electorates';
+import vic_electorates from './collections/Vic_Electorates';
 const beforeChangeHook = path.resolve(__dirname, 'hooks/afterChange');
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
 
@@ -74,7 +80,13 @@ export default buildConfig({
     Form,
     ElectoratesDemo,
     RepAuDemo,
-    Theme
+    Theme,
+    NSW,
+    NSW_Electorates,
+    Vic,
+    vic_electorates,
+    SA,
+    sa_electorates
   ],
   plugins: [
     s3Upload({

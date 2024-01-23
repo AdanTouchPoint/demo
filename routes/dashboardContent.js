@@ -10,45 +10,29 @@ const representativesmxController = require("../controllers/representativesMX");
 const representativesausController = require("../controllers/representativesAUS");
 const questionsController = require("../controllers/questions");
 const Forms = require("../controllers/formController");
-const ThemeController = require("../controllers/themeController")
-const ConfsController = require("../controllers/confsController")
-/*router.get("/representatives-aus-cp", async (req, res) => {
-  try {
-    const query = req.query;
-    const content = await representativesausController.representativesAusByCP(
-      query
-    );
-    let data = content.docs;
-    res.json({
-      success: true,
-      message: "representatives found",
-      data: data,
-    });
-  } catch (error) {
-    res.status(400);
-    res.json({
-      success: false,
-      message: error.message,
-    });
-  }
-}); */
+const ThemeController = require("../controllers/themeController");
+const ConfsController = require("../controllers/confsController");
+const deleteDuplicates = require("../controllers/deleteDuplicates");
+
 router.get("/theme", async (req, res) => {
   try {
     const query = req.query;
     const theme = await ThemeController.Theme(query);
-    console.log(theme)
-    const newData = [{
-      "background_color": theme.docs[0].background_color.color,
-      "text_color": theme.docs[0].text_color.color,
-      "label_color": theme.docs[0].label_color.color,
-      "input_color": theme.docs[0].input_color.color,
-      "link_color": theme.docs[0].link_color.color,
-      "input_text_color": theme.docs[0].input_text_color.color,
-      "buttonA_color": theme.docs[0].buttonA_color.color,
-      "buttonA_text_color": theme.docs[0].buttonA_text_color.color,
-      "buttonB_color": theme.docs[0].buttonB_color.color,
-      "buttonB_text_color": theme.docs[0].buttonB_text_color.color,
-    }]
+    console.log(theme);
+    const newData = [
+      {
+        "background_color": theme.docs[0].background_color.color,
+        "text_color": theme.docs[0].text_color.color,
+        "label_color": theme.docs[0].label_color.color,
+        "input_color": theme.docs[0].input_color.color,
+        "link_color": theme.docs[0].link_color.color,
+        "input_text_color": theme.docs[0].input_text_color.color,
+        "buttonA_color": theme.docs[0].buttonA_color.color,
+        "buttonA_text_color": theme.docs[0].buttonA_text_color.color,
+        "buttonB_color": theme.docs[0].buttonB_color.color,
+        "buttonB_text_color": theme.docs[0].buttonB_text_color.color,
+      },
+    ];
     res.json({
       success: true,
       message: "theme founded",
@@ -62,15 +46,13 @@ router.get("/theme", async (req, res) => {
     });
   }
 });
-
-
 router.get("/forms", async (req, res) => {
   try {
     const query = req.query;
     const data = await Forms.Forms(query);
-    console.log(data)
+    console.log(data);
 
-   res.json({
+    res.json({
       success: true,
       message: "confs founded",
       data: data,
@@ -87,13 +69,15 @@ router.get("/confs", async (req, res) => {
   try {
     const query = req.query;
     const confs = await ConfsController.Confs(query);
-    const newData = [{
-      "lenguage": confs.docs[0].lenguage.lenguage,
-      "SearchBy": confs.docs[0].SearchBy.SearchBy,
-      "sendMany": confs.docs[0].sendMany.sendMany,
-      "region": confs.docs[0].region.region,
-      "filter": confs.docs[0].filter.filter
-    }]
+    const newData = [
+      {
+        "lenguage": confs.docs[0].lenguage.lenguage,
+        "SearchBy": confs.docs[0].SearchBy.SearchBy,
+        "sendMany": confs.docs[0].sendMany.sendMany,
+        "region": confs.docs[0].region.region,
+        "filter": confs.docs[0].filter.filter,
+      },
+    ];
     res.json({
       success: true,
       message: "confs founded",
@@ -108,9 +92,9 @@ router.get("/confs", async (req, res) => {
   }
 });
 router.post("/leads", async (req, res) => {
-  try { 
+  try {
     const query = req.query;
-    console.log(req.query)
+    console.log(req.query);
     const create = await leadController.createLeads(query);
     res.json({
       success: true,
@@ -361,12 +345,16 @@ router.get("/find-mp", async (req, res) => {
           limit: 0,
           where: {
             clientId: {
-              equals: resp[0][0]?.clientId ? resp[0][0]?.clientId : resp[1][0]?.clientId ,
+              equals: resp[0][0]?.clientId
+                ? resp[0][0]?.clientId
+                : resp[1][0]?.clientId,
             },
             and: [
               {
                 state: {
-                  equals: resp[0][0]?.state ? resp[0][0]?.state : resp[1][0]?.state ,
+                  equals: resp[0][0]?.state
+                    ? resp[0][0]?.state
+                    : resp[1][0]?.state,
                 },
               },
             ],
@@ -427,7 +415,7 @@ router.get("/find-mp-demo", async (req, res) => {
           limit: 0,
           where: {
             state: {
-              equals: resp[0][0]?.state ? resp[0][0]?.state : resp[1][0]?.state ,
+              equals: resp[0][0]?.state ? resp[0][0]?.state : resp[1][0]?.state,
             },
           },
         });
@@ -436,33 +424,34 @@ router.get("/find-mp-demo", async (req, res) => {
           (senator) => senator.govt_type === "Federal Senators"
         );
       });
-      const mpsUniq = resp.flatMap((element) => element)
-      function filtrarObjetosUnicos(array) {
-        let emailsVistos = {};
-        let arraySinRepetidos = [];
-        for (let objeto of array) {
-          if (objeto.hasOwnProperty('email')) {
-            if (!emailsVistos[objeto.email]) {
-              // Si el email no ha sido visto antes, agregarlo al array y marcarlo como visto
-              emailsVistos[objeto.email] = true;
-              arraySinRepetidos.push(objeto);
-            }
-          } else {
-            // Si el objeto no tiene el campo 'email', agregarlo directamente al array
+    const mpsUniq = resp.flatMap((element) => element);
+    function filtrarObjetosUnicos(array) {
+      let emailsVistos = {};
+      let arraySinRepetidos = [];
+      for (let objeto of array) {
+        if (objeto.hasOwnProperty("email")) {
+          if (!emailsVistos[objeto.email]) {
+            // Si el email no ha sido visto antes, agregarlo al array y marcarlo como visto
+            emailsVistos[objeto.email] = true;
             arraySinRepetidos.push(objeto);
           }
+        } else {
+          // Si el objeto no tiene el campo 'email', agregarlo directamente al array
+          arraySinRepetidos.push(objeto);
         }
-      
-        return arraySinRepetidos;
       }
-     let senators = filtrarObjetosUnicos(statesFilter)
-     let mps = filtrarObjetosUnicos(mpsUniq)
-      //console.log(senators)
-      //console.log(resp)
+
+      return arraySinRepetidos;
+    }
+    let senators = filtrarObjetosUnicos(statesFilter);
+    let mps = filtrarObjetosUnicos(mpsUniq);
+    //console.log(senators)
+    //console.log(resp)
     res.json({
       success: true,
       message: "all representatives found",
-      data: senators, mps
+      data: senators,
+      mps,
     });
   } catch (error) {
     res.status(400);
@@ -473,11 +462,11 @@ router.get("/find-mp-demo", async (req, res) => {
   }
 });
 router.get("/find-states-reps", async (req, res) => {
-function  eliminarDuplicadosPorEmail(arrayObjetos) {
+  function eliminarDuplicadosPorEmail(arrayObjetos) {
     // Paso 1: Identificar los objetos duplicados
     const correosVistos = {};
     const objetosDuplicados = [];
-  
+
     arrayObjetos.forEach((objeto) => {
       const email = objeto.email;
       if (correosVistos[email]) {
@@ -486,19 +475,19 @@ function  eliminarDuplicadosPorEmail(arrayObjetos) {
         correosVistos[email] = true;
       }
     });
-  
+
     // Paso 2: Filtrar el array original
     const arrayFiltrado = arrayObjetos.filter(
       (objeto) => !objetosDuplicados.includes(objeto)
     );
-  
+
     return arrayFiltrado;
   }
-  function  eliminarDuplicadosPorDivision(arrayObjetos) {
+  function eliminarDuplicadosPorDivision(arrayObjetos) {
     // Paso 1: Identificar los objetos duplicados
     const correosVistos = {};
     const objetosDuplicados = [];
-  
+
     arrayObjetos.forEach((objeto) => {
       const divison = objeto.division;
       if (correosVistos[divison]) {
@@ -507,24 +496,24 @@ function  eliminarDuplicadosPorEmail(arrayObjetos) {
         correosVistos[divison] = true;
       }
     });
-  
+
     // Paso 2: Filtrar el array original
     const arrayFiltrado = arrayObjetos.filter(
       (objeto) => !objetosDuplicados.includes(objeto)
     );
-  
+
     return arrayFiltrado;
   }
   try {
     const query = req.query;
     let resp = [];
     let statesFilter = [];
-    let mpsMap = []
-    let sen = []
-    let mpsFilter = []
+    let mpsMap = [];
+    let sen = [];
+    let mpsFilter = [];
     console.log(query);
     const data = await representativesausController.getElectorate(query);
-    const divFilter = await eliminarDuplicadosPorDivision(data)
+    const divFilter = await eliminarDuplicadosPorDivision(data);
     console.log(divFilter);
     if (data.length === 0) {
       console.log("hola");
@@ -537,19 +526,19 @@ function  eliminarDuplicadosPorEmail(arrayObjetos) {
     }
     await Promise.all(
       divFilter.map(async (el) => {
-        console.log(el)
+        console.log(el);
         let request = await representativesausController.getDivision(el);
         return request;
       })
     )
-      .then(async (request)  => {
+      .then(async (request) => {
         resp = request.map((el) => {
           return el;
         });
-         mpsMap= resp.map((el)=> {
-        return  eliminarDuplicadosPorEmail(el)
-        })
-        console.log(mpsMap)
+        mpsMap = resp.map((el) => {
+          return eliminarDuplicadosPorEmail(el);
+        });
+        console.log(mpsMap);
       })
       .then(async () => {
         const states = await payload.find({
@@ -559,12 +548,12 @@ function  eliminarDuplicadosPorEmail(arrayObjetos) {
           limit: 0,
           where: {
             clientId: {
-              equals: query.clientId ,
+              equals: query.clientId,
             },
             and: [
               {
                 postalcode: {
-                  equals: query.postcode ,
+                  equals: query.postcode,
                 },
               },
             ],
@@ -574,16 +563,17 @@ function  eliminarDuplicadosPorEmail(arrayObjetos) {
         statesFilter = response.filter(
           (senator) => senator.govt_type === "State Senators"
         );
-      }).then( async() =>{
-        console.log(resp.length, statesFilter.length)
-        sen = eliminarDuplicadosPorEmail(statesFilter)
       })
-      res.json({
-        success: true,
-        message: "all representatives found",
-        data: mpsMap,
-        sen,
+      .then(async () => {
+        console.log(resp.length, statesFilter.length);
+        sen = eliminarDuplicadosPorEmail(statesFilter);
       });
+    res.json({
+      success: true,
+      message: "all representatives found",
+      data: mpsMap,
+      sen,
+    });
   } catch (error) {
     res.status(400);
     res.json({
@@ -628,6 +618,74 @@ router.get("/all-senators-state", async (req, res) => {
     });
   }
 });
-
+router.get("/demo-test-state", async (req, res) => {
+  try {
+    const query = req.query;
+    let resp = [];
+    let statesFilter = [];
+    let mpsMap = [];
+    let sen = [];
+    const data = await representativesausController.getElectorateStates(query);
+    const divFilter = await deleteDuplicates.eliminarDuplicadosPorDivision(
+      data
+    );
+    if (data.length === 0) {
+      return res.json({
+        message: "Postal Code has not Found",
+        data: data,
+        statesFilter,
+        success: true,
+      });
+    }
+    await Promise.all(
+      divFilter.map(async (el) => {
+        let request = await representativesausController.getDivisionStates(
+          el,query
+        );
+        return request;
+      })
+    )
+      .then(async (request) => {
+        resp = request.map((el) => {
+          return el;
+        });
+        mpsMap = resp.map((el) => {
+          return deleteDuplicates.eliminarDuplicadosPorEmail(el);
+        });
+      })
+      .then(async () => {
+        const states = await payload.find({
+          collection: query.state,
+          sort: "-updatedAt",
+          depth: 0,
+          limit: 0,
+          where: {
+            labelpostcode: {
+              equals: query.postcode,
+            },
+          },
+        });
+      sen = states.docs;
+      })
+      console.log(mpsMap)
+      let MLA = mpsMap.flat().filter(
+        (el) => el.govt_type === "MLA's"
+      );
+      let MLC = deleteDuplicates.eliminarDuplicadosPorEmail( new Array(...sen, ...mpsMap).flat().filter(
+        (senator) => senator.govt_type === "MLC's")
+      );
+    res.json({
+      success: true,
+      message: "all representatives found",
+      data: MLA,
+      MLC,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 module.exports = router;
-
