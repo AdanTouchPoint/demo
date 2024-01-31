@@ -621,14 +621,9 @@ router.get("/all-senators-state", async (req, res) => {
 router.get("/demo-test-state", async (req, res) => {
   try {
     const query = req.query;
-    let resp = [];
-    let statesFilter = [];
     let mpsMap = [];
     let sen = [];
-    const data = await representativesausController.getElectorateStates(query);
-    const divFilter = await deleteDuplicates.eliminarDuplicadosPorDivision(
-      data
-    );
+    const data = await representativesausController.getElectorateByPostalCode(query);
     if (data.length === 0) {
       return res.json({
         message: "Postal Code has not Found",
@@ -638,42 +633,23 @@ router.get("/demo-test-state", async (req, res) => {
       });
     }
     await Promise.all(
-      divFilter.map(async (el) => {
-        let request = await representativesausController.getDivisionStates(
+      data.map(async (el) => {
+        let request = await representativesausController.getRepresentativesByElectorate(
           el,query
         );
         return request;
       })
     )
-      .then(async (request) => {
-        resp = request.map((el) => {
-          return el;
-        });
-        mpsMap = resp.map((el) => {
-          return deleteDuplicates.eliminarDuplicadosPorEmail(el);
-        });
-      })
-      .then(async () => {
-        const states = await payload.find({
-          collection: query.state,
-          sort: "-updatedAt",
-          depth: 0,
-          limit: 0,
-          where: {
-            labelpostcode: {
-              equals: query.postcode,
-            },
-          },
-        });
-      sen = states.docs;
-      })
-      console.log(mpsMap)
-      let MLA = mpsMap.flat().filter(
+    .then(async (request) => {
+      mpsMap = request.flat().filter(
         (el) => el.govt_type === "MLA's"
       );
-      let MLC = deleteDuplicates.eliminarDuplicadosPorEmail( new Array(...sen, ...mpsMap).flat().filter(
-        (senator) => senator.govt_type === "MLC's")
-      );
+    })
+    .then(async () => {
+     sen =  await representativesausController.getRepresentativesByPostalCode(query)
+      })
+      let MLA = mpsMap
+      let MLC = sen;
     res.json({
       success: true,
       message: "all representatives found",

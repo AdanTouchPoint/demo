@@ -15,6 +15,65 @@ const getDivisionStates = async (el,query) => {
     let data = content.docs;
     return data;
   };
+  const getRepresentativesByPostalCode = async (query) => {
+    try {
+      console.log(query)
+      const {state,postcode} = query
+      const result = await payload.collections[`${state}`].Model.aggregate([
+        { $match: { labelpostcode: postcode } },
+        {
+          $group: {
+            _id: "$email",
+            documento: { $first: "$$ROOT" }
+          }
+        },
+        { $replaceRoot: { newRoot: "$documento" } }
+      ])
+      console.log(result)
+      return result
+    } catch (error) {
+      return error
+    }
+  } 
+  const getRepresentativesByElectorate = async (el,query) => {
+    try {
+      const {state} = query
+      const result = await payload.collections[`${state}`].Model.aggregate([
+        { $match: { electorates: el.division } },
+        {
+          $group: {
+            _id: "$email",
+            documento: { $first: "$$ROOT" }
+          }
+        },
+        { $replaceRoot: { newRoot: "$documento" } }
+      ])
+      console.log(result)
+      return result
+    } catch (error) {
+      return error
+    }
+  }  
+
+  const getElectorateByPostalCode = async (query) => {
+  try {
+    const {state, postcode} = query
+    const result = await payload.collections[`${state}_electorates`].Model.aggregate([
+      { $match: { postcode: postcode, division: { $exists: true, $ne: null } } },
+      {
+        $group: {
+          _id: "$division",
+          documento: { $first: "$$ROOT" }
+        }
+      },
+      { $replaceRoot: { newRoot: "$documento" } }
+    ])
+    console.log(result)
+    return result
+  } catch (error) {
+    return error
+  }
+}
   const getElectorateStates = async (query) => {
     const {postcode,state} = query
     console.log(`${state}_electorates`)
@@ -108,7 +167,6 @@ const representativesAusByCP = async (query) => {
       return content
 }    
 
-
 const getDivision = async (el) => {
   const {clientId, division} = el
 console.log(clientId, division)
@@ -195,4 +253,4 @@ console.log(clientId, division)
       });
       return content
   }
-  module.exports = {getAllDemo,getDivision,getElectorate,getAll,representativesAusByCP,getDivisionDemo,getElectorateDemo,getAllByState,getDivisionStates,getElectorateStates}
+  module.exports = {getAllDemo,getDivision,getElectorate,getAll,representativesAusByCP,getDivisionDemo,getElectorateDemo,getAllByState,getDivisionStates,getElectorateStates,getElectorateByPostalCode, getRepresentativesByElectorate,getRepresentativesByPostalCode }
