@@ -382,11 +382,10 @@ router.get("/find-mp", async (req, res) => {
 router.get("/find-mp-demo", async (req, res) => {
   try {
     const query = req.query;
-    let resp = [];
-    let statesFilter = [];
+    let mps = [];
+    let senators = [];
     console.log(query);
     const data = await representativesausController.getElectorateDemo(query);
-    console.log(data);
     if (data.length === 0) {
       console.log("hola");
       return res.json({
@@ -402,51 +401,13 @@ router.get("/find-mp-demo", async (req, res) => {
         return request;
       })
     )
-      .then((request) => {
-        resp = request.map((el) => {
-          return el;
-        });
-      })
-      .then(async () => {
-        const states = await payload.find({
-          collection: "senators-and-mps-demo",
-          sort: "-updatedAt",
-          depth: 0,
-          limit: 0,
-          where: {
-            state: {
-              equals: resp[0][0]?.state ? resp[0][0]?.state : resp[1][0]?.state,
-            },
-          },
-        });
-        let response = states.docs;
-        statesFilter = response.filter(
+      .then(async (request) => {
+        mps = request.flatMap((element) => element)
+        let req  = await representativesausController.getRepsByStateDemo(mps)
+        senators = req.filter(
           (senator) => senator.govt_type === "Federal Senators"
-        );
-      });
-    const mpsUniq = resp.flatMap((element) => element);
-    function filtrarObjetosUnicos(array) {
-      let emailsVistos = {};
-      let arraySinRepetidos = [];
-      for (let objeto of array) {
-        if (objeto.hasOwnProperty("email")) {
-          if (!emailsVistos[objeto.email]) {
-            // Si el email no ha sido visto antes, agregarlo al array y marcarlo como visto
-            emailsVistos[objeto.email] = true;
-            arraySinRepetidos.push(objeto);
-          }
-        } else {
-          // Si el objeto no tiene el campo 'email', agregarlo directamente al array
-          arraySinRepetidos.push(objeto);
-        }
-      }
-
-      return arraySinRepetidos;
-    }
-    let senators = filtrarObjetosUnicos(statesFilter);
-    let mps = filtrarObjetosUnicos(mpsUniq);
-    //console.log(senators)
-    //console.log(resp)
+        )
+      })
     res.json({
       success: true,
       message: "all representatives found",
