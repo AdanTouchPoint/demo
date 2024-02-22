@@ -391,7 +391,6 @@ router.get("/find-mp-demo", async (req, res) => {
       return res.json({
         message: "Postal Code has not Found",
         data: data,
-        statesFilter,
         success: true,
       });
     }
