@@ -58,6 +58,10 @@ const FormBlock = {
             label:{es:'Privacidad', en:'Privacy'},
             value:'privacyType'
           },
+          {
+            label:{es:'Telefono', en:'Phone'},
+            value:'phone'
+          },
         ]
       },
     ]

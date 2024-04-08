@@ -218,7 +218,7 @@ function emailBuilder(questions, user) {
     to: email, //{sendTo}
     subject: "Email Builder",
     from: {
-      name: ` ${userName}`,
+      name: ` ${userName} <${user.emailUser}> `,
       email: ausDomains[index],
     },
     replyTo: `${user.emailUser}`,
@@ -258,7 +258,7 @@ function original_builder (questions, user) {
     to: email, //{sendTo}
     subject: "Email Builder",
     from: {
-      name: ` ${userName}`,
+      name: ` ${userName} <<${user.emailUser}>>`,
       email: ausDomains[index],
     },
     replyTo: `${user.emailUser}`,
@@ -270,7 +270,9 @@ function original_builder (questions, user) {
       questions: questions,
       //today: today,
       submissionType: submissionType,
-      comittee: comittee
+      comittee: comittee,
+      emailUser: user.emailUser,
+      phone: user.phone
     },
   };
   //Send email
