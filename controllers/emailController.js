@@ -254,6 +254,7 @@ function original_builder (questions, user) {
   console.log(userName);
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   console.log(email.toString());
+  console.log(today)
   const msg = {
     to: email, //{sendTo}
     subject: "Email Builder",
@@ -266,9 +267,9 @@ function original_builder (questions, user) {
     templateId: "d-b721060eb7764fa09b2a7a216ba70eff", // chang this templateID
     dynamic_template_data: {
       subject: user.subject,
-      firstName: user.userName,
+      firstName: userName,
       questions: questions,
-      //today: today,
+      today: today,
       submissionType: submissionType,
       comittee: comittee,
       emailUser: user.emailUser,
