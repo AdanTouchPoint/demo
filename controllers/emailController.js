@@ -259,7 +259,7 @@ function original_builder (questions, user) {
     to: email, //{sendTo}
     subject: "Email Builder",
     from: {
-      name: ` ${userName} <<${user.emailUser}>>`,
+      name: ` ${userName} <${user.emailUser}>`,
       email: ausDomains[index],
     },
     replyTo: `${user.emailUser}`,
