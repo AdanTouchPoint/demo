@@ -62,6 +62,10 @@ const FormBlock = {
             label:{es:'Telefono', en:'Phone'},
             value:'phone'
           },
+          {
+            label:{es:'Direccion', en:'Address'},
+            value:'address'
+          },
         ]
       },
     ]

@@ -273,7 +273,8 @@ function original_builder (questions, user) {
       submissionType: submissionType,
       comittee: comittee,
       emailUser: user.emailUser,
-      phone: user.phone
+      phone: user.phone,
+      address: user.address
     },
   };
   //Send email
