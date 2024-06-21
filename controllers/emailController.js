@@ -213,7 +213,6 @@ function emailBuilder(questions, user) {
   const index = getRandomInt(3);
   console.log(userName);
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  console.log(email.toString());
   const msg = {
     to: email, //{sendTo}
     subject: "Email Builder",

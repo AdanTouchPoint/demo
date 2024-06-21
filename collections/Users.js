@@ -85,6 +85,14 @@ const Users = {
     {
       label:'AI',
       value:'AI'
+    },
+    {
+      label:'NV',
+      value:'NV'
+    },
+    {
+      label:'NVAI',
+      value:'NVAI'
     }
   ]
 },

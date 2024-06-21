@@ -180,7 +180,7 @@ export const isAdminOrSelfAll = ( user ) => {
     }
     const role = user.req.user.roles
       // If user has role of 'admin'
-     if(role === 'admin' || type === 'PC') {
+     if(role === 'admin' || type === 'PC' || type === 'NV') {
       const clientId = user.req.user.id
       const query = {
           clientId: {
@@ -204,7 +204,7 @@ export const isAdminOrSelfAll = ( user ) => {
       }
       const role = user.req.user.roles
       // If user has role of 'admin'
-      if (role === 'admin' || type === 'SB' || type === 'SB2') {
+      if (role === 'admin' || type === 'SB' || type === 'SB2' || type === 'NV') {
         const clientId = user.req.user.id
       const query = {
           clientId: {
@@ -224,7 +224,7 @@ export const isAdminOrSelfAll = ( user ) => {
       const type = user.req.user.type
       const role = user.req.user.roles
       // If user has role of 'admin'
-      if (role === 'admin' || type === 'SB' || type === 'PC') {
+      if (role === 'admin' || type === 'SB' || type === 'PC' || type === 'NV') {
         const clientId = user.req.user.id
       const query = {
           clientId: {
@@ -243,7 +243,7 @@ export const isAdminOrSelfAll = ( user ) => {
       const type = user.req.user.type
       const role = user.req.user.roles
       // If user has role of 'admin'
-      if (role === 'admin' || type === 'SB2') {
+      if (role === 'admin' || type === 'SB2' || type === 'NV') {
         const clientId = user.req.user.id
       const query = {
           clientId: {
@@ -264,7 +264,7 @@ export const isAdminOrSelfAll = ( user ) => {
       const type = user.req.user.type;
       const role = user.req.user.roles;
       // If user has role of 'admin'
-      if (role === "admin" || type === "FORM") {
+      if (role === "admin" || type === "FORM" || type === 'NV') {
         const clientId = user.req.user.id;
         const query = {
           clientId: {
@@ -287,7 +287,7 @@ export const isAdminOrSelfAll = ( user ) => {
     }
     const role = user.req.user.roles
       // If user has role of 'admin'
-     if(role === 'admin' || type === 'AI') {
+     if(role === 'admin' || type === 'AI'|| type === 'NVAI') {
       const clientId = user.req.user.id
       const query = {
           clientId: {
