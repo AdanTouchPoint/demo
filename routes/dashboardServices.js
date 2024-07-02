@@ -171,7 +171,6 @@ router.get("/email-state", async (req, res) => {
     });
   }
 });
-
 router.get("/kentta-data-validator", async (req, res) => {
   try {
     const { email, phone } = req.query;

@@ -128,7 +128,7 @@ export const isAdminOrSelfAll = ( user ) => {
       return false
     }
       // If user has role of 'admin'
-      if(role === 'admin' || region === 'AU') {
+      if(role === 'admin' || region === 'AU' || type === 'NV' ) {
         const clientId = user.req.user.id
         const query = {
             clientId: {
