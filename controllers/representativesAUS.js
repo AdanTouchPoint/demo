@@ -57,10 +57,10 @@ const getRepresentativesByElectorate = async (el, query) => {
 
 const getElectorateByPostalCode = async (query) => {
   try {
+    console.log(query)
     const { state, postcode } = query;
     const result = await payload.collections[
-      `${state}_electorates`
-    ].Model.aggregate([
+      `${state}_electorates`].Model.aggregate([
       {
         $match: { postcode: postcode, division: { $exists: true, $ne: null } },
       },
@@ -272,7 +272,43 @@ const getAll = async (query) => {
   });
   return content;
 };
+const getElectoratesbyCp = async (query) => {
+  const { postcode } = query;
+  console.log("here");
+  const result = await payload.collections["qlds_electorates"].Model.aggregate([
+    { $match: { postcode: postcode, division: { $exists: true, $ne: null } } },
+    {
+      $group: {
+        _id: "$division",
+        documento: { $first: "$$ROOT" },
+      },
+    },
+    { $replaceRoot: { newRoot: "$documento" } },
+  ]);
+  //console.log(result)
+  return result;
+};
+const getRepsByELectorate = async (query) => {
+  console.log(query);
+  const result = await payload.collections[
+    "qlds"
+  ].Model.aggregate([
+    { $match: { electorates: { $in: query } } },
+    {
+      $group: {
+        _id: "$email",
+        documento: { $first: "$$ROOT" },
+      },
+    },
+    { $replaceRoot: { newRoot: "$documento" } },
+  ]);
+  console.log(result)
+  return result;
+};
+
 module.exports = {
+  getElectoratesbyCp,
+  getRepsByELectorate,
   getRepsByStateDemo,
   getAllDemo,
   getDivision,

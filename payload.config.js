@@ -33,6 +33,9 @@ import SA from './collections/SA';
 import sa_electorates from './collections/SA_Electorates';
 import vic_electorates from './collections/Vic_Electorates';
 const beforeChangeHook = path.resolve(__dirname, 'hooks/afterChange');
+import QLD from './collections/QLD';
+import qld_electorates from './collections/QLD_Electorates';
+import CandidatesRecord from './collections/CandidatesRecords';
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
 
 export default buildConfig({
@@ -86,7 +89,10 @@ export default buildConfig({
     Vic,
     vic_electorates,
     SA,
-    sa_electorates
+    sa_electorates,
+    QLD,
+    qld_electorates,
+    CandidatesRecord
   ],
   plugins: [
     s3Upload({

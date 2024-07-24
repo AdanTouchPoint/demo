@@ -584,6 +584,7 @@ router.get("/demo-test-state", async (req, res) => {
     let mpsMap = [];
     let sen = [];
     const data = await representativesausController.getElectorateByPostalCode(query);
+    console.log(data)
     if (data.length === 0) {
       return res.json({
         message: "Postal Code has not Found",
@@ -623,4 +624,41 @@ router.get("/demo-test-state", async (req, res) => {
     });
   }
 });
+router.get("/electorates-record", async (req, res) => {
+  try {
+    console.log(req.query)
+    const query = req.query;
+    const content = await representativesausController.getElectoratesbyCp(query);
+    res.json({
+      data: content,
+      success: true,
+      message: "all electorates found",
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+router.get("/reps-record", async (req, res) => {
+  try {
+    console.log(req.query.electorate.split(","))
+    const query = req.query.electorate.split(",")
+    const content = await representativesausController.getRepsByELectorate(query);
+    res.json({
+      data: content,
+      success: true,
+      message: "all electorates found",
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
 module.exports = router;
