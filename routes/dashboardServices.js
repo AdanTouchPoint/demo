@@ -10,7 +10,7 @@ router.get("/xls-process", async (req, res) => {
   try {
     const { clientId } = req.query;
     const buffer = await processExcel.processExcel(clientId);
-    // Verificar que el tamaño del archivo no exceda el límite permitido (en este ejemplo, 5 MB)
+    // Verificar que el tamaño del archivo no exceda el límite permitido (en este caso, 5 MB)
     const maxSize = 5 * 1024 * 1024; // 5 MB en bytes
     if (buffer.byteLength > maxSize) {
       throw new Error("El archivo generado es demasiado grande");
@@ -173,6 +173,7 @@ router.get("/email-state", async (req, res) => {
 });
 router.get("/kentta-data-validator", async (req, res) => {
   try {
+    console.log(req.query)
     const { email, phone } = req.query;
     verify(phone, email)
       .then(async (data) => {

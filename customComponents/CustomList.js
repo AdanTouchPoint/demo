@@ -1,5 +1,4 @@
 import React from "react";
-
 import DefaultList from "payload/dist/admin/components/views/collections/List/Default.js";
 import { useAuth } from "payload/components/utilities";
 
