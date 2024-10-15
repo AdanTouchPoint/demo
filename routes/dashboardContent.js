@@ -626,7 +626,7 @@ router.get("/demo-test-state", async (req, res) => {
 });
 router.get("/electorates-record", async (req, res) => {
   try {
-    console.log(req.query)
+    console.log(req.query,'START')
     const query = req.query;
     const content = await representativesausController.getElectoratesbyCp(query);
     res.json({
@@ -644,9 +644,9 @@ router.get("/electorates-record", async (req, res) => {
 });
 router.get("/reps-record", async (req, res) => {
   try {
-    console.log(req.query.electorate.split(","))
+    console.log(req.query.electorate)
     const query = req.query.electorate.split(",")
-    const content = await representativesausController.getRepsByELectorate(query);
+    const content = await representativesausController.getQLDREPS(query);
     res.json({
       data: content,
       success: true,

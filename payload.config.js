@@ -36,6 +36,7 @@ const beforeChangeHook = path.resolve(__dirname, 'hooks/afterChange');
 import QLD from './collections/QLD';
 import qld_electorates from './collections/QLD_Electorates';
 import CandidatesRecord from './collections/CandidatesRecords';
+import Newqld from './collections/Newqld';
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
 
 export default buildConfig({
@@ -92,7 +93,8 @@ export default buildConfig({
     sa_electorates,
     QLD,
     qld_electorates,
-    CandidatesRecord
+    CandidatesRecord,
+    Newqld
   ],
   plugins: [
     s3Upload({

@@ -305,6 +305,16 @@ const getRepsByELectorate = async (query) => {
   console.log(result)
   return result;
 };
+const getQLDREPS = async (query) => {
+  console.log(query)
+  const result = await payload.collections[
+    "newqld"
+  ].Model.aggregate([
+    { $match: { Electorate: { $in: query } } }
+  ]);
+  console.log(result)
+  return result;
+};
 
 module.exports = {
   getElectoratesbyCp,
@@ -323,4 +333,5 @@ module.exports = {
   getElectorateByPostalCode,
   getRepresentativesByElectorate,
   getRepresentativesByPostalCode,
+  getQLDREPS
 };
