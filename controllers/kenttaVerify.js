@@ -25,4 +25,4 @@ const verify = async (phone, email) => {
   let score = await verifyEmail(email).catch((e) => console.error(e));
   return { score };
 };
-module.exports = verify ;
+module.exports = {verify, verifyEmail}  ;

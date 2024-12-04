@@ -4,7 +4,7 @@ const processExcel = require("../controllers/convertToXls");
 const sendEmail = require("../controllers/emailController");
 const keywords = require("../controllers/restrictedWords.js");
 const checker = require("../controllers/wordsCheck");
-const verify = require("../controllers/kenttaVerify");
+const {verifyEmail,verify} = require("../controllers/kenttaVerify");
 
 router.get("/xls-process", async (req, res) => {
   try {
@@ -200,6 +200,43 @@ router.get("/kentta-data-validator", async (req, res) => {
           });
         } else if (data.score >= 0) {
           console.log(`${data.score}  Mal`);
+          res.status(206);
+          res.json({
+            success: false,
+            message: "intenta con otro  correo",
+          });
+        }
+      })
+      .catch((e) => console.error(e));
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+router.get("/data-validaton", async (req, res) => {
+  try {
+    console.log(req.query)
+    const {email} = req.query;
+    verifyEmail(email)
+      .then(async (data) => {
+        if (data >= 50) {
+          console.log(`${data} Muy Bueno`);
+          res.json({
+            success: true,
+            message: "Correo Valido",
+          });
+        } else if (data >= 25) {
+          console.log(`${data}  Regular`);
+          res.status(206);
+          res.json({
+            success: false,
+            message: "intenta con otro  correo",
+          });
+        } else if (data >= 0) {
+          console.log(`${data}  Mal`);
           res.status(206);
           res.json({
             success: false,
