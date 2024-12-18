@@ -4,7 +4,8 @@ const processExcel = require("../controllers/convertToXls");
 const sendEmail = require("../controllers/emailController");
 const keywords = require("../controllers/restrictedWords.js");
 const checker = require("../controllers/wordsCheck");
-const {verifyEmail,verify} = require("../controllers/kenttaVerify");
+const {verify} = require("../controllers/kenttaVerify.js");
+const {verifyEmail} = require("../controllers/thermoEmailVerifier.js")
 
 router.get("/xls-process", async (req, res) => {
   try {
