@@ -315,8 +315,109 @@ const getQLDREPS = async (query) => {
   console.log(result)
   return result;
 };
+const getCustomElectoratesV2 = async (query) => {
+  const { postcode } = query;
+  console.log("here");
+  const result = await payload.collections["custom-electorates-v2"].Model.aggregate([
+    { $match: { postcode: postcode, division: { $exists: true, $ne: null } } },
+    {
+      $group: {
+        _id: "$division",
+        documento: { $first: "$$ROOT" },
+      },
+    },
+    { $replaceRoot: { newRoot: "$documento" } },
+  ]);
+  //console.log(result)
+  return result;
+};
+const getCustomRepsV2 = async (query) => {
+  console.log(query)
+  const result = await payload.collections[
+    "custom-representatives-v2"
+  ].Model.aggregate([
+    { $match: { electorate: { $in: query } } }
+  ]);
+  console.log(result)
+  return result;
+};
+
+const getCustomeElectorates= async (query) => {
+  const { postcode } = query;
+  console.log("here");
+  const result = await payload.collections["custome-electorates"].Model.aggregate([
+    { $match: { postcode: postcode, division: { $exists: true, $ne: null } } },
+    {
+      $group: {
+        _id: "$division",
+        documento: { $first: "$$ROOT" },
+      },
+    },
+    { $replaceRoot: { newRoot: "$documento" } },
+  ]);
+  console.log(result)
+  return result;
+}
+const getCustomeRepsByElectorate = async (query) => {
+  console.log(query);
+  const result = await payload.collections[
+    "custome-reps"
+  ].Model.aggregate([
+    { $match: { electorates: { $in: query } } },
+    {
+      $group: {
+        _id: "$email",
+        documento: { $first: "$$ROOT" },
+      },
+    },
+    { $replaceRoot: { newRoot: "$documento" } },
+  ]);
+  console.log(result)
+  return result;
+}
+const getCustomeRepsByState= async() => {
+  console.log(query[0].state);
+  const result = await payload.collections[
+    "custome-reps"
+  ].Model.aggregate([
+    { $match: { state: query[0]?.state } },
+    {
+      $group: {
+        _id: "$email",
+        documento: { $first: "$$ROOT" },
+      },
+    },
+    { $replaceRoot: { newRoot: "$documento" } },
+  ]);
+  //console.log(result)
+  return result;
+
+}
+const getAllCustomeReps = async (query) => {
+  console.log(query);
+  const result = await payload.collections[
+    "custome-reps"
+  ].Model.aggregate([
+    { $match: { clientId: { $in: query } } },
+    {
+      $group: {
+        _id: "$email",
+        documento: { $first: "$$ROOT" },
+      },
+    },
+    { $replaceRoot: { newRoot: "$documento" } },
+  ]);
+  console.log(result)
+  return result;
+}
 
 module.exports = {
+  getCustomElectoratesV2,
+  getCustomRepsV2,
+  getCustomeElectorates,
+  getCustomeRepsByElectorate,
+  getCustomeRepsByState,
+  getAllCustomeReps,
   getElectoratesbyCp,
   getRepsByELectorate,
   getRepsByStateDemo,

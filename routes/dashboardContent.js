@@ -660,5 +660,102 @@ router.get("/reps-record", async (req, res) => {
     });
   }
 });
+router.get("/custom-electorates-v2", async (req, res) => {
+  try {
+    console.log(req.query,'START')
+    const query = req.query;
+    const content = await representativesausController.getCustomElectoratesV2(query);
+    res.json({
+      data: content,
+      success: true,
+      message: "all electorates found",
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+router.get("/custom-representatives-v2", async (req, res) => {
+  try {
+    console.log(req.query.electorate)
+    const query = req.query.electorate.split(",")
+    const content = await representativesausController.getCustomRepsV2(query);
+    res.json({
+      data: content,
+      success: true,
+      message: "all electorates found",
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+router.get("/custome-reps-electorates", async (req, res) => {
+  try {
+    const query = req.query;
+    let mps = [];
+    let senators = [];
+    console.log(query);
+    const data = await representativesausController.getCustomeElectorates(query);
+    if (data.length === 0) {
+      console.log("hola");
+      return res.json({
+        message: "Postal Code has not Found",
+        data: data,
+        success: true,
+      });
+    }
+    await Promise.all(
+      data.map(async (el) => {
+        let request = await representativesausController.getCustomeRepsByElectorate(el);
+        return request;
+      })
+    )
+      .then(async (request) => {
+        mps = request.flatMap((element) => element)
+        let req  = await representativesausController.getCustomeRepsByState(mps)
+        senators = req.filter(
+          (senator) => senator.govt_type === "Federal Senators"
+        )
+      })
+    res.json({
+      success: true,
+      message: "all representatives found",
+      data: senators,
+      mps,
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+router.get("/all-custome-reps", async (req, res) => {
+  try {
+    console.log(req.query.postcode)
+    const query = req.query.electorate.split(",")
+    const content = await representativesausController.getAllCustomeReps(query);
+    res.json({
+      data: content,
+      success: true,
+      message: "all electorates found",
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 
 module.exports = router;

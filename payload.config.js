@@ -37,6 +37,10 @@ import QLD from './collections/QLD';
 import qld_electorates from './collections/QLD_Electorates';
 import CandidatesRecord from './collections/CandidatesRecords';
 import Newqld from './collections/Newqld';
+import CustomeReps from './collections/CustomeReps';
+import CustomeElectorates from './collections/CustomeElectorates';
+import customeElectoratesV2 from './collections/CustomElectoratesV2';
+import CustomeRepsV2 from './collections/CustomRepsV2';
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
 
 export default buildConfig({
@@ -94,7 +98,11 @@ export default buildConfig({
     QLD,
     qld_electorates,
     CandidatesRecord,
-    Newqld
+    Newqld,
+    CustomeRepsV2,
+    customeElectoratesV2,
+    CustomeReps,
+    CustomeElectorates
   ],
   plugins: [
     s3Upload({
