@@ -334,7 +334,7 @@ const getCustomElectoratesV2 = async (query) => {
 const getCustomRepsV2 = async (query) => {
   console.log(query)
   const result = await payload.collections[
-    "custom-representatives-v2"
+    "candidates-recordv2"
   ].Model.aggregate([
     { $match: { electorate: { $in: query } } }
   ]);
