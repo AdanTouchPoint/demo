@@ -42,6 +42,7 @@ import CustomeElectorates from './collections/CustomeElectorates';
 import customeElectoratesV2 from './collections/CustomElectoratesV2';
 import CustomeRepsV2 from './collections/CustomRepsV2';
 import CandidatesRecordsV2 from './collections/CandidateRecordsV2';
+import CitizengoReps from './collections/CitizengoReps';
 const mockModulePath = path.resolve(__dirname, 'mocks/emptyObject.js');
 
 export default buildConfig({
@@ -105,6 +106,7 @@ export default buildConfig({
     CustomeReps,
     CustomeElectorates,
     CandidatesRecordsV2,
+    CitizengoReps,
   ],
   plugins: [
     s3Upload({

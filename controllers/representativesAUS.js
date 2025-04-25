@@ -410,6 +410,24 @@ const getAllCustomeReps = async (query) => {
   console.log(result)
   return result;
 }
+const getCitizenGoRep = async (el) => {
+  const { clientId, division } = el;
+  //console.log(clientId, division);
+  const result = await payload.collections[
+    "citizengo-reps"
+  ].Model.aggregate([
+    { $match: { electorate: el.division } },
+    {
+      $group: {
+        _id: "$email",
+        documento: { $first: "$$ROOT" },
+      },
+    },
+    { $replaceRoot: { newRoot: "$documento" } },
+  ]);
+  //console.log(result)
+  return result;
+};
 
 module.exports = {
   getCustomElectoratesV2,
@@ -434,5 +452,6 @@ module.exports = {
   getElectorateByPostalCode,
   getRepresentativesByElectorate,
   getRepresentativesByPostalCode,
-  getQLDREPS
+  getQLDREPS,
+  getCitizenGoRep
 };

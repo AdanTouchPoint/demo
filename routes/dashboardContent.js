@@ -757,5 +757,37 @@ router.get("/all-custome-reps", async (req, res) => {
     });
   }
 });
-
+router.get("/citizengo-reps", async (req, res) => {
+  try {
+    const query = req.query;
+    let reps = [];
+    //console.log(query);
+    const data = await representativesausController.getElectorateDemo(query);
+    if (data.length === 0) {
+      console.log("hola");
+      return res.json({
+        message: "Postal Code has not Found",
+        data: data,
+        success: true,
+      });
+    }
+    reps = await Promise.all(
+      data.map(async (el) => {
+        let request = await representativesausController.getCitizenGoRep(el);
+        return request;
+      })
+    )
+    res.json({
+      success: true,
+      message: "all representatives found",
+      data: reps
+    });
+  } catch (error) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 module.exports = router;
