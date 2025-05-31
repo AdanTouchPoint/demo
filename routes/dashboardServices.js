@@ -4,7 +4,7 @@ const processExcel = require("../controllers/convertToXls");
 const sendEmail = require("../controllers/emailController");
 const keywords = require("../controllers/restrictedWords.js");
 const checker = require("../controllers/wordsCheck");
-const {verify} = require("../controllers/kenttaVerify.js");
+const {verify,verifyCompanyEmail} = require("../controllers/kenttaVerify.js");
 const {verifyEmail} = require("../controllers/thermoEmailVerifier.js")
 
 router.get("/xls-process", async (req, res) => {
@@ -219,8 +219,11 @@ router.get("/kentta-data-validator", async (req, res) => {
 });
 router.get("/data-validaton", async (req, res) => {
   try {
-    console.log(req.query)
     const {email} = req.query;
+    const check = await verifyCompanyEmail(email);
+    if (check === false) {
+    throw new Error(" El correo es de un proveedor gratuito, por favor ingrese un correo corporativo");
+    }
     verifyEmail(email)
       .then(async (data) => {
         if (data >= 50) {

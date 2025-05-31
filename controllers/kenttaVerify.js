@@ -1,4 +1,7 @@
+
 const axios = require('axios')
+import free_email_provider_set from './email-providers';
+
 let phonePass
 let emailPass
 
@@ -25,4 +28,10 @@ const verify = async (phone, email) => {
   let score = await verifyEmail(email).catch((e) => console.error(e));
   return { score };
 };
-module.exports = {verify}  ;
+const verifyCompanyEmail = async (email) => {
+let fields = email.split('@');
+    let domain = fields[1];
+    return !free_email_provider_set.has(domain); // if the free provider set doesn't have this domain, then most likely it's a company email address
+};
+
+module.exports = {verify,verifyCompanyEmail}  ;
