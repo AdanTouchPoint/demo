@@ -5345,6 +5345,7 @@ globomail.com
 glubex.com
 glucosegrin.com
 gmai.com
+gmail.mx
 gmail.ax
 gmail.cm
 gmail.cn
@@ -11197,6 +11198,7 @@ ourpreviewdomain.com
 outel.com
 outgun.com
 outlawspam.com
+outlook.mx
 outlook.at
 outlook.be
 outlook.cl
@@ -11213,6 +11215,7 @@ outlook.com.hotpusssy69.host
 outlook.com.pe
 outlook.com.tr
 outlook.com.vn
+outlook.com.mx
 outlook.cz
 outlook.de
 outlook.dk

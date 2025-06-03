@@ -220,14 +220,18 @@ router.get("/kentta-data-validator", async (req, res) => {
 router.get("/data-validaton", async (req, res) => {
   try {
     const {email} = req.query;
-    const check = await verifyCompanyEmail(email);
-    if (check === false) {
+    const bussiness_email = req.query?.business_email || false;
+    if(bussiness_email === "true") {
+    const isBussinesEmail = await verifyCompanyEmail(email);
+    if (isBussinesEmail === false) {
     throw new Error(" El correo es de un proveedor gratuito, por favor ingrese un correo corporativo");
+    }
     }
     verifyEmail(email)
       .then(async (data) => {
         if (data >= 50) {
           console.log(`${data} Muy Bueno`);
+          res.status(206);
           res.json({
             success: true,
             message: "Correo Valido",
